@@ -1,0 +1,20 @@
+
+=== GIT ===============
+run
+$ git init
+before create a new project based on existing directory
+$ git remote add <link>
+
+=== NODE JS ===========
+development enviromet
+run
+$ node init
+to create package.json
+$ node install <package> -g --save
+
+=== BOWER =============
+package manager
+$ bower init
+to create bower.json
+
+=== EXPRESS JS ========
