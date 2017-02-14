@@ -7,6 +7,8 @@ $ git remote add <link>
 
 === NODE JS ===========
 development enviromet
+npm config set proxy http://proxy_host:port
+npm config set https-proxy http://proxy.company.com:8080
 run
 $ node init
 to create package.json
@@ -16,5 +18,6 @@ $ node install <package> -g --save
 package manager
 $ bower init
 to create bower.json
+create manually .bowerrc
 
 === EXPRESS JS ========

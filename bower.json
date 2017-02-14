@@ -1,6 +1,6 @@
 {
   "name": "nodeJS",
-  "description": "",
+  "description": "Bower JSSON for NodeJS server",
   "main": "server.js",
   "authors": [
     "ThienTruong <ttthien@tma.com.vn>"
