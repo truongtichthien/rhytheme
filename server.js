@@ -1,23 +1,40 @@
-// set up ========================
-var express = require('express');
-var server = express();                               // create our server w/ express
-var mongoose = require('mongoose');                     // mongoose for mongodb
-var morgan = require('morgan');             // log requests to the console (express4)
-var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
-var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
+/** SET UP ======================== */
 
-// configuration =================
+// create our server w/ express
+var express = require('express'),
+  PORT = 3000,
+  server = express();
 
-//mongoose.connect('mongodb://myUserAdmin:abc123@127.0.0.1:27017/admin');     // connect to mongoDB database on modulus.io
+// mongoose for mongodb
+var mongoose = require('mongoose'),
+  // log requests to the console (express4)
+  morgan = require('morgan');
 
-server.use(express.static(__dirname + '/public'), function(req, res, next) {
-	console.log(req);
-	next();
-});                 // set the static files location /public/img will be /img for users
-//server.use(morgan('dev'));                                         // log every request to the console
-//server.use(bodyParser.urlencoded({'extended':'true'}));            // parse serverlication/x-www-form-urlencoded
-//server.use(bodyParser.json());                                     // parse serverlication/json
-//server.use(bodyParser.json({ type: 'serverlication/vnd.api+json' })); // parse serverlication/vnd.api+json as json
+// pull information from HTML POST (express4)
+var bodyParser = require('body-parser'),
+  // simulate DELETE and PUT (express4)
+  methodOverride = require('method-override');
+
+/** CONFIGURATION ================= */
+
+// connect to mongoDB database on modulus.io
+//mongoose.connect('mongodb://myUserAdmin:abc123@127.0.0.1:27017/admin');
+
+// set the static files location /public/img will be /img for users
+server.use(express.static(__dirname + '/public'));
+
+// log every request to the console
+//server.use(morgan('dev'));
+
+// parse serverlication/x-www-form-urlencoded
+//server.use(bodyParser.urlencoded({'extended':'true'}));
+
+// parse serverlication/json
+//server.use(bodyParser.json());
+
+// parse serverlication/vnd.api+json as json
+//server.use(bodyParser.json({ type: 'serverlication/vnd.api+json' }));
+
 //server.use(methodOverride());
 
 server.get('/', function (req, res) {
@@ -28,6 +45,8 @@ server.get('/test', function (req, res) {
   res.send('Hello the fucking World!')
 });
 
-// listen (start server with node server.js) ======================================
-server.listen(3000);
-console.log("server listening on port 3000");
+/** listen (start server with node server.js) ====================================== */
+server.listen(PORT);
+console.log('\n=============================');
+console.log('Server listening on port', PORT);
+console.log('=============================\n');
