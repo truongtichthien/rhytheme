@@ -1,23 +1,35 @@
 
 === GIT ===============
-run
+.run
 $ git init
-before create a new project based on existing directory
+.before create a new project based on existing directory
 $ git remote add <link>
 
 === NODE JS ===========
-development enviromet
+.development enviromet
 npm config set proxy http://proxy_host:port
 npm config set https-proxy http://proxy.company.com:8080
-run
+.run...
 $ node init
-to create package.json
+...to create package.json
 $ node install <package> -g --save
 
 === BOWER =============
-package manager
+.package manager
+.to create bower.json
 $ bower init
-to create bower.json
-create manually .bowerrc
+.create manually .bowerrc
 
 === EXPRESS JS ========
+
+=== MONGODB ===========
+.create user & authentication
+https://docs.mongodb.com/manual/tutorial/enable-authentication/
+in short:
+.start mongodb (mongod.exe --dbpath <path>)
+.start mongodb shell (mongo.exe)
+.create user
+> use <db>
+> db.createUser()
+.exit mongodb shell
+.start mongodb (mongod.exe --auth --dbpath <path>)
