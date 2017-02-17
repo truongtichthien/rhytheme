@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7" ng-app="sampleApp" ng-controller="MainCtrl">
 <head>
+  <base href="/">
   <meta charset="UTF-8">
   <title>Title</title>
+  <!--<title>{{ 'mMnger' | i18next }}</title>-->
+  <meta name="description" content="A Sample App Using AngularJS">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
 
+<div id="mainWrapper" class="main-wrapper">
+  <header id="appHeader" class="app-header">
+    <nav id="appNav" class="nav-nav">
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="#/about">About</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <section id="appSection" class="app-section"></section>
+  <footer id="appFooter" class="app-footer"></footer>
+</div>
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/mainCtrl.js"></script>
 </body>
 </html>

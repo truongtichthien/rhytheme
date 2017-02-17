@@ -21,7 +21,7 @@ var bodyParser = require('body-parser'),
 //mongoose.connect('mongodb://myUserAdmin:abc123@127.0.0.1:27017/admin');
 
 // set the static files location /public/img will be /img for users
-server.use(express.static(__dirname + '/public'));
+server.use(express.static(__dirname + '/src'));
 
 // log every request to the console
 //server.use(morgan('dev'));
@@ -38,7 +38,8 @@ server.use(express.static(__dirname + '/public'));
 //server.use(methodOverride());
 
 server.get('/', function (req, res) {
-  res.send('Hello World!')
+  // res.send('Hello World!')
+  res.sendFile('index.html')
 });
 
 server.get('/test', function (req, res) {
