@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7" ng-app="sampleApp" ng-controller="MainCtrl">
+<html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7" ng-app="sampleApp" ng-controller="MainCtrl as main">
 <head>
   <base href="/">
   <meta charset="UTF-8">
@@ -25,7 +25,11 @@
       </ul>
     </nav>
   </header>
-  <section id="appSection" class="app-section"></section>
+  <section id="appSection" class="app-section">
+    <button ng-click="main.getData()">Get Data</button>
+    <button ng-click="main.getString()">Get String</button>
+    <button ng-click="main.postData()">Post Data</button>
+  </section>
   <footer id="appFooter" class="app-footer"></footer>
 </div>
 

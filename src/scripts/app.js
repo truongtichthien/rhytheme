@@ -1,7 +1,7 @@
 (function (ng) {
   'use strict';
 
-  function appConfig($routeProvider, $locationProvider) {
+  function appConfig($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: '',
@@ -16,11 +16,9 @@
       .otherwise({
         redirectTo: '/'
       });
-
-    // $locationProvider.html5Mode(true)
   }
 
-  appConfig.$inject = ['$routeProvider', '$locationProvider'];
+  appConfig.$inject = ['$routeProvider'];
 
   ng.module('sampleApp', ['ngRoute'])
     .config(appConfig);
