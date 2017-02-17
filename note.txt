@@ -32,4 +32,9 @@ in short:
 > use <db>
 > db.createUser()
 .exit mongodb shell
-.start mongodb (mongod.exe --auth --dbpath <path>)
+.start mongodb (mongod.exe --dbpath <path>)
+.start mongodb
+> use <db>
+> db.auth("usename", "password")
+// use above commands instead of below
+// .start mongodb (mongod.exe --auth --dbpath <path>)

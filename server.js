@@ -22,7 +22,7 @@ var bodyParser = require('body-parser'),
 /** CONFIGURATION ================= */
 
 // connect to mongoDB database on modulus.io
-mongoose.connect('mongodb://myAdmin:abc123@127.0.0.1:27017/test');
+mongoose.connect('mongodb://admin:abc123@127.0.0.1:27017/test');
 
 // set the static files location /public/img will be /img for users
 server.use(express.static(__dirname + '/src'));
