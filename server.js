@@ -50,23 +50,22 @@ server.get('/', function (req, res) {
 
 server.get('/api/get', function (req, res) {
 
-  // console.log(Todo);
-
-  Todo.find(function (err, res) {
+  Todo.find(function (err, data) {
     console.log('find');
 
     // if there is an error retrieving, send the error. nothing after res.send(err) will execute
 
     if (err) {
-      res.send(JSON.parse(JSON.stringify(err)));
+      data.send(JSON.parse(JSON.stringify(err)));
     }
 
-    console.log(res);
+    console.log(data);
+    res.send(JSON.parse(JSON.stringify(data)));
     // res.json(res); // return all todos in JSON format
   });
 
   // res.send(JSON.parse(JSON.stringify({test: 123})));
-  res.send(JSON.parse(JSON.stringify(res)));
+
 });
 
 server.get('/api/getString', function (req, res) {
