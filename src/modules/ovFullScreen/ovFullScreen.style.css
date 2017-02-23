@@ -1,0 +1,42 @@
+.ov-full-screen-icon {
+  padding: 5px;
+  cursor: pointer;
+  margin-top: -4px;
+  border-radius: 3px;
+  border: 1px #ccc solid;
+}
+
+.ov-full-screen-icon:hover {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.02);
+}
+
+.ov-full-screen-backdrop {
+  background: rgba(0, 0, 0, 0);
+  position: absolute;
+  padding: 50px 10px 10px;
+  -webkit-transition: all 250ms ease-in-out 70ms;
+  transition: all 250ms ease-in-out 70ms;
+}
+
+.ov-full-screen-backdrop.full-screen {
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.ov-full-screen-remove-icon {
+  margin-top: -40px;
+  font-size: 20px;
+  color: #fff;
+}
+
+.ov-full-screen-remove-icon .glyphicon {
+  cursor: pointer;
+}
+
+.ov-full-screen-anchor.floating {
+  position: fixed;
+  z-index: 1200;
+}

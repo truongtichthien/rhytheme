@@ -3,10 +3,24 @@
 
   function mainCtrl($http) {
     var vm = this;
+    vm.menu = '';
 
+    vm.saveModal = saveModal;
     vm.getData = getData;
     vm.getString = getString;
     vm.postData = postData;
+
+    vm.activateMenu = activateMenu;
+
+    vm.activateMenu('#/');
+
+    function activateMenu(e) {
+      vm.menu = angular.isString(e) ? e : e.target.hash;
+    }
+
+    function saveModal(string, e) {
+      console.log(string, e);
+    }
 
     function getData() {
       $http({
@@ -58,7 +72,7 @@
     }
   }
 
-  mainCtrl.$inject = ['$http'];
+  mainCtrl.$inject = ['$http', '$location'];
 
   ng.module('sampleApp')
     .controller('MainCtrl', mainCtrl);
