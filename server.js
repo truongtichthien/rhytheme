@@ -5,6 +5,8 @@ var express = require('express'),
   PORT = 3000,
   server = express();
 
+var path = require('path');
+
 // mongoose for mongodb
 var mongoose = require('mongoose'),
   // log requests to the console (express4)
@@ -22,10 +24,10 @@ var bodyParser = require('body-parser'),
 /** CONFIGURATION ================= */
 
 // connect to mongoDB database on modulus.io
-mongoose.connect('mongodb://admin:abc123@127.0.0.1:27017/test');
+// mongoose.connect('mongodb://admin:abc123@127.0.0.1:27017/test');
 
 // set the static files location /public/img will be /img for users
-server.use(express.static(__dirname + '/src'));
+server.use(express.static(path.join(__dirname + '/src'), { index: false }));
 
 // log every request to the console
 //server.use(morgan('dev'));
@@ -44,8 +46,7 @@ server.use(bodyParser.json());
 
 server.get('/', function (req, res) {
   // res.send('Hello World!');
-
-  res.sendFile('index.html');
+  res.sendFile(path.join(__dirname + '/src/index.html'));
 });
 
 server.get('/api/get', function (req, res) {
