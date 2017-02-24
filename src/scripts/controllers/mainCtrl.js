@@ -1,7 +1,7 @@
 (function (ng) {
   'use strict';
 
-  function mainCtrl($http) {
+  function mainCtrl($http, $location) {
     var vm = this;
     vm.menu = '';
 
@@ -12,7 +12,7 @@
 
     vm.activateMenu = activateMenu;
 
-    vm.activateMenu('#/');
+    vm.activateMenu('#' + $location.path());
 
     function activateMenu(e) {
       vm.menu = angular.isString(e) ? e : e.target.hash;

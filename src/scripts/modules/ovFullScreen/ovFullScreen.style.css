@@ -14,8 +14,8 @@
   background: rgba(0, 0, 0, 0);
   position: absolute;
   padding: 50px 10px 10px;
-  -webkit-transition: all 250ms ease-in-out 70ms;
-  transition: all 250ms ease-in-out 70ms;
+  transition: all 250ms ease-in-out 50ms;
+  z-index: 100;
 }
 
 .ov-full-screen-backdrop.full-screen {
@@ -36,7 +36,19 @@
   cursor: pointer;
 }
 
+.ov-full-screen-anchor {
+  position: relative;
+  z-index: 101;
+  /*top: 0;*/
+  /*left: 0;*/
+  /*bottom: 0;*/
+  /*right: 0;*/
+  transition: all 250ms ease-in-out 50ms;
+}
+
 .ov-full-screen-anchor.floating {
-  position: fixed;
-  z-index: 1200;
+  top: 50px !important;
+  left: 10px !important;
+  right: 10px !important;
+  bottom: 10px !important;
 }
