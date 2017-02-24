@@ -1,187 +1,203 @@
 (function (ng) {
   'use strict';
 
-  function ovFullScreenDirectiveCtrl($scope, $window, $timeout, $compile) {
-    var vm = this,
-      childScope;
+  function ovFullScreenDirectiveLink($window, $timeout, $compile, scope, element) {
+    var anchorElement,
+      backdropElement,
+      windowElement = ng.element($window),
+      bodyElement = ng.element('body');
 
-    // var anchorEle = ng.element('.ov-full-screen-anchor'),
-    //   windowEle = ng.element($window);
+    var childScope;
 
-    var anchorEle;
-    var windowEle = ng.element($window);
+    var anchorEleDimension = {
+        top: 0,
+        left: 0,
+        width: 0,
+        height: 0
+      },
+      anchorEleMargin = {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+      },
+      windowEleDimension = {
+        width: 0,
+        height: 0
+      };
 
-    var anchorEleTop, anchorEleLeft, anchorEleWidth, anchorEleHeight;
+    anchorElement = _findAnchorElement();
 
-    var windowEleWidth, windowEleHeight;
+    if (anchorElement) {
+      _calculateViewPortDimension();
+      _calculateElementDimension();
 
-    var anchorEleMarginTop, anchorEleMarginRight, anchorEleMarginBottom, anchorEleMarginLeft;
+      windowElement.resize(_.debounce(
+        function () {
+          _calculateViewPortDimension();
+          _calculateElementDimension();
+        }, 100));
 
-    vm.fullScreenIsOpen = false;
+      scope.vm = {
+        enterFullScreen: _enterFullScreen,
+        exitFullScreen: _exitFullScreen,
+        fullScreenIsOpen: false
+      };
 
-    vm.showFullScreen = _showFullScreen;
-    vm.hideFullScreen = _hideFullScreen;
-
-    _calculateViewPortDimension();
-    vm.calculateElementDimension = _calculateElementDimension;
-
-    ng.element($window).resize(_.debounce(
-      function () {
-        _calculateViewPortDimension();
-        _calculateElementDimension();
-      }, 100));
+      scope.api = {
+        exitFullScreen: _exitFullScreen
+      };
+    }
 
     function _calculateViewPortDimension() {
-      windowEleWidth = windowEle[0].innerWidth;
-      windowEleHeight = windowEle[0].innerHeight;
+      windowEleDimension.width = windowElement[0].innerWidth;
+      windowEleDimension.height = windowElement[0].innerHeight;
     }
 
-    function _calculateElementDimension(ele) {
-      anchorEle = ele || anchorEle;
+    function _calculateElementDimension() {
+      anchorEleDimension.top = anchorElement[0].offsetTop;
+      anchorEleDimension.left = anchorElement[0].offsetLeft;
+      anchorEleDimension.width = anchorElement[0].offsetWidth;
+      anchorEleDimension.height = anchorElement[0].offsetHeight;
 
-      anchorEleTop = anchorEle[0].offsetTop;
-      anchorEleLeft = anchorEle[0].offsetLeft;
-      anchorEleWidth = anchorEle[0].offsetWidth;
-      anchorEleHeight = anchorEle[0].offsetHeight;
-
-      anchorEleMarginTop = parseInt(anchorEle.css('margin-top').replace('px', ''));
-      anchorEleMarginRight = parseInt(anchorEle.css('margin-right').replace('px', ''));
-      anchorEleMarginBottom = parseInt(anchorEle.css('margin-bottom').replace('px', ''));
-      anchorEleMarginLeft = parseInt(anchorEle.css('margin-left').replace('px', ''));
+      anchorEleMargin.top = parseInt(anchorElement.css('margin-top').replace('px', ''));
+      anchorEleMargin.right = parseInt(anchorElement.css('margin-right').replace('px', ''));
+      anchorEleMargin.bottom = parseInt(anchorElement.css('margin-bottom').replace('px', ''));
+      anchorEleMargin.left = parseInt(anchorElement.css('margin-left').replace('px', ''));
     }
 
-    function _showFullScreen() {
+    function _enterFullScreen() {
 
       /** generate a new child scope */
-      childScope = $scope.$new(true);
+      childScope = scope.$new(true);
       /** then define only necessary functions */
-      childScope.hideFullScreen = vm.hideFullScreen;
+      childScope.exitFullScreen = _exitFullScreen;
       /** listen $destroy on child scope */
       childScope.$on('$destroy', function () {
-        console.info('destroy childScope');
+        console.info('OvFullScreen Component: $childScope destroyed!');
       });
 
-      vm.fullScreenIsOpen = true;
+      scope.vm.fullScreenIsOpen = true;
 
-      ng.element('body')
+      bodyElement
         .append($compile('' +
           '<div style="' +
-          'top: ' + (anchorEleTop - 50) + 'px;' +
-          'left: ' + (anchorEleLeft - 10) + 'px;' +
-          'width: ' + (anchorEleWidth + 20) + 'px;' +
-          'height: ' + (anchorEleHeight + 60) + 'px " class="ov-full-screen-backdrop">' +
+          'top: ' + (anchorEleDimension.top - 50) + 'px;' +
+          'left: ' + (anchorEleDimension.left - 10) + 'px;' +
+          'width: ' + (anchorEleDimension.width + 20) + 'px;' +
+          'height: ' + (anchorEleDimension.height + 60) + 'px " class="ov-full-screen-backdrop">' +
           '<div class="pull-right ov-full-screen-remove-icon">' +
-          '<i class="glyphicon glyphicon-remove" ng-click="hideFullScreen()"></i></div></div>')(childScope));
+          '<i class="glyphicon glyphicon-remove" ng-click="exitFullScreen()"></i></div></div>')(childScope));
 
-      anchorEle
+      anchorElement
         .css({
           position: 'fixed',
-          top: anchorEleTop - anchorEleMarginTop,
-          right: windowEleWidth - (anchorEleLeft + anchorEleWidth + anchorEleMarginRight),
-          bottom: windowEleHeight - (anchorEleTop + anchorEleHeight + anchorEleMarginBottom),
-          left: anchorEleLeft - anchorEleMarginLeft
+          top: anchorEleDimension.top - anchorEleMargin.top,
+          right: windowEleDimension.width - (anchorEleDimension.left + anchorEleDimension.width + anchorEleMargin.right),
+          bottom: windowEleDimension.height - (anchorEleDimension.top + anchorEleDimension.height + anchorEleMargin.bottom),
+          left: anchorEleDimension.left - anchorEleMargin.left
         });
 
       $timeout(function () {
-        ng.element('.ov-full-screen-anchor')
+        backdropElement = ng.element('.ov-full-screen-backdrop');
+
+        anchorElement
           .addClass('floating');
 
-        ng.element('.ov-full-screen-backdrop')
+        backdropElement
           .addClass('full-screen');
       });
     }
 
-    function _hideFullScreen() {
-      vm.fullScreenIsOpen = false;
+    function _exitFullScreen() {
+      if (!childScope) {
+        console.info('OvFullScreen Component: Exit full-screen already!');
+      } else {
+        scope.vm.fullScreenIsOpen = false;
 
-      ng.element('.ov-full-screen-backdrop')
-        .removeClass('full-screen');
+        backdropElement
+          .removeClass('full-screen');
 
-      anchorEle
-        .css({
-          top: anchorEleTop - anchorEleMarginTop,
-          right: windowEleWidth - (anchorEleLeft + anchorEleWidth + anchorEleMarginRight),
-          bottom: windowEleHeight - (anchorEleTop + anchorEleHeight + anchorEleMarginBottom),
-          left: anchorEleLeft - anchorEleMarginLeft
-        });
-
-      $timeout(function () {
-        ng.element('.ov-full-screen-backdrop')
-          .remove();
-
-        /** destroy generated child scope */
-        childScope.$destroy();
-        childScope = undefined;
-
-        anchorEle
+        anchorElement
           .css({
-            position: '',
-            top: '',
-            right: '',
-            bottom: '',
-            left: ''
-          })
-      }, 300);
+            top: anchorEleDimension.top - anchorEleMargin.top,
+            right: windowEleDimension.width - (anchorEleDimension.left + anchorEleDimension.width + anchorEleMargin.right),
+            bottom: windowEleDimension.height - (anchorEleDimension.top + anchorEleDimension.height + anchorEleMargin.bottom),
+            left: anchorEleDimension.left - anchorEleMargin.left
+          });
 
-      $timeout(function () {
-        anchorEle
-          .removeClass('floating')
-      });
+        $timeout(function () {
+          backdropElement
+            .remove();
+
+          /** destroy generated child scope */
+          childScope.$destroy();
+          childScope = undefined;
+
+          anchorElement
+            .css({
+              position: '',
+              top: '',
+              right: '',
+              bottom: '',
+              left: ''
+            })
+        }, 300);
+
+        $timeout(function () {
+          anchorElement
+            .removeClass('floating')
+        });
+      }
+    }
+
+    function _findParent(element) {
+      var parent = element.parent();
+      var classList = parent[0].classList.value;
+
+      if (classList.indexOf('ov-full-screen-anchor') >= 0 || parent[0].tagName === 'BODY') {
+        return parent;
+      } else {
+        return _findParent(parent);
+      }
+    }
+
+    function _findAnchorElement() {
+      var classList = element[0].classList.value,
+        targetEle;
+      if (classList.indexOf('ov-full-screen-anchor') >= 0) {
+        targetEle = element;
+      } else {
+        targetEle = _findParent(element);
+      }
+
+      if (targetEle[0].tagName === 'BODY') {
+        console.error('OvFullScreen Component: The HTML element with class .ov-full-screen-anchor could not found!');
+        return false;
+      } else {
+        return targetEle;
+      }
     }
   }
 
-  function _findParent(element) {
-    var parent = element.parent();
-    var classList = parent[0].classList.value;
-
-    if (classList.indexOf('ov-full-screen-anchor') >= 0 || parent[0].tagName === 'BODY') {
-      return parent;
-    } else {
-      return _findParent(parent);
-    }
-  }
-
-  function ovFullScreenDirectiveLink(scope, element) {
-    var anchorEle;
-
-    var classList = element[0].classList.value,
-      targetEle;
-    if (classList.indexOf('ov-full-screen-anchor') >= 0) {
-      targetEle = element;
-    } else {
-      targetEle = _findParent(element);
-    }
-
-    if (targetEle[0].tagName === 'BODY') {
-      console.error('The element with class .ov-full-screen-anchor could not found!');
-    } else {
-      anchorEle = targetEle;
-    }
-
-    scope.vm.calculateElementDimension(anchorEle);
-  }
-
-  function ovFullScreenDirective($window) {
+  function ovFullScreenDirective($window, $timeout, $compile) {
     var directive;
 
     directive = {
       restrict: 'EA',
       scope: {
-        api: '?='
+        api: '=?'
       },
-      controller: ovFullScreenDirectiveCtrl,
-      controllerAs: 'vm',
-      templateUrl: 'scripts/directives/ovFullScreen.directive.html',
-      link: function (scope, element) {
-        ovFullScreenDirectiveLink($window, scope, element);
-      }
+      link: function ($scope, element) {
+        ovFullScreenDirectiveLink($window, $timeout, $compile, $scope, element);
+      },
+      templateUrl: 'scripts/directives/ovFullScreen.directive.html'
     };
 
     return directive;
   }
 
-  ovFullScreenDirectiveCtrl.$inject = ['$scope', '$window', '$timeout', '$compile'];
-  ovFullScreenDirectiveLink.$inject = ['$window', '$timeout', '$compile'];
+  ovFullScreenDirective.$inject = ['$window', '$timeout', '$compile'];
 
   ng.module('sampleApp')
     .directive('ovFullScreenDirective', ovFullScreenDirective);

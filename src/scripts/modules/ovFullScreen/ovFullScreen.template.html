@@ -8,13 +8,14 @@
 <div class="panel panel-default ov-full-screen-anchor">
   <div class="panel-heading">
     abc
-    <ov-full-screen-directive></ov-full-screen-directive>
+    <ov-full-screen-directive api="ov.apiOvFullScreen"></ov-full-screen-directive>
   </div>
   <div class="panel-body">
     def
   </div>
   <div class="panel-footer">
     ghi
+    <button ng-click="ov.apiOvFullScreen.exitFullScreen()">Exit full-screen</button>
   </div>
 </div>
 </body>
