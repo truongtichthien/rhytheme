@@ -34,8 +34,10 @@
 
       windowElement.resize(_.debounce(
         function () {
-          _calculateViewPortDimension();
-          _calculateElementDimension();
+          if (!scope.vm.fullScreenIsOpen) {
+            _calculateViewPortDimension();
+            _calculateElementDimension();
+          }
         }, 100));
 
       scope.vm = {
