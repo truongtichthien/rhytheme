@@ -38,7 +38,6 @@
 
 .ov-full-screen-anchor {
   position: relative;
-  z-index: 101;
   transition: all 250ms ease-in-out 50ms;
 }
 
@@ -47,4 +46,8 @@
   left: 10px !important;
   right: 10px !important;
   bottom: 10px !important;
+}
+
+.ov-full-screen-imitated-element {
+  position: relative;
 }
