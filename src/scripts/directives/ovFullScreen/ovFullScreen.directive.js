@@ -215,7 +215,7 @@
               right: '',
               bottom: '',
               left: ''
-            })
+            });
 
           windowElement.resize();
         }, 300);
@@ -232,7 +232,7 @@
         api: '=?'
       },
       link: _link,
-      templateUrl: 'scripts/directives/ovFullScreen.directive.html'
+      templateUrl: 'scripts/directives/ovFullScreen/ovFullScreen.directive.html'
     };
 
     function _link($scope, element) {
