@@ -9,7 +9,7 @@
         controllerAs: ''
       })
       .when('/ov-full-screen', {
-        templateUrl: 'scripts/modules/ovFullScreen/ovFullScreen.template.html',
+        templateUrl: 'scripts/modules/ovFullScreenDemo/ovFullScreenDemo.template.html',
         controller: 'OvFullScreenCtrl',
         controllerAs: 'ov'
       })

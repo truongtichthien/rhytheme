@@ -1,4 +1,4 @@
-<div class="pull-right">
-  <i class="glyphicon glyphicon-fullscreen ov-full-screen-icon"
-     ng-click="vm.enterFullScreen()" ng-hide="vm.fullScreenIsOpen"></i>
+<div class="pull-right" ng-class="vm.iconClass">
+  <i class="glyphicon glyphicon-fullscreen ov-full-screen-icon" ng-class="{ disappear: vm.fullScreenIsOpen }"
+     ng-click="vm.enterFullScreen()"></i>
 </div>

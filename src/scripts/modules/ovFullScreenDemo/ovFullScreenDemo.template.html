@@ -8,21 +8,30 @@
 <div class="panel panel-default ov-full-screen-anchor">
   <div class="panel-heading">
     abc
-    <ov-full-screen api="ov.apiOvFullScreen"></ov-full-screen>
+    <div ov-full-screen="ov.panelModel"></div>
   </div>
   <div class="panel-body">
     def
   </div>
   <div class="panel-footer">
     ghi
-    <button ng-click="ov.apiOvFullScreen.exitFullScreen()">Exit full-screen</button>
+    <button class="btn btn-default"
+            ng-click="ov.panelModel.api.exitFullScreen()">Exit full-screen
+    </button>
   </div>
 </div>
 <div class="jumbotron ov-full-screen-anchor">
   <h1>Hello, world!</h1>
-  <ov-full-screen></ov-full-screen>
+  <div ov-full-screen="ov.jumbotron"></div>
   <p>...</p>
   <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    Launch demo modal
+  </button>
+  <button class="btn btn-default"
+          ng-click="ov.jumbotron.api.exitFullScreen()">Exit full-screen
+  </button>
 </div>
 </body>
 </html>
