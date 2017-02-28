@@ -12,6 +12,7 @@
 
   <link rel="stylesheet" href="styles/mainStyle.css">
   <link rel="stylesheet" href="scripts/directives/ovFullScreen/ovFullScreen.style.css">
+  <link rel="stylesheet" href="scripts/modules/ovFullScreenDemo/ovFullScreenDemo.style.css">
 </head>
 <body>
 
@@ -84,6 +85,7 @@
 
 <script src="bower_components/angular/angular.min.js"></script>
 <script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="bower_components/angular-animate/angular-animate.min.js"></script>
 <script src="scripts/app.js"></script>
 <!--ov-full-screen-component-->
 <script src="scripts/directives/ovFullScreen/ovFullScreen.directive.js"></script>
@@ -91,5 +93,28 @@
 <script src="scripts/controllers/mainCtrl.js"></script>
 <script src="scripts/controllers/pageOneCtrl.js"></script>
 <script src="scripts/modules/ovFullScreenDemo/ovFullScreenDemo.controller.js"></script>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        text here
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">
+          Save changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
