@@ -34,8 +34,6 @@
     /** *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=* */
 
     if (anchorElement) {
-      console.log($window);
-      // windowElement = ng.element($window);
       documentElement = ng.element($document);
       windowElement = ng.element($window);
       bodyElement = ng.element('body');
@@ -103,6 +101,32 @@
     function _calculateViewPortDimension() {
       windowEleDimension.width = windowElement[0].innerWidth;
       windowEleDimension.height = windowElement[0].innerHeight;
+
+      /** bind $event resize to $window */
+      windowElement.on('resize', _.debounce(
+        function () {
+          if (!scope.vm.fullScreenIsOpen) {
+            _calculateViewPortDimension();
+            _calculateElementDimension(anchorElement);
+          } else {
+            _calculateViewPortDimension();
+            _calculateElementDimension(imitatedElement);
+
+            /** update backdrop position for scaling out */
+            backdropElement
+              .css({
+                top: (anchorEleDimension.top - 20) + 'px',
+                left: (anchorEleDimension.left - 10) + 'px',
+                width: (anchorEleDimension.width + 20) + 'px',
+                height: (anchorEleDimension.height + 30) + 'px'
+              })
+          }
+        }, 100));
+
+      /** unbind $event resize when leaving app */
+      scope.$on('$destroy', function () {
+        windowElement.off('resize');
+      });
     }
 
     function _calculateElementDimension(element) {
@@ -135,8 +159,7 @@
 
       bodyElement
         .append($compile('' +
-          '<div tabindex="-1" ng-keydown="vm.keyDownHandler($event)" ng-focus="vm.fullScreenIsOpen"' +
-          'class="ov-full-screen-backdrop" style="' +
+          '<div class="ov-full-screen-backdrop" style="' +
           'top: ' + (anchorEleDimension.top - 20) + 'px;' +
           'left: ' + (anchorEleDimension.left - 10) + 'px;' +
           'width: ' + (anchorEleDimension.width + 20) + 'px;' +
@@ -158,26 +181,6 @@
 
       /** bind $event keyDown to $document */
       documentElement.on('keydown', _keyDownHandler);
-      /** bind $event resize to $window */
-      windowElement.on('resize', _.debounce(
-        function () {
-          if (!scope.vm.fullScreenIsOpen) {
-            _calculateViewPortDimension();
-            _calculateElementDimension(anchorElement);
-          } else {
-            _calculateViewPortDimension();
-            _calculateElementDimension(imitatedElement);
-
-            /** update backdrop position for scaling out */
-            backdropElement
-              .css({
-                top: (anchorEleDimension.top - 20) + 'px',
-                left: (anchorEleDimension.left - 10) + 'px',
-                width: (anchorEleDimension.width + 20) + 'px',
-                height: (anchorEleDimension.height + 30) + 'px'
-              })
-          }
-        }, 100));
 
       $timeout(function () {
         backdropElement = ng.element('.ov-full-screen-backdrop');
@@ -198,7 +201,6 @@
 
         /** unbind $event from $document, $window */
         documentElement.off('keydown');
-        windowElement.off('resize');
 
         backdropElement
           .removeClass('full-screen');
@@ -273,6 +275,6 @@
 
   ovFullScreenDirective.$inject = ['$document', '$window', '$timeout', '$compile'];
 
-  ng.module('sampleApp')
+  angular.module('sampleApp')
     .directive('ovFullScreen', ovFullScreenDirective);
 })(angular);

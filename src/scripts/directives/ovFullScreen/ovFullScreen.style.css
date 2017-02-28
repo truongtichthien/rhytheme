@@ -22,10 +22,7 @@
   box-shadow: 0 1px 1px rgba(0,0,0,0.02);
 }
 .ov-full-screen-backdrop {
-  background: #000;
-  opacity: 0;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  filter: alpha(opacity=0);
+  background: rgba(0,0,0,0);
   color: #fff;
   position: fixed;
   padding: 10px;
@@ -55,9 +52,7 @@
   font-size: 20px;
 }
 .ov-full-screen-backdrop.full-screen {
-  opacity: 0.7;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
-  filter: alpha(opacity=70);
+  background: rgba(0,0,0,0.7);
   top: 0 !important;
   left: 0 !important;
   width: 100% !important;
