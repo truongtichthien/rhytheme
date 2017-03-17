@@ -53,6 +53,34 @@
       scope.ovFullScreen.api = {
         exitFullScreen: _exitFullScreen
       };
+
+
+
+      /** bind $event resize to $window */
+      windowElement.on('resize', _.debounce(
+        function () {
+          if (!scope.vm.fullScreenIsOpen) {
+            _calculateViewPortDimension();
+            _calculateElementDimension(anchorElement);
+          } else {
+            _calculateViewPortDimension();
+            _calculateElementDimension(imitatedElement);
+
+            /** update backdrop position for scaling out */
+            backdropElement
+              .css({
+                top: (anchorEleDimension.top - 20) + 'px',
+                left: (anchorEleDimension.left - 10) + 'px',
+                width: (anchorEleDimension.width + 20) + 'px',
+                height: (anchorEleDimension.height + 30) + 'px'
+              })
+          }
+        }, 100));
+
+      /** unbind $event resize when leaving app */
+      scope.$on('$destroy', function () {
+        windowElement.off('resize');
+      });
     }
 
     function _findParent(element) {
@@ -101,32 +129,6 @@
     function _calculateViewPortDimension() {
       windowEleDimension.width = windowElement[0].innerWidth;
       windowEleDimension.height = windowElement[0].innerHeight;
-
-      /** bind $event resize to $window */
-      windowElement.on('resize', _.debounce(
-        function () {
-          if (!scope.vm.fullScreenIsOpen) {
-            _calculateViewPortDimension();
-            _calculateElementDimension(anchorElement);
-          } else {
-            _calculateViewPortDimension();
-            _calculateElementDimension(imitatedElement);
-
-            /** update backdrop position for scaling out */
-            backdropElement
-              .css({
-                top: (anchorEleDimension.top - 20) + 'px',
-                left: (anchorEleDimension.left - 10) + 'px',
-                width: (anchorEleDimension.width + 20) + 'px',
-                height: (anchorEleDimension.height + 30) + 'px'
-              })
-          }
-        }, 100));
-
-      /** unbind $event resize when leaving app */
-      scope.$on('$destroy', function () {
-        windowElement.off('resize');
-      });
     }
 
     function _calculateElementDimension(element) {
