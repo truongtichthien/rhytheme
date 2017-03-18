@@ -12,7 +12,8 @@
   listDb = [{
     id: 1,
     name: 'PlayList 2011',
-    description: 'Imagine Dragon'
+    description: 'Imagine Dragon',
+    songs: []
   }];
 
   songListRelative = [{
@@ -28,7 +29,8 @@
   var app = express();
   var PORT = 3000,
     songApi = '/api/song',
-    listApi = '/api/playlist';
+    listApi = '/api/playlist',
+    songPlaylistApi = '/api/songplaylist';
 
   var statusCode = {
     ok: 'SUCCESS',
@@ -71,13 +73,13 @@
         .status(200)
         .send(_createResponse(true, 'Song added successfully'));
 
-      _printLog('Song created: SUCCESS');
+      _printLog('Song added: SUCCESS');
     } else {
       response
         .status(400)
         .send(_createResponse(false, 'Bad Request'));
 
-      _printLog('Song created: ' + statusCode.badRequest);
+      _printLog('Song added: ' + statusCode.badRequest);
     }
   });
 
@@ -86,19 +88,19 @@
     _newSession();
     _printLog('Request received');
 
-    var newSong = request.body;
+    var specificSong = request.body;
 
-    if (!_.isUndefined(newSong.id) && !_.isUndefined(newSong.title) && !_.isUndefined(newSong.artist)) {
+    if (!_.isUndefined(specificSong.id) && !_.isUndefined(specificSong.title) && !_.isUndefined(specificSong.artist)) {
       var existingSong = _.find(songDb, function (song) {
-        return song.id === newSong.id;
+        return song.id === specificSong.id;
       });
 
       if (_.isObject(existingSong)) {
         _.remove(songDb, function (song) {
-          return song.id === newSong.id;
+          return song.id === specificSong.id;
         });
 
-        songDb.push(newSong);
+        songDb.push(specificSong);
 
         /** send response */
         response
@@ -165,40 +167,145 @@
     }
   });
 
+  /** GET PLAYLIST API DEFINITION */
   app.get(listApi, function (request, response) {
     _newSession();
 
     response.send(listDb);
-    _printLog('Send playlistDb successfully');
+    _printLog('Playlist retrieved: ' + statusCode.ok);
   });
 
+  /** ADD PLAYLIST API DEFINITION */
   app.post(listApi, function (request, response) {
     _newSession();
     _printLog('Request received');
 
     var newList = request.body;
 
-    if (typeof(newList.name) !== 'undefined' && typeof(newList.description) !== 'undefined') {
+    if (!_.isUndefined(newList.name) && !_.isUndefined(newList.description)) {
       newList.id = listDb.length + 1;
       listDb.push(newList);
 
       /** send response */
       response
         .status(200)
-        .send(_createResponse(true, 'Playlist created successfully'));
+        .send(_createResponse(true, 'Playlist added successfully'));
+
+      _printLog('Playlist added: SUCCESS');
     } else {
       response
         .status(400)
         .send(_createResponse(false, 'Bad Request'));
 
-      _printLog('Playlist created: ' + statusCode.badRequest);
+      _printLog('Playlist added: ' + statusCode.badRequest);
     }
   });
 
+  /** UPDATE PLAYLIST API DEFINITION */
   app.put(listApi, function (request, response) {
+    _newSession();
+    _printLog('Request received');
+
+    var specificList = request.body;
+
+    if (!_.isUndefined(specificList.id) && !_.isUndefined(specificList.name) && !_.isUndefined(specificList.description) && !_.isUndefined(specificList.songs)) {
+      var existingList = _.find(listDb, function (list) {
+        return list.id === specificList.id;
+      });
+
+      if (_.isObject(existingList)) {
+        _.remove(listDb, function (list) {
+          return list.id === specificList.id;
+        });
+
+        _.remove(songListRelative, function (rel) {
+          return rel.idList === existingList.id;
+        });
+
+        listDb.push(specificList);
+
+        _.forEach(specificList.songs, function (songId) {
+          songListRelative.push({
+            idList: specificList.id,
+            idSong: songId
+          });
+        });
+
+        /** send response */
+        response
+          .status(200)
+          .send(_createResponse(true, 'Playlist updated successfully'));
+
+        _printLog('Playlist updated: ' + statusCode.ok);
+      } else {
+        response
+          .status(200)
+          .send(_createResponse(false, 'Playlist could not found'));
+
+        _printLog('Playlist updated: ERROR - Playlist could not found');
+      }
+    } else {
+      response
+        .status(400)
+        .send(_createResponse(false, 'Bad Request'));
+
+      _printLog('Playlist updated: ' + statusCode.badRequest);
+    }
   });
 
+  /** DELETE PLAYLIST API DEFINITION */
   app.delete(listApi, function (request, response) {
+    _newSession();
+    _printLog('Request received');
+
+    var idArray = request.body,
+      responseArray = [];
+
+    if (_.isArray(idArray)) {
+      _.forEach(idArray, function (id) {
+        var existingList = _.find(listDb, function (list) {
+          return list.id === id;
+        });
+
+        if (_.isObject(existingList)) {
+          _.remove(listDb, function (list) {
+            return list.id === id;
+          });
+
+          _.remove(songListRelative, function (rel) {
+            return rel.idList === existingList.id;
+          });
+
+          responseArray.push(_createResponse(true, 'Playlist with ID ' + id + ' deleted successfully'));
+
+          _printLog('Playlist ' + id + ' deleted: SUCCESS');
+        } else {
+          responseArray.push(_createResponse(false, 'Playlist with ID ' + id + ' could not found'));
+
+          _printLog('Playlist ' + id + ' deleted: ERROR - Playlist could not found');
+        }
+      });
+
+      response
+        .status(200)
+        .send(responseArray);
+
+      _printLog('Playlist deleted: ' + statusCode.ok);
+    } else {
+      response
+        .status(400)
+        .send(_createResponse(false, 'Bad Request'));
+
+      _printLog('Playlist deleted: ' + statusCode.badRequest);
+    }
+  });
+
+  /** GET THE RELATIONSHIP OF SONG AND PLAYLIST API DEFINITION */
+  app.get(songPlaylistApi, function (request, response) {
+    _newSession();
+
+    response.send(songListRelative);
+    _printLog('Song <> Playlist retrieved: ' + statusCode.ok);
   });
 
   /** SERVER EXECUTION ============== */
