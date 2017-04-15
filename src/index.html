@@ -11,73 +11,31 @@
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
 
   <link rel="stylesheet" href="styles/mainStyle.css">
-  <link rel="stylesheet" href="scripts/directives/ovFullScreen/ovFullScreen.style.css">
+  <link rel="stylesheet" href="scripts/components/ovFullScreen/ovFullScreen.style.css">
   <link rel="stylesheet" href="scripts/modules/ovFullScreenDemo/ovFullScreenDemo.style.css">
 </head>
 <body>
 
-<div id="mainWrapper" class="main-wrapper container">
-  <header id="appHeader" class="app-header">
-    <nav id="appNav" class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#/">Project</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li ng-class="{ active: main.menu === '#/' }">
-              <a href="#/" ng-click="main.activateMenu($event)">Home</a>
-            </li>
-            <li ng-class="{ active: main.menu === '#/ov-full-screen' }">
-              <a href="#/ov-full-screen" ng-click="main.activateMenu($event)">OV Full-screen</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
+<header id="appHeader" class="app-header">
+  <nav class="app-navbar">
+    <a>Portfolio</a>
+    <a>About Me</a>
+    <svg height="180" width="180">
+      <circle cx="90" cy="90" r="90" fill="#86b9b8"></circle>
+      <circle cx="90" cy="90" r="79" stroke="#547171" stroke-dasharray="5,5" stroke-width="1" fill="none"></circle>
+    </svg>
+    <a>My Blog</a>
+    <a>Contact Me</a>
+  </nav>
+</header>
 
-  <section id="appSection" class="app-section">
-    <!--<button ng-click="main.getData()">Get Data</button>-->
-    <!--<button ng-click="main.getString()">Get String</button>-->
-    <!--<button ng-click="main.postData()">Post Data</button>-->
-  </section>
+<section id="appSection" class="app-section"></section>
 
-  <section id="modalSection" class="modal-section">
-    <!-- Button trigger modal -->
-    <!--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">-->
-    <!--Launch demo modal-->
-    <!--</button>-->
+<section id="modalSection" class="modal-section"></section>
 
-    <!-- Modal -->
-    <!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
-    <!--<div class="modal-dialog" role="document">-->
-    <!--<div class="modal-content">-->
-    <!--<div class="modal-header">-->
-    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
-    <!--aria-hidden="true">&times;</span></button>-->
-    <!--<h4 class="modal-title" id="myModalLabel">Modal title</h4>-->
-    <!--</div>-->
-    <!--<div class="modal-body">-->
-    <!--text here-->
-    <!--</div>-->
-    <!--<div class="modal-footer">-->
-    <!--<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="main.saveModal('abc', $event)">-->
-    <!--Close-->
-    <!--</button>-->
-    <!--<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="main.saveModal('abc', $event)">-->
-    <!--Save changes-->
-    <!--</button>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-  </section>
+<!--<section ng-view=""></section>-->
 
-  <section ng-view=""></section>
-
-  <footer id="appFooter" class="app-footer"></footer>
-</div>
+<footer id="appFooter" class="app-footer"></footer>
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -88,33 +46,10 @@
 <script src="bower_components/angular-animate/angular-animate.min.js"></script>
 <script src="scripts/app.js"></script>
 <!--ov-full-screen-component-->
-<script src="scripts/directives/ovFullScreen/ovFullScreen.directive.js"></script>
+<script src="scripts/components/ovFullScreen/ovFullScreen.directive.js"></script>
 
 <script src="scripts/controllers/mainCtrl.js"></script>
 <script src="scripts/controllers/pageOneCtrl.js"></script>
 <script src="scripts/modules/ovFullScreenDemo/ovFullScreenDemo.controller.js"></script>
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-            aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        text here
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">
-          Close
-        </button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">
-          Save changes
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
 </body>
 </html>

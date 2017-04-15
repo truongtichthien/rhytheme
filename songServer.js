@@ -21,14 +21,19 @@
     idSong: 1
   }];
 
-  /** SET UP ======================== */
+  /** CONFIGURATION ================= */
 
+  /** define package */
   var _ = req('lodash');
   var express = req('express');
   var bodyParser = req('body-parser');
-  var app = express();
-  var PORT = 3000,
-    songApi = '/api/song',
+  var morgan = req('morgan');
+  var colors = req('colors/safe');
+
+  /** config web server */
+  var server = express();
+  var PORT = 3000;
+  var songApi = '/api/song',
     listApi = '/api/playlist',
     songPlaylistApi = '/api/songplaylist';
 
@@ -38,27 +43,57 @@
   };
 
   //noinspection JSUnresolvedVariable
-  /** CONFIGURATION ================= */
+  server.use(express.static(__dirname + '/app'));
+  server.use(bodyParser.json());
 
-  app.use(express.static(__dirname + '/app'));
-  app.use(bodyParser.json());
+  var morganConfig = morgan(function (tokens, request, response) {
+    var timeStamp = colors.grey('[' + _generateTimestamp() + ']'),
+      method = colors.green(tokens.method(request, response)),
+      url = tokens.url(request, response),
+
+      status = (function () {
+        var status = tokens.status(request, response);
+        switch (status[0]) {
+          case '2':
+            return colors.blue(status);
+          case '3':
+            return colors.cyan(status);
+          case '4':
+            return colors.yellow(status);
+          case '5':
+            return status;
+          default:
+            return status;
+        }
+      })();
+
+    // _newSession();
+
+    return [timeStamp, '-', method, url, status,
+      tokens.res(request, response, 'content-length'), '-',
+      tokens['response-time'](request, response), 'ms'
+    ].join(' ');
+  });
+
+  server.use(morganConfig);
+  // server.use(morgan('dev'));
 
   /** API =========================== */
 
-  app.get('', function (request, response) {
+  server.get('', function (request, response) {
     response.sendFile('indexSongTest.html');
   });
 
   /** GET SONG API DEFINITION */
-  app.get(songApi, function (request, response) {
-    _newSession();
+  server.get(songApi, function (request, response) {
+    // _newSession();
 
     response.send(songDb);
-    _printLog('Song retrieved: ' + statusCode.ok);
+    // _printLog('Song retrieved: ' + statusCode.ok);
   });
 
   /** ADD SONG API DEFINITION */
-  app.post(songApi, function (request, response) {
+  server.post(songApi, function (request, response) {
     _newSession();
     _printLog('Request received');
 
@@ -84,7 +119,7 @@
   });
 
   /** UPDATE SONG API DEFINITION */
-  app.put(songApi, function (request, response) {
+  server.put(songApi, function (request, response) {
     _newSession();
     _printLog('Request received');
 
@@ -125,7 +160,7 @@
   });
 
   /** DELETE SONG API DEFINITION */
-  app.delete(songApi, function (request, response) {
+  server.delete(songApi, function (request, response) {
     _newSession();
     _printLog('Request received');
 
@@ -168,7 +203,7 @@
   });
 
   /** GET PLAYLIST API DEFINITION */
-  app.get(listApi, function (request, response) {
+  server.get(listApi, function (request, response) {
     _newSession();
 
     response.send(listDb);
@@ -176,7 +211,7 @@
   });
 
   /** ADD PLAYLIST API DEFINITION */
-  app.post(listApi, function (request, response) {
+  server.post(listApi, function (request, response) {
     _newSession();
     _printLog('Request received');
 
@@ -202,7 +237,7 @@
   });
 
   /** UPDATE PLAYLIST API DEFINITION */
-  app.put(listApi, function (request, response) {
+  server.put(listApi, function (request, response) {
     _newSession();
     _printLog('Request received');
 
@@ -254,7 +289,7 @@
   });
 
   /** DELETE PLAYLIST API DEFINITION */
-  app.delete(listApi, function (request, response) {
+  server.delete(listApi, function (request, response) {
     _newSession();
     _printLog('Request received');
 
@@ -301,7 +336,7 @@
   });
 
   /** GET THE RELATIONSHIP OF SONG AND PLAYLIST API DEFINITION */
-  app.get(songPlaylistApi, function (request, response) {
+  server.get(songPlaylistApi, function (request, response) {
     _newSession();
 
     response.send(songListRelative);
@@ -310,11 +345,11 @@
 
   /** SERVER EXECUTION ============== */
 
-  app.listen(PORT);
+  server.listen(PORT);
 
   _clearScreen();
   _printConsole('*=================================*');
-  _printConsole('*  Server listening on port ' + PORT + '  *');
+  _printConsole('*= Server listening on port ' + PORT + ' =*');
   _printConsole('*=================================*');
 
   /** FUNCTION DEFINITION =========== */

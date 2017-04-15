@@ -1,3 +1,7 @@
-body {
-  padding: 2rem 0;
+.app-header {
+  background: #86b9b8;
+  height: 13rem;
+}
+.app-header .app-navbar {
+  text-align: center;
 }

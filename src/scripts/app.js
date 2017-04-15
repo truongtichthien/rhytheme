@@ -1,3 +1,4 @@
+//noinspection JSUnresolvedVariable
 (function (ng) {
   'use strict';
 
