@@ -1,7 +1,67 @@
+@font-face {
+  font-family: bazar;
+  src: url("../fonts/bazar.ttf");
+}
+.app-container {
+  max-width: 96rem;
+  margin: 0 auto;
+}
 .app-header {
-  background: #86b9b8;
+  background: #e68966 url("../images/grain.png");
+  -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.25);
+  box-shadow: 0 0 5px rgba(0,0,0,0.25);
   height: 13rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 .app-header .app-navbar {
+  padding: 0;
+  margin: 0;
   text-align: center;
+  list-style: none;
+}
+.app-header .app-navbar .menu-item {
+  float: left;
+  width: 20%;
+  padding: 4rem 0 4.7rem;
+  font-family: bazar;
+  font-size: 27px;
+  text-transform: uppercase;
+}
+.app-header .app-navbar .menu-item .link {
+  color: #f6edd8;
+  display: inline-block;
+  margin-top: 0.5rem;
+  -webkit-transition: margin-top 0.2s ease;
+  -moz-transition: margin-top 0.2s ease;
+  -o-transition: margin-top 0.2s ease;
+  -ms-transition: margin-top 0.2s ease;
+  transition: margin-top 0.2s ease;
+  text-shadow: 0 2px 2px rgba(0,0,0,0.2);
+}
+.app-header .app-navbar .menu-item .link:hover {
+  margin-top: 0;
+  text-decoration: none;
+}
+.app-header .app-navbar .app-logo {
+  float: left;
+  width: 20%;
+  height: 13rem;
+}
+.app-header .app-navbar .app-logo .logo {
+  margin-top: -3rem;
+  -webkit-transition: margin-top 0.2s ease;
+  -moz-transition: margin-top 0.2s ease;
+  -o-transition: margin-top 0.2s ease;
+  -ms-transition: margin-top 0.2s ease;
+  transition: margin-top 0.2s ease;
+}
+.app-header .app-navbar .app-logo .logo:hover {
+  margin-top: 0;
+}
+.app-main {
+  height: 1000rem;
+  background: #e6e1d0 url("../images/grain.png");
 }

@@ -50,7 +50,12 @@
 
   server.get('/', function (req, res) {
     // res.send('Hello World!');
-    res.sendFile(path.join(__dirname + '/src/index.html'));
+    res.sendFile('index.html', { root: __dirname + '/src' });
+  });
+
+  server.get('/demo', function (req, res) {
+    // res.send('Hello World!');
+    res.sendFile(__dirname + '/src/demo.html');
   });
 
   server.get('/api/get', function (req, res) {

@@ -7,7 +7,7 @@
   <!--<title>{{ 'mMnger' | i18next }}</title>-->
   <meta name="description" content="A Sample App Using AngularJS">
   <meta name="viewport" content="width=device-width">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
 
   <link rel="stylesheet" href="styles/mainStyle.css">
@@ -16,18 +16,37 @@
 </head>
 <body>
 
-<header id="appHeader" class="app-header">
-  <nav class="app-navbar">
-    <a>Portfolio</a>
-    <a>About Me</a>
-    <svg height="180" width="180">
-      <circle cx="90" cy="90" r="90" fill="#86b9b8"></circle>
-      <circle cx="90" cy="90" r="79" stroke="#547171" stroke-dasharray="5,5" stroke-width="1" fill="none"></circle>
-    </svg>
-    <a>My Blog</a>
-    <a>Contact Me</a>
-  </nav>
+<header role="banner" id="appHeader" class="app-header">
+  <div class="app-container">
+    <ul class="app-navbar clearfix">
+      <li class="menu-item">
+        <a class="link" href="">Portfolio</a>
+      </li>
+      <li class="menu-item">
+        <a class="link" href="">About Me</a>
+      </li>
+      <li class="app-logo">
+        <a href="/">
+          <svg height="160" width="160" class="logo">
+            <circle cx="80" cy="80" r="80" fill="#e68966"></circle>
+            <circle cx="80" cy="80" r="69" stroke="#547171" stroke-dasharray="5,5" stroke-width="1"
+                    fill="none"></circle>
+          </svg>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a class="link" href="">My Blog</a>
+      </li>
+      <li class="menu-item">
+        <a class="link" href="">Contact Me</a>
+      </li>
+    </ul>
+  </div>
 </header>
+
+<main role="main" id="appMain" class="app-main">
+
+</main>
 
 <section id="appSection" class="app-section"></section>
 
