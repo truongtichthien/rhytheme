@@ -1,3 +1,7 @@
+/**
+ * Created by ThienTruong
+ */
+
 (function (ng) {
   'use strict';
 
@@ -277,6 +281,7 @@
 
   ovFullScreenDirective.$inject = ['$document', '$window', '$timeout', '$compile'];
 
-  angular.module('sampleApp')
+  ng.module('rhythemeModule')
     .directive('ovFullScreen', ovFullScreenDirective);
+
 })(angular);

@@ -1,6 +1,6 @@
 @font-face {
   font-family: bazar;
-  src: url("../fonts/bazar.ttf");
+  src: url("../../../fonts/bazar.ttf");
 }
 .app-container {
   max-width: 96rem;
@@ -28,7 +28,7 @@
   padding: 3rem 0;
 }
 .app-header {
-  background: #e68966 url("../images/grain.png");
+  background: #e68966 url("../../../images/grain.png");
   -webkit-box-shadow: 0 0 0.5rem rgba(0,0,0,0.25);
   box-shadow: 0 0 0.5rem rgba(0,0,0,0.25);
   height: 13rem;
@@ -89,9 +89,9 @@
   z-index: 1;
   height: 100rem;
   margin-top: 13rem;
-  background: #e6e1d0 url("../images/grain.png");
+  background: #e6e1d0 url("../../../images/grain.png");
 }
 .app-footer {
-  background: #4c5057 url("../images/grain.png");
+  background: #4c5057 url("../../../images/grain.png");
   color: #ddd;
 }

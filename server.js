@@ -49,13 +49,12 @@
   // server.use(methodOverride());
 
   server.get('/', function (req, res) {
-    // res.send('Hello World!');
     res.sendFile('index.html', { root: __dirname + '/src' });
   });
 
   server.get('/demo', function (req, res) {
     // res.send('Hello World!');
-    res.sendFile(__dirname + '/src/demo.html');
+    res.sendFile('demo.html', { root: __dirname + '/src' });
   });
 
   server.get('/api/get', function (req, res) {

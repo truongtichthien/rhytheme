@@ -7,6 +7,6 @@
 
   pageOneCtrl.$inject = [];
 
-  ng.module('sampleApp')
+  ng.module('rhythemeModule')
     .controller('PageOneCtrl', pageOneCtrl);
 })(angular);

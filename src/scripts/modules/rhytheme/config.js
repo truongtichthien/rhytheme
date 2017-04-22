@@ -1,3 +1,7 @@
+/**
+ * Created by ThienTruong
+ */
+
 (function (ng) {
   'use strict';
 
@@ -20,6 +24,7 @@
 
   appConfig.$inject = ['$routeProvider'];
 
-  ng.module('sampleApp', ['ngRoute'])
+  ng.module('rhythemeModule', ['ngRoute'])
     .config(appConfig);
-})(angular);
+
+})(window.angular);

@@ -1,74 +1,37 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7" ng-app="sampleApp" ng-controller="MainCtrl as main">
-<head>
-  <base href="/">
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <!--<title>{{ 'mMnger' | i18next }}</title>-->
-  <meta name="description" content="A Sample App Using AngularJS">
-  <meta name="viewport" content="width=device-width">
-  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+<html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7" ng-controller="MainCtrl as main">
+  <head>
+    <base href="/">
+    <meta charset="UTF-8">
+    <title>Rhytheme</title>
+    <!--<title>{{ 'rhytheme' | i18next }}</title>-->
+    <meta name="description" content="Rhytheme Portfolio">
+    <meta name="viewport" content="width=device-width">
 
-  <link rel="stylesheet" href="styles/mainStyle.css">
-  <link rel="stylesheet" href="scripts/components/ovFullScreen/ovFullScreen.style.css">
-  <link rel="stylesheet" href="scripts/modules/ovFullScreenDemo/ovFullScreenDemo.style.css">
-</head>
-<body ng-cloak="">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="scripts/modules/rhytheme/style.css">
+  </head>
+  <body ng-cloak="">
 
-<header role="banner" id="appHeader" class="app-header">
-  <div class="app-container">
-    <ul class="app-navbar clearfix">
-      <li class="menu-item">
-        <a class="link" href="">Portfolio</a>
-      </li>
-      <li class="menu-item">
-        <a class="link" href="">About Me</a>
-      </li>
-      <li class="app-logo">
-        <a href="/">
-          <svg height="160" width="160" class="logo">
-            <circle cx="80" cy="80" r="80" fill="#e68966"></circle>
-            <circle cx="80" cy="80" r="69" stroke="#547171" stroke-dasharray="5,5" stroke-width="1"
-                    fill="none"></circle>
-          </svg>
-        </a>
-      </li>
-      <li class="menu-item">
-        <a class="link" href="">My Blog</a>
-      </li>
-      <li class="menu-item">
-        <a class="link" href="">Contact Me</a>
-      </li>
-    </ul>
-  </div>
-</header>
+    <div rhytheme-module></div>
 
-<main role="main" id="appMain" class="app-main">
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/lodash/dist/lodash.min.js"></script>
 
-</main>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
 
-<section id="appSection" class="app-section"></section>
+    <!--include rhytheme module's config file-->
+    <script src="scripts/modules/rhytheme/config.js"></script>
+    <script src="scripts/modules/rhytheme/directive.js"></script>
 
-<section id="modalSection" class="modal-section"></section>
+    <!--bootstrap module-->
+    <script src="scripts/app.index.js"></script>
 
-<!--<section ng-view=""></section>-->
-
-<footer id="appFooter" class="app-footer"></footer>
-
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="bower_components/lodash/dist/lodash.min.js"></script>
-
-<script src="bower_components/angular/angular.min.js"></script>
-<script src="bower_components/angular-route/angular-route.min.js"></script>
-<script src="bower_components/angular-animate/angular-animate.min.js"></script>
-<script src="scripts/app.js"></script>
-<!--ov-full-screen-component-->
-<script src="scripts/components/ovFullScreen/ovFullScreen.directive.js"></script>
-
-<script src="scripts/controllers/mainCtrl.js"></script>
-<script src="scripts/controllers/pageOneCtrl.js"></script>
-<script src="scripts/modules/ovFullScreenDemo/ovFullScreenDemo.controller.js"></script>
-</body>
+    <script src="scripts/controllers/mainCtrl.js"></script>
+    <script src="scripts/controllers/pageOneCtrl.js"></script>
+  </body>
 </html>

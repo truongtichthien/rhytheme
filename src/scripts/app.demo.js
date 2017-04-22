@@ -5,7 +5,7 @@
 (function (ng) {
   'use strict';
 
-  function mainCtrl($http, $location) {
+  function AppCtrl($http, $location) {
     var vm = this;
     vm.menu = '';
 
@@ -76,9 +76,9 @@
     }
   }
 
-  mainCtrl.$inject = ['$http', '$location'];
+  AppCtrl.$inject = ['$http', '$location'];
 
   ng.module('rhythemeModule')
-    .controller('MainCtrl', mainCtrl);
+    .controller('AppCtrl', AppCtrl);
 
 })(window.angular);

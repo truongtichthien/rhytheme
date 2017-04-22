@@ -13,6 +13,6 @@
 
   ovFullScreenCtrl.$inject = [];
 
-  ng.module('sampleApp')
+  ng.module('rhythemeModule')
     .controller('OvFullScreenCtrl', ovFullScreenCtrl);
 })(angular);
