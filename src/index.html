@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7" ng-controller="MainCtrl as main">
-  <head>
-    <base href="/">
-    <meta charset="UTF-8">
-    <title>Rhytheme</title>
-    <!--<title>{{ 'rhytheme' | i18next }}</title>-->
-    <meta name="description" content="Rhytheme Portfolio">
-    <meta name="viewport" content="width=device-width">
+<head>
+  <base href="/">
+  <meta charset="UTF-8">
+  <title>Rhytheme</title>
+  <!--<title>{{ 'rhytheme' | i18next }}</title>-->
+  <meta name="description" content="Rhytheme Portfolio">
+  <meta name="viewport" content="width=device-width">
 
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="scripts/modules/rhytheme/style.css">
-  </head>
-  <body ng-cloak="">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="scripts/modules/rhytheme/style.css">
+</head>
+<body ng-cloak="">
 
-    <div rhytheme-module></div>
+  <div rhytheme></div>
 
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bower_components/lodash/dist/lodash.min.js"></script>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="bower_components/lodash/dist/lodash.min.js"></script>
 
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/angular-route/angular-route.min.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-route/angular-route.min.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
 
-    <!--include rhytheme module's config file-->
-    <script src="scripts/modules/rhytheme/config.js"></script>
-    <script src="scripts/modules/rhytheme/directive.js"></script>
+  <!--bootstrap module-->
+  <script src="scripts/app.index.js"></script>
 
-    <!--bootstrap module-->
-    <script src="scripts/app.index.js"></script>
+  <!--include rhytheme module's config file-->
+  <script src="scripts/modules/rhytheme/config.js"></script>
+  <script src="scripts/modules/rhytheme/directive.js"></script>
+  <script src="scripts/modules/rhytheme/controller.js"></script>
 
-    <script src="scripts/controllers/mainCtrl.js"></script>
-    <script src="scripts/controllers/pageOneCtrl.js"></script>
-  </body>
+  <script src="scripts/controllers/mainCtrl.js"></script>
+  <script src="scripts/controllers/pageOneCtrl.js"></script>
+</body>
 </html>

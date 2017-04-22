@@ -1,3 +1,4 @@
+<!--app header-->
 <header role="banner" id="appHeader" class="app-header">
   <!--top dashed line-->
   <hr class="top dashed-line">
@@ -7,9 +8,7 @@
       <li class="menu-item">
         <a class="link" href="">Portfolio</a>
       </li>
-      <li class="menu-item">
-        <a class="link" href="">About Me</a>
-      </li>
+      <!--app logo-->
       <li class="app-logo">
         <a href="/">
           <svg height="160" width="160" class="logo">
@@ -20,28 +19,28 @@
         </a>
       </li>
       <li class="menu-item">
-        <a class="link" href="">My Blog</a>
-      </li>
-      <li class="menu-item">
-        <a class="link" href="">Contact Me</a>
+        <a class="link" href="">About Me</a>
       </li>
     </ul>
   </div>
   <!--bottom dashed line-->
   <hr class="bottom dashed-line">
-</header>
+</header><!--end app header-->
 
+<!--app main-->
 <main role="main" id="appMain" class="app-main">
   <!--top dashed line-->
   <hr class="top dashed-line">
   <!--main view-->
-  <div class="app-container" ng-view>
+  <div class="app-container"
+       ng-include="rhytheme.currentTemplate">
     <!--main content-->
   </div>
   <!--bottom dashed line-->
   <hr class="bottom dashed-line">
-</main>
+</main><!--end app main-->
 
+<!--app footer-->
 <footer id="appFooter" class="app-footer">
   <!--top dashed line-->
   <hr class="top dashed-line">
@@ -51,4 +50,4 @@
   </div>
   <!--bottom dashed line-->
   <hr class="bottom dashed-line">
-</footer>
+</footer><!--end app footer-->

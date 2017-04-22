@@ -5,20 +5,23 @@
 (function (ng) {
   'use strict';
 
-  function rhythemeModule() {
+  function rhythemeDirective() {
     var directive;
 
     directive = {
       restrict: 'EA',
-      templateUrl: 'scripts/modules/rhytheme/directive.html'
+      scope: {},
+      controller: 'RhythemeController',
+      controllerAs: 'rhytheme',
+      templateUrl: 'scripts/modules/rhytheme/view.html'
     };
 
     return directive;
   }
 
-  rhythemeModule.$inject = ['$document', '$window', '$timeout', '$compile'];
+  rhythemeDirective.$inject = ['$document', '$window', '$timeout', '$compile'];
 
   ng.module('rhythemeModule')
-    .directive('rhythemeModule', rhythemeModule);
+    .directive('rhytheme', rhythemeDirective);
 
 })(window.angular);

@@ -2,7 +2,7 @@
 
   /** SET UP ======================== */
 
-  // create onw server express
+    // create onw server express
   var express = _req('express'),
     PORT = 3000,
     server = express();
@@ -31,7 +31,7 @@
 
   // set the static files location /public/img will be /img for users
 
-  server.use(express.static(path.join(__dirname + '/src'), {index: false}));
+  server.use(express.static(path.join(__dirname + '/src'), { index: false }));
 
   // log every request to the console
   server.use(morgan('dev'));
@@ -48,8 +48,16 @@
 
   // server.use(methodOverride());
 
+  // server.get('/', function (req, res) {
+  //   res.redirect('/rhytheme');
+  // });
+
   server.get('/', function (req, res) {
     res.sendFile('index.html', { root: __dirname + '/src' });
+  });
+
+  server.get('*', function (req, res) {
+    res.redirect('/');
   });
 
   server.get('/demo', function (req, res) {

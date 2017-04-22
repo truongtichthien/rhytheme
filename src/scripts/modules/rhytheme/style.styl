@@ -51,6 +51,7 @@ backgroundImg(hex)
     margin 0
     text-align center
     list-style none
+    display flex
 
     .menu-item
       float left
@@ -59,6 +60,7 @@ backgroundImg(hex)
       font-family bazar
       font-size 2.7rem
       text-transform uppercase
+      flex 2
 
       .link
         color #f6edd8
@@ -70,9 +72,12 @@ backgroundImg(hex)
         margin-top 0
         text-decoration none
 
+      .link:focus
+        text-decoration none
+
     .app-logo
       float left
-      width 20%
+      flex 1
       height 13rem
       position relative
       z-index 99
