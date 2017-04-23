@@ -1,4 +1,32 @@
-<h4>Portfolio</h4>
-<hr>
-xxx
-<hr>
+<div id="sectionPortfolio" class="section-portfolio">
+  <div class="section-heading">
+    <h2 class="section-title">Rhytheme</h2>
+    <div class="section-seperator">
+      <span class="solid-line">×××</span>
+    </div>
+    <div class="section-subtitle">
+      Do small things with great love
+    </div>
+  </div>
+  <div class="porfolio-filter">
+    <span class="filter-label">
+      Filter by</span>
+    <ul class="filter-tag-container">
+      <li class="filter-tag"
+          ng-repeat="item in ['all', 'angularJs','html','css']"
+          ng-click="">
+        <span>{{ item }}</span>
+      </li>
+    </ul>
+  </div>
+  <div class="porfolio-list clearfix">
+    <div class="col-sm-6 col-md-3 poporfolio-listrtfolio-item"
+         ng-repeat="item in ['httk', 'blisk', 'dnn', 'pics']"
+         ng-click="">
+      <div>
+        <img class="" src="../../../images/grain.png">
+      </div>
+      <h5 class="">{{ item }}</h5>
+    </div>
+  </div>
+</div>

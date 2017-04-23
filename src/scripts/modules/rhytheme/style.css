@@ -1,10 +1,24 @@
 @font-face {
-  font-family: bazar;
-  src: url("../../../fonts/bazar.ttf");
+  font-family: Bazar;
+  src: url("../../../fonts/Bazar.woff") format('woff');
+}
+@font-face {
+  font-family: 'Roboto Slab';
+  src: /* IE9 Compat Modes */ url("../../../fonts/Roboto-Slab.eot"), /* IE6-IE8 */ url("../../../fonts/Roboto-Slab.eot?#iefix") format('embedded-opentype'), /* Safari, Android, iOS */ url("../../../fonts/Roboto-Slab.ttf") format('truetype'), /* Legacy iOS */ url("../../../fonts/Roboto-Slab.svg#Oswald") format('svg'), /* Modern Browsers */ url("../../../fonts/Roboto-Slab.woff") format('woff');
+}
+@font-face {
+  font-family: 'Oswald';
+  src: /* IE9 Compat Modes */ url("../../../fonts/Oswald-Latin.eot"), /* IE6-IE8 */ url("../../../fonts/Oswald-Latin.eot?#iefix") format('embedded-opentype'), /* Safari, Android, iOS */ url("../../../fonts/Oswald-Latin.ttf") format('truetype'), /* Legacy iOS */ url("../../../fonts/Oswald-Latin.svg#Oswald") format('svg'), /* Modern Browsers */ url("../../../fonts/Oswald-Latin.woff") format('woff'), /* Super Modern Browsers */ url("../../../fonts/Oswald-Latin.woff2") format('woff2');
+}
+body {
+  color: #383a3c;
+  font-family: 'Roboto Slab';
 }
 .app-container {
-  max-width: 96rem;
+  max-width: 960px;
   margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .dashed-line {
   margin: 0;
@@ -17,26 +31,27 @@
   background-color: transparent;
 }
 .top.dashed-line {
-  top: 1rem;
+  top: 10px;
 }
 .bottom.dashed-line {
-  bottom: 1rem;
+  bottom: 10px;
 }
 .app-main,
 .app-footer {
   position: relative;
-  padding: 3rem 0;
+  padding: 30px 0;
 }
 .app-header {
   background: #e68966 url("../../../images/grain.png");
-  -webkit-box-shadow: 0 0 0.5rem rgba(0,0,0,0.25);
-  box-shadow: 0 0 0.5rem rgba(0,0,0,0.25);
-  height: 13rem;
+  -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.25);
+  box-shadow: 0 0 5px rgba(0,0,0,0.25);
+  height: 130px;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 98;
+  z-index: 88;
+  border-bottom: 1px solid rgba(0,0,0,0.15);
 }
 .app-header .app-navbar {
   padding: 0;
@@ -53,9 +68,9 @@
 .app-header .app-navbar .menu-item {
   float: left;
   width: 20%;
-  padding: 4rem 0 4.7rem;
-  font-family: bazar;
-  font-size: 2.7rem;
+  padding: 40px 0 47px;
+  font-family: Bazar;
+  font-size: 27px;
   text-transform: uppercase;
   -webkit-box-flex: 2;
   -moz-box-flex: 2;
@@ -68,13 +83,13 @@
 .app-header .app-navbar .menu-item .link {
   color: #f6edd8;
   display: inline-block;
-  margin-top: 0.5rem;
+  margin-top: 5px;
   -webkit-transition: margin-top 0.2s ease;
   -moz-transition: margin-top 0.2s ease;
   -o-transition: margin-top 0.2s ease;
   -ms-transition: margin-top 0.2s ease;
   transition: margin-top 0.2s ease;
-  text-shadow: 0 0.2rem 0.2rem rgba(0,0,0,0.2);
+  text-shadow: 0 3px 3px rgba(0,0,0,0.2);
 }
 .app-header .app-navbar .menu-item .link:hover {
   margin-top: 0;
@@ -92,12 +107,12 @@
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  height: 13rem;
+  height: 130px;
   position: relative;
-  z-index: 99;
+  z-index: 89;
 }
 .app-header .app-navbar .app-logo .logo {
-  margin-top: -3rem;
+  margin-top: -30px;
   -webkit-transition: margin-top 0.2s ease;
   -moz-transition: margin-top 0.2s ease;
   -o-transition: margin-top 0.2s ease;
@@ -109,11 +124,122 @@
 }
 .app-main {
   z-index: 1;
-  height: 100rem;
-  margin-top: 13rem;
+  height: 1000px;
+  margin-top: 130px;
   background: #e6e1d0 url("../../../images/grain.png");
 }
 .app-footer {
   background: #4c5057 url("../../../images/grain.png");
   color: #ddd;
+}
+.section-heading {
+  padding-bottom: 16px;
+}
+.section-heading .section-title {
+  font-size: 90px;
+  font-family: Bazar;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 1px 2px #fcfaf7, 3px 4px #484a4d;
+  margin-top: 12px;
+  margin-bottom: 5px;
+}
+.section-heading .section-subtitle {
+  text-align: center;
+  font-family: Oswald;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+.section-heading .section-seperator {
+  text-align: center;
+  font-size: 24px;
+  line-height: 24px;
+}
+.section-heading .section-seperator .solid-line {
+  position: relative;
+  display: inline-block;
+  width: 45px;
+}
+.section-heading .section-seperator .solid-line:before,
+.section-heading .section-seperator .solid-line:after {
+  content: '';
+  width: 45px;
+  position: absolute;
+  top: 11px;
+  border-bottom: 2px #383a3c solid;
+}
+.section-heading .section-seperator .solid-line:before {
+  right: 100%;
+  margin-right: 5px;
+}
+.section-heading .section-seperator .solid-line:after {
+  left: 100%;
+  margin-left: 5px;
+}
+.section-portfolio .porfolio-filter {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.section-portfolio .porfolio-filter .filter-label {
+  margin-right: 10px;
+  font-size: 16px;
+}
+.section-portfolio .porfolio-filter .filter-tag-container {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -o-box-flex: 1;
+  box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  padding: 0;
+  list-style: none;
+}
+.section-portfolio .porfolio-filter .filter-tag-container .filter-tag {
+  display: inline-block;
+  position: relative;
+  color: #383a3c;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 16px;
+  background: #fcfaf7;
+  padding: 4px 8px 4px 10px;
+  margin-left: 12px;
+  margin-right: 9px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+}
+.section-portfolio .porfolio-filter .filter-tag-container .filter-tag:before,
+.section-portfolio .porfolio-filter .filter-tag-container .filter-tag:after {
+  content: '';
+}
+.section-portfolio .porfolio-filter .filter-tag-container .filter-tag:before {
+  position: absolute;
+  top: 0;
+  right: 100%;
+  border-color: transparent #fcfaf7 transparent transparent;
+  border-width: 12px 12px 12px 0;
+  border-style: solid;
+}
+.section-portfolio .porfolio-filter .filter-tag-container .filter-tag:after {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  top: 11px;
+  left: 0;
+  border-radius: 50%;
+  background: #959ca3;
+}
+.section-portfolio .porfolio-list {
+  margin-left: -15px;
+  margin-right: -15px;
 }

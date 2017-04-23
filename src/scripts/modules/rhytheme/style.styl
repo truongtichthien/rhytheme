@@ -4,15 +4,31 @@
 backgroundImg(hex)
   background hex url('../../../images/grain.png')
 
-@font-face {
-  font-family bazar
-  src url(../../../fonts/bazar.ttf)
-}
+textCenter()
+  text-align center
+
+@font-face
+  font-family Bazar
+  src url('../../../fonts/Bazar.woff') format('woff')
+
+@font-face
+  font-family 'Roboto Slab'
+  src /* IE9 Compat Modes */ url('../../../fonts/Roboto-Slab.eot') , /* IE6-IE8 */ url('../../../fonts/Roboto-Slab.eot?#iefix') format('embedded-opentype'), /* Safari, Android, iOS */ url('../../../fonts/Roboto-Slab.ttf') format('truetype'), /* Legacy iOS */ url('../../../fonts/Roboto-Slab.svg#Oswald') format('svg'), /* Modern Browsers */ url('../../../fonts/Roboto-Slab.woff') format('woff')
+
+@font-face
+  font-family 'Oswald'
+  src /* IE9 Compat Modes */ url('../../../fonts/Oswald-Latin.eot') , /* IE6-IE8 */ url('../../../fonts/Oswald-Latin.eot?#iefix') format('embedded-opentype'), /* Safari, Android, iOS */ url('../../../fonts/Oswald-Latin.ttf') format('truetype'), /* Legacy iOS */ url('../../../fonts/Oswald-Latin.svg#Oswald') format('svg'), /* Modern Browsers */ url('../../../fonts/Oswald-Latin.woff') format('woff'), /* Super Modern Browsers */ url('../../../fonts/Oswald-Latin.woff2') format('woff2')
 
 // common used style
+body
+  color #383a3c
+  font-family 'Roboto Slab'
+
 .app-container
-  max-width 96rem
+  max-width 960px
   margin 0 auto
+  padding-left 15px
+  padding-right 15px
 
 .dashed-line
   margin 0
@@ -25,75 +41,169 @@ backgroundImg(hex)
   background-color transparent
 
 .top.dashed-line
-  top 1rem
+  top 10px
 
 .bottom.dashed-line
-  bottom 1rem
+  bottom 10px
 
 .app-main
 .app-footer
   position relative
-  padding 3rem 0
+  padding 30px 0
 
 // specific used style
 .app-header
   backgroundImg(#e68966)
-  box-shadow 0 0 0.5rem rgba(0, 0, 0, 0.25)
-  height 13rem
+  box-shadow 0 0 5px rgba(0, 0, 0, 0.25)
+  height 130px
   position fixed
   top 0
   left 0
   right 0
-  z-index 98
+  z-index 88
+  border-bottom 1px solid rgba(0, 0, 0, 0.15)
 
   .app-navbar
     padding 0
     margin 0
-    text-align center
+    textCenter()
     list-style none
     display flex
 
     .menu-item
       float left
       width 20%
-      padding 4rem 0 4.7rem
-      font-family bazar
-      font-size 2.7rem
+      padding 40px 0 47px
+      font-family Bazar
+      font-size 27px
       text-transform uppercase
       flex 2
 
       .link
         color #f6edd8
         display inline-block
-        margin-top 0.5rem
+        margin-top 5px
         transition margin-top 0.2s ease
-        text-shadow 0 0.2rem 0.2rem rgba(0, 0, 0, 0.2)
-      .link:hover
-        margin-top 0
-        text-decoration none
-
-      .link:focus
-        text-decoration none
+        text-shadow 0 3px 3px rgba(0, 0, 0, 0.2)
+        &:hover
+          margin-top 0
+          text-decoration none
+        &:focus
+          text-decoration none
 
     .app-logo
       float left
       flex 1
-      height 13rem
+      height 130px
       position relative
-      z-index 99
+      z-index 89
 
       .logo
-        margin-top -3rem
+        margin-top -30px
         transition margin-top 0.2s ease
-      .logo:hover
-        margin-top 0
+        &:hover
+          margin-top 0
 
 .app-main
   z-index 1
-  height 100rem
-  margin-top 13rem
+  height 1000px
+  margin-top 130px
   backgroundImg(#e6e1d0)
 
 .app-footer
   backgroundImg(#4c5057)
   color #ddd
+
+.section-heading
+  padding-bottom 16px
+
+  .section-title
+    font-size 90px
+    font-family Bazar
+    textCenter()
+    text-transform uppercase
+    text-shadow 1px 2px #fcfaf7, 3px 4px #484a4d
+    margin-top 12px
+    margin-bottom 5px
+
+  .section-subtitle
+    textCenter()
+    font-family Oswald
+    text-transform uppercase
+    font-size 16px
+
+  .section-seperator
+    textCenter()
+    font-size 24px
+    line-height 24px
+
+    .solid-line
+      position relative
+      display inline-block
+      width 45px
+      &:before
+      &:after
+        content ''
+        width 45px
+        position absolute
+        top 11px
+        border-bottom 2px #383a3c solid
+      &:before
+        right 100%
+        margin-right 5px
+      &:after
+        left 100%
+        margin-left 5px
+
+.section-portfolio
+  .porfolio-filter
+    display flex
+    margin-top 16px
+    margin-bottom 16px
+
+    .filter-label
+      margin-right 10px
+      font-size 16px
+
+    .filter-tag-container
+      flex 1
+      padding 0
+      list-style none
+
+      .filter-tag
+        display inline-block
+        position relative
+        color #383a3c
+        cursor pointer
+        font-size 12px
+        font-weight bold
+        line-height 16px
+        background #fcfaf7
+        padding 4px 8px 4px 10px
+        margin-left 12px
+        margin-right 9px
+        border-top-right-radius 3px
+        border-bottom-right-radius 3px
+        box-shadow 1px 1px 1px rgba(0, 0, 0, 0.2)
+        &:before
+        &:after
+          content ''
+        &:before
+          position absolute
+          top 0
+          right 100%
+          border-color transparent #fcfaf7 transparent transparent
+          border-width 12px 12px 12px 0
+          border-style solid
+        &:after
+          position absolute
+          width 4px
+          height 4px
+          top 11px
+          left 0
+          border-radius 50%
+          background #959ca3
+
+  .porfolio-list
+    margin-left -15px
+    margin-right -15px

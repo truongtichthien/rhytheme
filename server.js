@@ -52,12 +52,12 @@
   //   res.redirect('/rhytheme');
   // });
 
-  server.get('/', function (req, res) {
+  server.get('/rhytheme', function (req, res) {
     res.sendFile('index.html', { root: __dirname + '/src' });
   });
 
   server.get('*', function (req, res) {
-    res.redirect('/');
+    res.redirect('/rhytheme');
   });
 
   server.get('/demo', function (req, res) {
