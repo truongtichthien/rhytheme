@@ -5,7 +5,7 @@
 (function (ng) {
   'use strict';
 
-  function rhythemeDirective() {
+  function rhythemeAppDirective() {
     var directive;
 
     directive = {
@@ -19,9 +19,9 @@
     return directive;
   }
 
-  rhythemeDirective.$inject = ['$document', '$window', '$timeout', '$compile'];
+  rhythemeAppDirective.$inject = ['$document', '$window', '$timeout', '$compile'];
 
   ng.module('rhythemeModule')
-    .directive('rhytheme', rhythemeDirective);
+    .directive('rhythemeApp', rhythemeAppDirective);
 
 })(window.angular);

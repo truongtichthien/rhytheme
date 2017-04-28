@@ -73,7 +73,7 @@ body
     .menu-item
       float left
       width 20%
-      padding 40px 0 47px
+      padding 46px 0
       font-family Bazar
       font-size 27px
       text-transform uppercase
@@ -82,14 +82,19 @@ body
       .link
         color #f6edd8
         display inline-block
-        margin-top 5px
-        transition margin-top 0.2s ease
+        margin-top 2px
+        position relative
+        transition margin-top 0.1s ease
         text-shadow 0 3px 3px rgba(0, 0, 0, 0.2)
         &:hover
           margin-top 0
           text-decoration none
         &:focus
           text-decoration none
+        &.active:after
+          content '...'
+          position absolute
+          /*todo - add some movements to triple dots*/
 
     .app-logo
       float left
@@ -132,7 +137,7 @@ body
     text-transform uppercase
     font-size 16px
 
-  .section-seperator
+  .section-separator
     textCenter()
     font-size 24px
     line-height 24px
@@ -156,7 +161,7 @@ body
         margin-left 5px
 
 .section-portfolio
-  .porfolio-filter
+  .portfolio-filter
     display flex
     margin-top 16px
     margin-bottom 16px
@@ -176,7 +181,6 @@ body
         color #383a3c
         cursor pointer
         font-size 12px
-        font-weight bold
         line-height 16px
         background #fcfaf7
         padding 4px 8px 4px 10px
@@ -199,11 +203,11 @@ body
           position absolute
           width 4px
           height 4px
-          top 11px
+          top 10px
           left 0
           border-radius 50%
           background #959ca3
 
-  .porfolio-list
+  .portfolio-list
     margin-left -15px
     margin-right -15px

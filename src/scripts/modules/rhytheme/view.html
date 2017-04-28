@@ -7,21 +7,23 @@
     <ul class="app-navbar clearfix">
       <li class="menu-item">
         <a class="link" href
-           ng-click="rhytheme.switchView('portfolio')">Rhytheme</a>
+           ng-click="rhytheme.toPortfolio()"
+           ng-class="{ active: rhytheme.view.portfolio }">Rhytheme</a>
       </li>
       <!--app logo-->
       <li class="app-logo">
         <a href="/">
           <svg height="160" width="160" class="logo">
-            <circle cx="80" cy="80" r="80" fill="#e68966"></circle>
+            <circle cx="80" cy="80" r="80" fill="none"></circle>
             <circle cx="80" cy="80" r="69" fill="none"
-                    stroke="#547171" stroke-dasharray="5,5" stroke-width="1"></circle>
+                    stroke="#547171" stroke-dasharray="3,5" stroke-width="1"></circle>
           </svg>
         </a>
       </li>
       <li class="menu-item">
         <a class="link" href
-           ng-click="rhytheme.switchView('about')">About Me</a>
+           ng-click="rhytheme.toAbout()"
+           ng-class="{ active: rhytheme.view.about }">About Me</a>
       </li>
     </ul>
   </div>

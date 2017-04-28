@@ -2,27 +2,48 @@
  * Created by ThienTruong
  */
 
-(function (ng) {
+(function (ng, _) {
   'use strict';
 
   function RhythemeController() {
     /** variable definition */
     var vm = this,
-      template = {
-        portfolio: 'scripts/modules/rhytheme/view.portfolio.html',
-        about: 'scripts/modules/rhytheme/view.about.html'
-      };
+      pages = ['portfolio', 'about'],
+      template = {},
+      view = {};
 
     /** variable binding */
     vm.currentTemplate = '';
-    vm.switchView = _switchView;
+    vm.view = view;
+    vm.toPortfolio = _toPortfolio;
+    vm.toAbout = _toAbout;
 
     /** function execution */
-    vm.switchView('portfolio');
+    _initModel();
+    _toPortfolio();
 
     /** function definition */
-    function _switchView(tpl) {
-      vm.currentTemplate = template[tpl];
+    function _initModel() {
+      _.forEach(pages, function (p) {
+        template[p] = 'scripts/modules/rhytheme/view.' + p + '.html';
+        view[p] = false;
+      });
+    }
+
+    function _switchView(page) {
+      _.forEach(view, function (p, k) {
+        view[k] = (k === page);
+      });
+
+      return template[page];
+    }
+
+    function _toPortfolio() {
+      vm.currentTemplate = _switchView(pages[0]);
+    }
+
+    function _toAbout() {
+      vm.currentTemplate = _switchView(pages[1]);
     }
   }
 
@@ -31,4 +52,4 @@
   ng.module('rhythemeModule')
     .controller('RhythemeController', RhythemeController);
 
-})(window.angular);
+})(window.angular, window._);
