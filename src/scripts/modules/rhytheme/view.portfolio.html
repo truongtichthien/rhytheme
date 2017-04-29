@@ -20,13 +20,21 @@
     </ul>
   </div>
   <div class="portfolio-list clearfix">
-    <div class="col-sm-6 col-md-3 portfolio-item"
-         ng-repeat="item in ['httk', 'blisk', 'dnn', 'pics']"
+    <div class="col-xs-offset-2 col-xs-8 col-sm-offset-0 col-sm-6 col-md-3 portfolio-item"
+         ng-repeat="item in [{name: 'httk', icon: 'fa fa-newspaper-o'}, {name: 'blisk', icon: 'glyphicon glyphicon-picture'},
+          {name: 'dnn', icon: 'glyphicon glyphicon-ok'}, {name: 'pics', icon: 'glyphicon glyphicon-picture'}]"
          ng-click="">
-      <div>
-        <img class="" src="../../../images/grain.png">
-      </div>
-      <h5 class="">{{ item }}</h5>
+      <a class="item-content" href
+         ng-click="">
+        <img class="item-img" src="../../../images/graphic-03-thumb11-480x360.jpg">
+        <div class="item-icon" ng-class="item.icon">&nbsp;</div>
+        <h5 class="item-caption">{{ item.name }}</h5>
+      </a>
     </div>
+  </div>
+  <div class="portfolio-discovery">
+    <button class="discovery-btn"
+            ng-click="">Browse All
+    </button>
   </div>
 </div>

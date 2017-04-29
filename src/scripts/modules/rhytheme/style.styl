@@ -13,11 +13,19 @@ textCenter()
 
 @font-face
   font-family 'Roboto Slab'
-  src /* IE9 Compat Modes */ url('../../../fonts/Roboto-Slab.eot') , /* IE6-IE8 */ url('../../../fonts/Roboto-Slab.eot?#iefix') format('embedded-opentype'), /* Safari, Android, iOS */ url('../../../fonts/Roboto-Slab.ttf') format('truetype'), /* Legacy iOS */ url('../../../fonts/Roboto-Slab.svg#Oswald') format('svg'), /* Modern Browsers */ url('../../../fonts/Roboto-Slab.woff') format('woff')
+  src /* IE9 Compat Modes */ url('../../../fonts/Roboto-Slab.eot') , /* IE6-IE8 */ url('../../../fonts/Roboto-Slab.eot?#iefix') format('embedded-opentype'), /* Safari, Android, iOS */ url('../../../fonts/Roboto-Slab.ttf') format('truetype'), /* Legacy iOS */ url('../../../fonts/Roboto-Slab.svg#roboto_slabregular') format('svg'), /* Modern Browsers */ url('../../../fonts/Roboto-Slab.woff') format('woff')
+
+@font-face
+  font-family 'Roboto Slab Bold'
+  src /* IE9 Compat Modes */ url('../../../fonts/Roboto-Slab-Bold.eot') , /* IE6-IE8 */ url('../../../fonts/Roboto-Slab-Bold.eot?#iefix') format('embedded-opentype'), /* Safari, Android, iOS */ url('../../../fonts/Roboto-Slab-Bold.ttf') format('truetype'), /* Legacy iOS */ url('../../../fonts/Roboto-Slab-Bold.svg#roboto_slabbold') format('svg'), /* Modern Browsers */ url('../../../fonts/Roboto-Slab-Bold.woff') format('woff')
 
 @font-face
   font-family 'Oswald'
   src /* IE9 Compat Modes */ url('../../../fonts/Oswald-Latin.eot') , /* IE6-IE8 */ url('../../../fonts/Oswald-Latin.eot?#iefix') format('embedded-opentype'), /* Safari, Android, iOS */ url('../../../fonts/Oswald-Latin.ttf') format('truetype'), /* Legacy iOS */ url('../../../fonts/Oswald-Latin.svg#Oswald') format('svg'), /* Modern Browsers */ url('../../../fonts/Oswald-Latin.woff') format('woff'), /* Super Modern Browsers */ url('../../../fonts/Oswald-Latin.woff2') format('woff2')
+
+@font-face
+  font-family 'Oswald Bold'
+  src /* Super Modern Browsers */ url('../../../fonts/Oswald-Latin-Bold.woff2') format('woff2')
 
 // common used style
 body
@@ -27,8 +35,8 @@ body
 .app-container
   max-width 960px
   margin 0 auto
-  padding-left 15px
-  padding-right 15px
+  padding-left 10px
+  padding-right 10px
 
 .dashed-line
   margin 0
@@ -49,7 +57,7 @@ body
 .app-main
 .app-footer
   position relative
-  padding 30px 0
+  padding 24px 0
 
 // specific used style
 .app-header
@@ -84,7 +92,7 @@ body
         display inline-block
         margin-top 2px
         position relative
-        transition margin-top 0.1s ease
+        transition margin-top 0.2s ease
         text-shadow 0 3px 3px rgba(0, 0, 0, 0.2)
         &:hover
           margin-top 0
@@ -94,7 +102,7 @@ body
         &.active:after
           content '...'
           position absolute
-          /*todo - add some movements to triple dots*/
+    /*todo - add some movements to triple dots*/
 
     .app-logo
       float left
@@ -111,7 +119,7 @@ body
 
 .app-main
   z-index 1
-  height 1000px
+  min-height 1000px
   margin-top 130px
   backgroundImg(#e6e1d0)
 
@@ -128,8 +136,8 @@ body
     textCenter()
     text-transform uppercase
     text-shadow 1px 2px #fcfaf7, 3px 4px #484a4d
-    margin-top 12px
-    margin-bottom 5px
+    margin-top 16px
+    margin-bottom 6px
 
   .section-subtitle
     textCenter()
@@ -163,11 +171,11 @@ body
 .section-portfolio
   .portfolio-filter
     display flex
-    margin-top 16px
-    margin-bottom 16px
+    margin-top 24px
+    margin-bottom 6px
 
     .filter-label
-      margin-right 10px
+      margin-right 8px
       font-size 16px
 
     .filter-tag-container
@@ -180,10 +188,11 @@ body
         position relative
         color #383a3c
         cursor pointer
+        font-family 'Roboto Slab Bold'
         font-size 12px
         line-height 16px
         background #fcfaf7
-        padding 4px 8px 4px 10px
+        padding 4px 8px
         margin-left 12px
         margin-right 9px
         border-top-right-radius 3px
@@ -209,5 +218,76 @@ body
           background #959ca3
 
   .portfolio-list
-    margin-left -15px
-    margin-right -15px
+    margin-left -10px
+    margin-right -10px
+    margin-bottom 16px
+
+    .portfolio-item
+      padding 0 10px
+      margin-bottom 20px
+
+      .item-content
+        display block
+        position relative
+        background #fcfaf7
+        color #383a3c
+        border 4px transparent solid
+        border-radius 3px
+        box-shadow 0 1px 2px 1px rgba(0, 0, 0, 0.25)
+        &:hover
+          text-decoration none
+
+          .item-icon
+            top -18px
+
+        .item-img
+          width 100%
+
+        .item-icon
+          display block
+          position relative
+          top -12px
+          margin 0 auto
+          background #fcfaf7
+          color #828c8e
+          width 44px
+          height 44px
+          border-radius 50%
+          transition top 0.2s ease
+          &:before
+            position absolute
+            top 12px
+            left 12px
+            font-size 20px
+
+        .item-caption
+          textCenter()
+          font-size 12px
+          font-weight bold
+          text-transform uppercase
+          margin -12px 0 10px
+
+  .portfolio-discovery
+    textCenter()
+    margin-bottom 20px
+
+    .discovery-btn
+      background transparent
+      border 0
+      outline 0
+      text-transform uppercase
+      font-family 'Oswald Bold'
+      padding 6px 0
+      position relative
+      &:before
+        content ''
+        position absolute
+        top 0
+        left 0
+        right 0
+        height 2px
+        background #383a3c
+        transform scaleX(0.6)
+        transition transform 0.3s ease
+      &:hover:before
+        transform scaleX(1)
