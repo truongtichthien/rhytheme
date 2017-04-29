@@ -7,6 +7,9 @@ backgroundImg(hex)
 textCenter()
   text-align center
 
+headerHeight = 130px
+footerHeight = 68px
+
 @font-face
   font-family Bazar
   src url('../../../fonts/Bazar.woff') format('woff')
@@ -28,9 +31,17 @@ textCenter()
   src /* Super Modern Browsers */ url('../../../fonts/Oswald-Latin-Bold.woff2') format('woff2')
 
 // common used style
+html
+body
+.rhytheme-app
+  height 100%
+
 body
   color #383a3c
   font-family 'Roboto Slab'
+
+.rhytheme-app
+  padding-top headerHeight
 
 .app-container
   max-width 960px
@@ -63,7 +74,7 @@ body
 .app-header
   backgroundImg(#e68966)
   box-shadow 0 0 5px rgba(0, 0, 0, 0.25)
-  height 130px
+  height headerHeight
   position fixed
   top 0
   left 0
@@ -107,25 +118,30 @@ body
     .app-logo
       float left
       flex 1
-      height 130px
+      height headerHeight
       position relative
       z-index 89
 
       .logo
-        margin-top -30px
+        margin-top - 30px
         transition margin-top 0.2s ease
         &:hover
           margin-top 0
 
 .app-main
   z-index 1
-  min-height 1000px
-  margin-top 130px
+  min-height 100%
+  margin-bottom - footerHeight
   backgroundImg(#e6e1d0)
+  &:after
+    content ''
+    display block
+    height 44px
 
 .app-footer
   backgroundImg(#4c5057)
   color #ddd
+  z-index 2
 
 .section-heading
   padding-bottom 16px
@@ -218,8 +234,8 @@ body
           background #959ca3
 
   .portfolio-list
-    margin-left -10px
-    margin-right -10px
+    margin-left - 10px
+    margin-right - 10px
     margin-bottom 16px
 
     .portfolio-item
@@ -238,7 +254,7 @@ body
           text-decoration none
 
           .item-icon
-            top -18px
+            top - 18px
 
         .item-img
           width 100%
@@ -246,7 +262,7 @@ body
         .item-icon
           display block
           position relative
-          top -12px
+          top - 12px
           margin 0 auto
           background #fcfaf7
           color #828c8e
@@ -265,7 +281,7 @@ body
           font-size 12px
           font-weight bold
           text-transform uppercase
-          margin -12px 0 10px
+          margin - 12px 0 10px
 
   .portfolio-discovery
     textCenter()

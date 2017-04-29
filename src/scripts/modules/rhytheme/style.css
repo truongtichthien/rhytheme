@@ -18,9 +18,17 @@
   font-family: 'Oswald Bold';
   src: /* Super Modern Browsers */ url("../../../fonts/Oswald-Latin-Bold.woff2") format('woff2');
 }
+html,
+body,
+.rhytheme-app {
+  height: 100%;
+}
 body {
   color: #383a3c;
   font-family: 'Roboto Slab';
+}
+.rhytheme-app {
+  padding-top: 130px;
 }
 .app-container {
   max-width: 960px;
@@ -138,13 +146,19 @@ body {
 }
 .app-main {
   z-index: 1;
-  min-height: 1000px;
-  margin-top: 130px;
+  min-height: 100%;
+  margin-bottom: -68px;
   background: #e6e1d0 url("../../../images/grain.png");
+}
+.app-main:after {
+  content: '';
+  display: block;
+  height: 44px;
 }
 .app-footer {
   background: #4c5057 url("../../../images/grain.png");
   color: #ddd;
+  z-index: 2;
 }
 .section-heading {
   padding-bottom: 16px;
