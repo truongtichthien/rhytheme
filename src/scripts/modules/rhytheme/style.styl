@@ -42,6 +42,7 @@ body
 
 .rhytheme-app
   padding-top headerHeight
+  padding-bottom footerHeight
 
 .app-container
   max-width 960px
@@ -131,17 +132,13 @@ body
 .app-main
   z-index 1
   min-height 100%
-  margin-bottom - footerHeight
   backgroundImg(#e6e1d0)
-  &:after
-    content ''
-    display block
-    height 44px
 
 .app-footer
   backgroundImg(#4c5057)
   color #ddd
   z-index 2
+  margin-bottom - footerHeight
 
 .section-heading
   padding-bottom 16px
@@ -249,7 +246,7 @@ body
         color #383a3c
         border 4px transparent solid
         border-radius 3px
-        box-shadow 0 1px 2px 1px rgba(0, 0, 0, 0.25)
+        box-shadow 0 1px 2px rgba(0, 0, 0, 0.25)
         &:hover
           text-decoration none
 
@@ -285,7 +282,7 @@ body
 
   .portfolio-discovery
     textCenter()
-    margin-bottom 20px
+    margin-bottom 26px
 
     .discovery-btn
       background transparent
@@ -293,7 +290,7 @@ body
       outline 0
       text-transform uppercase
       font-family 'Oswald Bold'
-      padding 6px 0
+      padding 6px 0 0
       position relative
       &:before
         content ''
