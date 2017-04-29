@@ -290,6 +290,7 @@ body {
 }
 .section-portfolio .portfolio-list .portfolio-item .item-content .item-img {
   width: 100%;
+  min-height: 159px;
 }
 .section-portfolio .portfolio-list .portfolio-item .item-content .item-icon {
   display: block;

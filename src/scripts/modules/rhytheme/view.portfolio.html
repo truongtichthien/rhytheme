@@ -1,11 +1,11 @@
 <div id="sectionPortfolio" class="section-portfolio">
   <div class="section-heading">
-    <h2 class="section-title">Rhytheme</h2>
+    <h2 class="section-title">{{ rhytheme.portfolio.title }}</h2>
     <div class="section-separator">
       <span class="solid-line">×××</span>
     </div>
     <div class="section-subtitle">
-      Do small things with great love
+      {{ rhytheme.portfolio.subtitle }}
     </div>
   </div>
   <div class="portfolio-filter">
@@ -13,20 +13,19 @@
       Filter by</span>
     <ul class="filter-tag-container">
       <li class="filter-tag"
-          ng-repeat="item in ['all', 'angularJs','html','css']"
+          ng-repeat="tag in rhytheme.portfolio.filterTag"
           ng-click="">
-        <span>{{ item }}</span>
+        <span>{{ tag }}</span>
       </li>
     </ul>
   </div>
   <div class="portfolio-list clearfix">
     <div class="col-xs-offset-2 col-xs-8 col-sm-offset-0 col-sm-6 col-md-3 portfolio-item"
-         ng-repeat="item in [{name: 'httk', icon: 'fa fa-newspaper-o'}, {name: 'blisk', icon: 'glyphicon glyphicon-picture'},
-          {name: 'dnn', icon: 'glyphicon glyphicon-ok'}, {name: 'pics', icon: 'glyphicon glyphicon-picture'}]"
+         ng-repeat="item in rhytheme.portfolio.list"
          ng-click="">
       <a class="item-content" href
          ng-click="">
-        <img class="item-img" src="../../../images/graphic-03-thumb11-480x360.jpg">
+        <img class="item-img" ng-src="{{ item.img }}">
         <div class="item-icon" ng-class="item.icon">&nbsp;</div>
         <h5 class="item-caption">{{ item.name }}</h5>
       </a>
@@ -34,7 +33,7 @@
   </div>
   <div class="portfolio-discovery">
     <button class="discovery-btn"
-            ng-click="">Browse All
+            ng-click="">{{ rhytheme.portfolio.browseBtn }}
     </button>
   </div>
 </div>

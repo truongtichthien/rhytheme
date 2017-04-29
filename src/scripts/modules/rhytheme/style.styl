@@ -4,9 +4,6 @@
 backgroundImg(hex)
   background hex url('../../../images/grain.png')
 
-textCenter()
-  text-align center
-
 headerHeight = 130px
 footerHeight = 68px
 
@@ -86,7 +83,7 @@ body
   .app-navbar
     padding 0
     margin 0
-    textCenter()
+    text-align center
     list-style none
     display flex
 
@@ -140,26 +137,27 @@ body
   z-index 2
   margin-bottom - footerHeight
 
+// style for each specific sections
 .section-heading
   padding-bottom 16px
 
   .section-title
     font-size 90px
     font-family Bazar
-    textCenter()
+    text-align center
     text-transform uppercase
     text-shadow 1px 2px #fcfaf7, 3px 4px #484a4d
     margin-top 16px
     margin-bottom 6px
 
   .section-subtitle
-    textCenter()
+    text-align center
     font-family Oswald
     text-transform uppercase
     font-size 16px
 
   .section-separator
-    textCenter()
+    text-align center
     font-size 24px
     line-height 24px
 
@@ -255,6 +253,7 @@ body
 
         .item-img
           width 100%
+          min-height 159px
 
         .item-icon
           display block
@@ -274,14 +273,14 @@ body
             font-size 20px
 
         .item-caption
-          textCenter()
+          text-align center
           font-size 12px
           font-weight bold
           text-transform uppercase
           margin - 12px 0 10px
 
   .portfolio-discovery
-    textCenter()
+    text-align center
     margin-bottom 26px
 
     .discovery-btn

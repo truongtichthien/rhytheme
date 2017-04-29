@@ -5,7 +5,7 @@
 (function (ng, _) {
   'use strict';
 
-  function RhythemeController() {
+  function RhythemeController(portfolio) {
     /** variable definition */
     var vm = this,
       pages = ['portfolio', 'about'],
@@ -28,6 +28,8 @@
         template[p] = 'scripts/modules/rhytheme/view.' + p + '.html';
         view[p] = false;
       });
+
+      portfolio.decorate(vm).init();
     }
 
     function _switchView(page) {
@@ -47,7 +49,7 @@
     }
   }
 
-  RhythemeController.$inject = [];
+  RhythemeController.$inject = ['portfolioDecorator'];
 
   ng.module('rhythemeModule')
     .controller('RhythemeController', RhythemeController);
