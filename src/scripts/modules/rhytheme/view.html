@@ -8,7 +8,7 @@
       <li class="menu-item">
         <a class="link" href
            ng-click="rhytheme.toPortfolio()"
-           ng-class="{ active: rhytheme.view.portfolio }">Rhytheme</a>
+           ng-class="{ active: rhytheme.view.portfolio }">{{ rhytheme.portfolio.title }}</a>
       </li>
       <!--app logo-->
       <li class="app-logo">
@@ -23,7 +23,7 @@
       <li class="menu-item">
         <a class="link" href
            ng-click="rhytheme.toAbout()"
-           ng-class="{ active: rhytheme.view.about }">About Me</a>
+           ng-class="{ active: rhytheme.view.about }">{{ rhytheme.about.title }}</a>
       </li>
     </ul>
   </div>
@@ -50,8 +50,8 @@
   <hr class="top dashed-line">
   <!--footer view-->
   <div class="app-container">
-    footer content
+    2017 &copy; Based on
+    <a target="_blank" href="http://themes.opendept.net/retro-portfolio-4/">Retro Portfolio</a> by
+    <a target="_blank" href="http://opendept.net/">Opendept</a>
   </div>
-  <!--bottom dashed line-->
-  <hr class="bottom dashed-line">
 </footer><!--end app footer-->

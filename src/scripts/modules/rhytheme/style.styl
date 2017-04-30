@@ -1,11 +1,14 @@
 @import '../../../../node_modules/nib'
 
-//function definition
+//variables & functions definition
+headerHeight = 100px
+footerHeight = 56px
+mainColor = #383a3c
+offset1 = 8.33333333%
+offset2 = 16.66666667%
+
 backgroundImg(hex)
   background hex url('../../../images/grain.png')
-
-headerHeight = 130px
-footerHeight = 68px
 
 @font-face
   font-family Bazar
@@ -34,7 +37,7 @@ body
   height 100%
 
 body
-  color #383a3c
+  color mainColor
   font-family 'Roboto Slab'
 
 .rhytheme-app
@@ -44,8 +47,8 @@ body
 .app-container
   max-width 960px
   margin 0 auto
-  padding-left 10px
-  padding-right 10px
+  padding-left 16px
+  padding-right 16px
 
 .dashed-line
   margin 0
@@ -90,7 +93,7 @@ body
     .menu-item
       float left
       width 20%
-      padding 46px 0
+      padding 30px 0
       font-family Bazar
       font-size 27px
       text-transform uppercase
@@ -103,15 +106,18 @@ body
         position relative
         transition margin-top 0.2s ease
         text-shadow 0 3px 3px rgba(0, 0, 0, 0.2)
+
         &:hover
           margin-top 0
           text-decoration none
+
         &:focus
           text-decoration none
+
         &.active:after
           content '...'
           position absolute
-    /*todo - add some movements to triple dots*/
+    /*todo-add some movements to triple dots*/
 
     .app-logo
       float left
@@ -121,7 +127,7 @@ body
       z-index 89
 
       .logo
-        margin-top - 30px
+        margin-top -30px
         transition margin-top 0.2s ease
         &:hover
           margin-top 0
@@ -135,7 +141,8 @@ body
   backgroundImg(#4c5057)
   color #ddd
   z-index 2
-  margin-bottom - footerHeight
+  text-align center
+  padding-bottom 12px
 
 // style for each specific sections
 .section-heading
@@ -165,16 +172,19 @@ body
       position relative
       display inline-block
       width 45px
+
       &:before
       &:after
         content ''
         width 45px
         position absolute
         top 11px
-        border-bottom 2px #383a3c solid
+        border-bottom 2px mainColor solid
+
       &:before
         right 100%
         margin-right 5px
+
       &:after
         left 100%
         margin-left 5px
@@ -197,7 +207,7 @@ body
       .filter-tag
         display inline-block
         position relative
-        color #383a3c
+        color mainColor
         cursor pointer
         font-family 'Roboto Slab Bold'
         font-size 12px
@@ -209,9 +219,11 @@ body
         border-top-right-radius 3px
         border-bottom-right-radius 3px
         box-shadow 1px 1px 1px rgba(0, 0, 0, 0.2)
+
         &:before
         &:after
           content ''
+
         &:before
           position absolute
           top 0
@@ -219,6 +231,7 @@ body
           border-color transparent #fcfaf7 transparent transparent
           border-width 12px 12px 12px 0
           border-style solid
+
         &:after
           position absolute
           width 4px
@@ -229,9 +242,7 @@ body
           background #959ca3
 
   .portfolio-list
-    margin-left - 10px
-    margin-right - 10px
-    margin-bottom 16px
+    margin 0 -10px 16px
 
     .portfolio-item
       padding 0 10px
@@ -241,10 +252,11 @@ body
         display block
         position relative
         background #fcfaf7
-        color #383a3c
+        color mainColor
         border 4px transparent solid
         border-radius 3px
         box-shadow 0 1px 1px rgba(0, 0, 0, 0.25)
+
         &:before
         &:after
           content ''
@@ -253,19 +265,22 @@ body
           bottom 12px
           width 50%
           height 15px
-          box-shadow 0 15px 10px rgba(0, 0, 0, 0.25)
+          border-radius 4px
+          box-shadow 0 15px 5px rgba(0, 0, 0, 0.25)
+
         &:before
-          left 2px
+          left 0
           transform: rotate(-4deg);
+
         &:after
-          right 2px
+          right 0
           transform: rotate(4deg);
 
         &:hover
           text-decoration none
 
           .item-icon
-            top - 18px
+            top -18px
 
         .item-img
           width 100%
@@ -274,7 +289,7 @@ body
         .item-icon
           display block
           position relative
-          top - 12px
+          top -12px
           margin 0 auto
           background #fcfaf7
           color #828c8e
@@ -282,6 +297,7 @@ body
           height 44px
           border-radius 50%
           transition top 0.2s ease
+
           &:before
             position absolute
             top 12px
@@ -293,7 +309,7 @@ body
           font-size 12px
           font-weight bold
           text-transform uppercase
-          margin - 12px 0 10px
+          margin -12px 0 10px
 
   .portfolio-discovery
     text-align center
@@ -307,6 +323,7 @@ body
       font-family 'Oswald Bold'
       padding 6px 0 0
       position relative
+
       &:before
         content ''
         position absolute
@@ -314,8 +331,72 @@ body
         left 0
         right 0
         height 2px
-        background #383a3c
+        background mainColor
         transform scaleX(0.6)
         transition transform 0.3s ease
+
       &:hover:before
         transform scaleX(1)
+
+.section-about
+  .about-content
+    margin 24px -10px 16px
+
+    .about-row
+      display flex
+      padding 0 10px
+
+      .about-block
+        flex 1
+        position relative
+        padding 0 20px
+        margin-bottom 20px
+        border-left 2px mainColor solid
+
+        &:nth-child(even)
+          margin-left 8.33333333%
+          text-align justify
+
+        &:before
+          content ''
+          position absolute
+          top 0
+          bottom 0
+          left -6px
+          width 2px
+          background mainColor
+
+        .block-title
+          margin-top 0
+          //margin-bottom 32px
+          font-size 16px
+          font-family Bazar
+          text-transform uppercase
+
+          .marked
+            color #ad4d32
+            font-size 24px
+
+        .paragraph
+          display flex
+          align-items center
+
+          .icon
+            min-width 32px
+            font-size 28px
+
+          .text
+            flex 1
+            margin-left 15px
+
+            .marked
+              font-family 'Oswald Bold'
+
+@media (max-width 768px)
+  .section-about
+    .about-content
+      .about-row
+        display block
+
+        .about-block
+          margin 0 8.33333333%
