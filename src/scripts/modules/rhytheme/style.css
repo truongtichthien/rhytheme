@@ -60,14 +60,14 @@ body {
 }
 .app-header {
   background: #e68966 url("../../../images/grain.png");
-  -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.25);
-  box-shadow: 0 0 5px rgba(0,0,0,0.25);
   height: 130px;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 88;
+  -webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.25);
+  box-shadow: 0 1px 5px rgba(0,0,0,0.25);
   border-bottom: 1px solid rgba(0,0,0,0.15);
 }
 .app-header .app-navbar {
@@ -279,8 +279,35 @@ body {
   color: #383a3c;
   border: 4px transparent solid;
   border-radius: 3px;
-  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.25);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.25);
+  box-shadow: 0 1px 1px rgba(0,0,0,0.25);
+}
+.section-portfolio .portfolio-list .portfolio-item .item-content:before,
+.section-portfolio .portfolio-list .portfolio-item .item-content:after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  bottom: 12px;
+  width: 50%;
+  height: 15px;
+  -webkit-box-shadow: 0 15px 10px rgba(0,0,0,0.25);
+  box-shadow: 0 15px 10px rgba(0,0,0,0.25);
+}
+.section-portfolio .portfolio-list .portfolio-item .item-content:before {
+  left: 2px;
+  -webkit-transform: rotate(-4deg);
+  -moz-transform: rotate(-4deg);
+  -o-transform: rotate(-4deg);
+  -ms-transform: rotate(-4deg);
+  transform: rotate(-4deg);
+}
+.section-portfolio .portfolio-list .portfolio-item .item-content:after {
+  right: 2px;
+  -webkit-transform: rotate(4deg);
+  -moz-transform: rotate(4deg);
+  -o-transform: rotate(4deg);
+  -ms-transform: rotate(4deg);
+  transform: rotate(4deg);
 }
 .section-portfolio .portfolio-list .portfolio-item .item-content:hover {
   text-decoration: none;
