@@ -1,5 +1,5 @@
 @font-face {
-  font-family: Bazar;
+  font-family: 'Bazar';
   src: url("../../../fonts/Bazar.woff") format('woff');
 }
 @font-face {
@@ -87,7 +87,7 @@ body {
   float: left;
   width: 20%;
   padding: 30px 0;
-  font-family: Bazar;
+  font-family: 'Bazar';
   font-size: 27px;
   text-transform: uppercase;
   -webkit-box-flex: 2;
@@ -135,7 +135,7 @@ body {
   z-index: 89;
 }
 .app-header .app-navbar .app-logo .logo {
-  margin-top: -30px;
+  margin-top: -20px;
   -webkit-transition: margin-top 0.2s ease;
   -moz-transition: margin-top 0.2s ease;
   -o-transition: margin-top 0.2s ease;
@@ -152,17 +152,23 @@ body {
 }
 .app-footer {
   background: #4c5057 url("../../../images/grain.png");
-  color: #ddd;
+  color: #f6edd8;
   z-index: 2;
   text-align: center;
   padding-bottom: 12px;
+}
+.app-footer .link {
+  color: #f6edd8;
+}
+.app-footer .link:hover {
+  text-decoration: underline dotted;
 }
 .section-heading {
   padding-bottom: 16px;
 }
 .section-heading .section-title {
   font-size: 90px;
-  font-family: Bazar;
+  font-family: 'Bazar';
   text-align: center;
   text-transform: uppercase;
   text-shadow: 1px 2px #fcfaf7, 3px 4px #484a4d;
@@ -410,13 +416,11 @@ body {
   position: relative;
   padding: 0 20px;
   margin-bottom: 20px;
+}
+.section-about .about-content .about-row .about-block.left-border {
   border-left: 2px #383a3c solid;
 }
-.section-about .about-content .about-row .about-block:nth-child(even) {
-  margin-left: 8.33333333%;
-  text-align: justify;
-}
-.section-about .about-content .about-row .about-block:before {
+.section-about .about-content .about-row .about-block.left-border:before {
   content: '';
   position: absolute;
   top: 0;
@@ -425,17 +429,23 @@ body {
   width: 2px;
   background: #383a3c;
 }
+.section-about .about-content .about-row .about-block.justify {
+  text-align: justify;
+}
+.section-about .about-content .about-row .about-block:nth-child(even) {
+  margin-left: 8.33333333%;
+}
 .section-about .about-content .about-row .about-block .block-title {
-  margin-top: 0;
+  margin-top: 5px;
   font-size: 16px;
-  font-family: Bazar;
+  font-family: 'Bazar';
   text-transform: uppercase;
 }
-.section-about .about-content .about-row .about-block .block-title .marked {
+.section-about .about-content .about-row .about-block .block-title .highlighted {
   color: #ad4d32;
   font-size: 24px;
 }
-.section-about .about-content .about-row .about-block .paragraph {
+.section-about .about-content .about-row .about-block .paragraph.with-icon {
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -449,9 +459,21 @@ body {
   -webkit-align-items: center;
   align-items: center;
 }
+.section-about .about-content .about-row .about-block .paragraph.quote {
+  font-family: 'Oswald';
+  font-size: 16px;
+  font-style: italic;
+}
+.section-about .about-content .about-row .about-block .paragraph:first-child {
+  margin-top: 7px;
+}
 .section-about .about-content .about-row .about-block .paragraph .icon {
   min-width: 32px;
-  font-size: 28px;
+  max-height: 28px;
+  font-size: 24px;
+}
+.section-about .about-content .about-row .about-block .paragraph .icon.fa-skype {
+  font-size: 32px;
 }
 .section-about .about-content .about-row .about-block .paragraph .text {
   -webkit-box-flex: 1;
@@ -461,9 +483,15 @@ body {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  margin-left: 15px;
+  margin-left: 6px;
 }
-.section-about .about-content .about-row .about-block .paragraph .text .marked {
+.section-about .about-content .about-row .about-block .paragraph .text .link {
+  color: #383a3c;
+}
+.section-about .about-content .about-row .about-block .paragraph .text .link:hover {
+  text-decoration: underline dotted;
+}
+.section-about .about-content .about-row .bolder {
   font-family: 'Oswald Bold';
 }
 @media (max-width: 768px) {

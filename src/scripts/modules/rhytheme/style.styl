@@ -11,7 +11,7 @@ backgroundImg(hex)
   background hex url('../../../images/grain.png')
 
 @font-face
-  font-family Bazar
+  font-family 'Bazar'
   src url('../../../fonts/Bazar.woff') format('woff')
 
 @font-face
@@ -94,7 +94,7 @@ body
       float left
       width 20%
       padding 30px 0
-      font-family Bazar
+      font-family 'Bazar'
       font-size 27px
       text-transform uppercase
       flex 2
@@ -127,7 +127,7 @@ body
       z-index 89
 
       .logo
-        margin-top -30px
+        margin-top -20px
         transition margin-top 0.2s ease
         &:hover
           margin-top 0
@@ -139,10 +139,16 @@ body
 
 .app-footer
   backgroundImg(#4c5057)
-  color #ddd
+  color #f6edd8
   z-index 2
   text-align center
   padding-bottom 12px
+
+  .link
+    color #f6edd8
+
+    &:hover
+      text-decoration underline dotted
 
 // style for each specific sections
 .section-heading
@@ -150,7 +156,7 @@ body
 
   .section-title
     font-size 90px
-    font-family Bazar
+    font-family 'Bazar'
     text-align center
     text-transform uppercase
     text-shadow 1px 2px #fcfaf7, 3px 4px #484a4d
@@ -351,46 +357,67 @@ body
         position relative
         padding 0 20px
         margin-bottom 20px
-        border-left 2px mainColor solid
+
+        &.left-border
+          border-left 2px mainColor solid
+
+          &:before
+            content ''
+            position absolute
+            top 0
+            bottom 0
+            left -6px
+            width 2px
+            background mainColor
+
+        &.justify
+          text-align justify
 
         &:nth-child(even)
           margin-left 8.33333333%
-          text-align justify
-
-        &:before
-          content ''
-          position absolute
-          top 0
-          bottom 0
-          left -6px
-          width 2px
-          background mainColor
 
         .block-title
-          margin-top 0
-          //margin-bottom 32px
+          margin-top 5px
           font-size 16px
-          font-family Bazar
+          font-family 'Bazar'
           text-transform uppercase
 
-          .marked
+          .highlighted
             color #ad4d32
             font-size 24px
 
         .paragraph
-          display flex
-          align-items center
+          &.with-icon
+            display flex
+            align-items center
+          &.quote
+            font-family 'Oswald'
+            font-size 16px
+            font-style italic
+
+          &:first-child
+            margin-top 7px
 
           .icon
             min-width 32px
-            font-size 28px
+            max-height 28px
+            font-size 24px
+
+            &.fa-skype
+              font-size 32px
 
           .text
             flex 1
-            margin-left 15px
+            margin-left 6px
 
-            .marked
-              font-family 'Oswald Bold'
+            .link
+              color mainColor
+
+              &:hover
+                text-decoration underline dotted
+
+      .bolder
+        font-family 'Oswald Bold'
 
 @media (max-width 768px)
   .section-about

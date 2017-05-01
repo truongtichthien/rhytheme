@@ -20,8 +20,7 @@
 
     /** function execution */
     _initModel();
-    // _toPortfolio();
-    _toAbout();
+    _toPortfolio();
 
     /** function definition */
     function _initModel() {
