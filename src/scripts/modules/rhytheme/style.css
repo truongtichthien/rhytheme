@@ -146,7 +146,6 @@ body {
   margin-top: 0;
 }
 .app-main {
-  z-index: 1;
   min-height: 100%;
   background: #e6e1d0 url("../../../images/grain.png");
 }
@@ -274,6 +273,7 @@ body {
   margin: 0 -10px 16px;
 }
 .section-portfolio .portfolio-list .portfolio-item {
+  z-index: 1;
   padding: 0 10px;
   margin-bottom: 20px;
 }

@@ -27,6 +27,9 @@
   // ng.module('rhythemeModule', ['ngRoute'])
   //   .config(appConfig);
 
-  ng.module('rhythemeModule', []);
+  ng.module('rhythemeModule', [
+    // 'ngAnimate',
+    'tiComponentsModule'
+  ]);
 
 })(window.angular);

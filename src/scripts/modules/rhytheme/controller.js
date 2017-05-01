@@ -18,6 +18,11 @@
     vm.toPortfolio = _toPortfolio;
     vm.toAbout = _toAbout;
 
+    vm.panelModel = {
+      iconClass: 'custom-icon',
+      headerTitle: 'OV Full-screen Component by Thien Truong'
+    };
+
     /** function execution */
     _initModel();
     _toPortfolio();

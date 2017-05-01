@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7" ng-controller="MainCtrl as main">
+<html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7">
 <head>
   <base href="/">
   <meta charset="UTF-8">
@@ -11,22 +11,30 @@
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css"/>
+
+  <!--include tiComponents module's required files-->
+  <link rel="stylesheet" href="scripts/components/tiFullScreen/style.css">
+
+  <!--include rhytheme module's required files-->
   <link rel="stylesheet" href="scripts/modules/rhytheme/style.css">
 </head>
 <body ng-cloak="">
 
   <div rhytheme-app class="rhytheme-app"></div>
 
+  <!--include libraries required files-->
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="bower_components/lodash/dist/lodash.min.js"></script>
 
+  <!--include angularjs framework's required files-->
   <script src="bower_components/angular/angular.min.js"></script>
   <script src="bower_components/angular-route/angular-route.min.js"></script>
   <script src="bower_components/angular-animate/angular-animate.min.js"></script>
 
-  <!--bootstrap module-->
-  <script src="scripts/app.index.js"></script>
+  <!--include tiComponents module's required files-->
+  <script src="scripts/modules/tiComponents/config.js"></script>
+  <script src="scripts/components/tiFullScreen/directive.js"></script>
 
   <!--include rhytheme module's required files-->
   <script src="scripts/modules/rhytheme/config.js"></script>
@@ -35,7 +43,8 @@
   <script src="scripts/modules/rhytheme/decorator.portfolio.js"></script>
   <script src="scripts/modules/rhytheme/decorator.about.js"></script>
 
-  <script src="scripts/controllers/mainCtrl.js"></script>
-  <script src="scripts/controllers/pageOneCtrl.js"></script>
+  <!--bootstrap module-->
+  <script src="scripts/app.index.js"></script>
+
 </body>
 </html>

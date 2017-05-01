@@ -40,6 +40,20 @@
        ng-include="rhytheme.currentTemplate">
     <!--main content-->
   </div>
+
+  <div class="app-container panel panel-default ov-full-screen-anchor">
+    <div class="panel-heading">
+      abc
+      <div ti-full-screen></div>
+    </div>
+    <div class="panel-body"></div>
+    <div class="panel-footer">
+      <button class="btn btn-xs btn-default"
+              ng-click="rhytheme.panelModel.api.exitFullScreen()">Exit full-screen
+      </button>
+    </div>
+  </div>
+
   <!--bottom dashed line-->
   <hr class="bottom dashed-line">
 </main><!--end app main-->

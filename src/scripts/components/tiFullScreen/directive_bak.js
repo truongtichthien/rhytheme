@@ -1,7 +1,3 @@
-/**
- * Created by ThienTruong
- */
-
 (function (ng) {
   'use strict';
 
@@ -32,64 +28,63 @@
         height: 0
       };
 
-    documentElement = ng.element($document);
+    /** *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+     * the MOST IMPORTANT thing is finding the HTML element containing 'anchor' class */
+    anchorElement = _findAnchorElement();
+    /** *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=* */
 
-    documentElement.ready(function () {
-      /** *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
-       * the MOST IMPORTANT thing is finding the HTML element containing 'anchor' class */
-      anchorElement = _findAnchorElement();
-      /** *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=* */
+    if (anchorElement) {
+      documentElement = ng.element($document);
+      windowElement = ng.element($window);
+      bodyElement = ng.element('body');
 
-      if (anchorElement) {
-        windowElement = ng.element($window);
-        bodyElement = ng.element('body');
+      _calculateViewPortDimension();
+      _calculateElementDimension(anchorElement);
 
-        _calculateViewPortDimension();
-        _calculateElementDimension(anchorElement);
+      scope.vm = {
+        enterFullScreen: _enterFullScreen,
+        exitFullScreen: _exitFullScreen,
+        fullScreenIsOpen: false,
+        iconClass: scope.ovFullScreen.iconClass || '',
+        headerTitle: scope.ovFullScreen.headerTitle || ''
+      };
 
-        scope.vm = {
-          enterFullScreen: _enterFullScreen,
-          exitFullScreen: _exitFullScreen,
-          fullScreenIsOpen: false,
-          iconClass: scope.ovFullScreen.iconClass || '',
-          headerTitle: scope.ovFullScreen.headerTitle || ''
-        };
+      /** define which functions could be only referred from the outside controller */
+      scope.ovFullScreen.api = {
+        exitFullScreen: _exitFullScreen
+      };
 
-        /** define which functions could be only referred from the outside controller */
-        scope.ovFullScreen.api = {
-          exitFullScreen: _exitFullScreen
-        };
 
-        /** bind $event resize to $window */
-        windowElement.on('resize', _.debounce(
-          function () {
-            if (!scope.vm.fullScreenIsOpen) {
-              _calculateViewPortDimension();
-              _calculateElementDimension(anchorElement);
-            } else {
-              _calculateViewPortDimension();
-              _calculateElementDimension(imitatedElement);
 
-              /** update backdrop position for scaling out */
-              backdropElement
-                .css({
-                  top: (anchorEleDimension.top - 20) + 'px',
-                  left: (anchorEleDimension.left - 10) + 'px',
-                  width: (anchorEleDimension.width + 20) + 'px',
-                  height: (anchorEleDimension.height + 30) + 'px'
-                })
-            }
-          }, 100));
+      /** bind $event resize to $window */
+      windowElement.on('resize', _.debounce(
+        function () {
+          if (!scope.vm.fullScreenIsOpen) {
+            _calculateViewPortDimension();
+            _calculateElementDimension(anchorElement);
+          } else {
+            _calculateViewPortDimension();
+            _calculateElementDimension(imitatedElement);
 
-        /** unbind $event resize when leaving app */
-        scope.$on('$destroy', function () {
-          windowElement.off('resize');
-        });
-      }
-    });
+            /** update backdrop position for scaling out */
+            backdropElement
+              .css({
+                top: (anchorEleDimension.top - 20) + 'px',
+                left: (anchorEleDimension.left - 10) + 'px',
+                width: (anchorEleDimension.width + 20) + 'px',
+                height: (anchorEleDimension.height + 30) + 'px'
+              })
+          }
+        }, 100));
 
-    function _findParent(ele) {
-      var parent = ele.parent();
+      /** unbind $event resize when leaving app */
+      scope.$on('$destroy', function () {
+        windowElement.off('resize');
+      });
+    }
+
+    function _findParent(element) {
+      var parent = element.parent();
       var classList = parent[0].classList.value;
 
       if (classList.indexOf('ov-full-screen-anchor') >= 0 || parent[0].tagName === 'BODY') {
@@ -117,18 +112,17 @@
     }
 
     function _generateImitatedElement() {
-      var classList = anchorElement[0].classList.value.replace('ov-full-screen-anchor', '');
-      anchorElement.after('<div class="ov-full-screen-imitated-element ' + classList + '"></div>');
+      anchorElement.after('<div class="ov-full-screen-imitated-element"></div>');
 
       imitatedElement = ng.element('.ov-full-screen-imitated-element');
       imitatedElement
         .css({
-          // width: '100%',
-          height: anchorEleDimension.height
-          // 'margin-top': anchorEleMargin.top,
-          // 'margin-right': anchorEleMargin.right,
-          // 'margin-bottom': anchorEleMargin.bottom,
-          // 'margin-left': anchorEleMargin.left
+          width: '100%',
+          height: anchorEleDimension.height,
+          'margin-top': anchorEleMargin.top,
+          'margin-right': anchorEleMargin.right,
+          'margin-bottom': anchorEleMargin.bottom,
+          'margin-left': anchorEleMargin.left
         });
     }
 
@@ -137,19 +131,16 @@
       windowEleDimension.height = windowElement[0].innerHeight;
     }
 
-    function _calculateElementDimension(ele) {
-      anchorEleDimension.top = ele[0].offsetTop;
-      anchorEleDimension.left = ele[0].offsetLeft;
-      anchorEleDimension.width = ele[0].offsetWidth;
-      anchorEleDimension.height = ele[0].offsetHeight;
+    function _calculateElementDimension(element) {
+      anchorEleDimension.top = element[0].offsetTop;
+      anchorEleDimension.left = element[0].offsetLeft;
+      anchorEleDimension.width = element[0].offsetWidth;
+      anchorEleDimension.height = element[0].offsetHeight;
 
-      anchorEleMargin.top = Math.round(parseFloat(ele.css('margin-top').replace('px', '')));
-      anchorEleMargin.right = Math.round(parseFloat(ele.css('margin-right').replace('px', '')));
-      anchorEleMargin.bottom = Math.round(parseFloat(ele.css('margin-bottom').replace('px', '')));
-      anchorEleMargin.left = Math.round(parseFloat(ele.css('margin-left').replace('px', '')));
-
-      console.log(anchorEleDimension);
-      console.log(anchorEleMargin);
+      anchorEleMargin.top = parseInt(element.css('margin-top').replace('px', ''));
+      anchorEleMargin.right = parseInt(element.css('margin-right').replace('px', ''));
+      anchorEleMargin.bottom = parseInt(element.css('margin-bottom').replace('px', ''));
+      anchorEleMargin.left = parseInt(element.css('margin-left').replace('px', ''));
     }
 
     function _enterFullScreen() {
@@ -183,12 +174,11 @@
       anchorElement
         .css({
           position: 'fixed',
-          margin: 0,
           'z-index': 101,
           top: anchorEleDimension.top - anchorEleMargin.top,
           right: windowEleDimension.width - (anchorEleDimension.left + anchorEleDimension.width + anchorEleMargin.right),
           bottom: windowEleDimension.height - (anchorEleDimension.top + anchorEleDimension.height + anchorEleMargin.bottom),
-          left: anchorEleDimension.left/* + anchorEleMargin.left*/
+          left: anchorEleDimension.left - anchorEleMargin.left
         });
 
       /** bind $event keyDown to $document */
@@ -219,7 +209,6 @@
 
         anchorElement
           .css({
-            margin: '',
             top: anchorEleDimension.top - anchorEleMargin.top,
             right: windowEleDimension.width - (anchorEleDimension.left + anchorEleDimension.width + anchorEleMargin.right),
             bottom: windowEleDimension.height - (anchorEleDimension.top + anchorEleDimension.height + anchorEleMargin.bottom),
@@ -253,14 +242,13 @@
               left: ''
             });
 
-          /** execute resize() to re-calculate anchorEleDimension */
           windowElement.resize();
         }, 300);
       }
     }
 
     function _keyDownHandler(e) {
-      if (e.keyCode === 27) {// e.key === 'ESCAPE'
+      if (e.keyCode === 27) {// e.key === 'Escape'
         _exitFullScreen();
       }
     }
@@ -275,7 +263,7 @@
         ovFullScreen: '=?'
       },
       link: _link,
-      templateUrl: 'scripts/components/tiFullScreen/directive.html'
+      templateUrl: 'scripts/directives/ovFullScreen/ovFullScreen.directive.html'
     };
 
     function _link(scope, element) {
@@ -289,7 +277,6 @@
 
   ovFullScreenDirective.$inject = ['$document', '$window', '$timeout', '$compile'];
 
-  ng.module('tiFullScreenModule', [])
-    .directive('tiFullScreen', ovFullScreenDirective);
-
-})(window.angular);
+  angular.module('rhythemeModule')
+    .directive('ovFullScreen', ovFullScreenDirective);
+})(angular);
