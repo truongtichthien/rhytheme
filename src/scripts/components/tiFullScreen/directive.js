@@ -29,7 +29,8 @@
       },
       windowEleDimension = {
         width: 0,
-        height: 0
+        height: 0,
+        scrollTop: 0
       };
 
     documentElement = ng.element($document);
@@ -138,8 +139,10 @@
     }
 
     function _calculateElementDimension(ele) {
-      anchorEleDimension.top = ele[0].offsetTop;
-      anchorEleDimension.left = ele[0].offsetLeft;
+      /** notice: ele[0].offsetTop / offsetLeft ``` DEPRECATED
+       * use ele.offset().top / left -> jQlite function */
+      anchorEleDimension.top = ele.offset().top;
+      anchorEleDimension.left = ele.offset().left;
       anchorEleDimension.width = ele[0].offsetWidth;
       anchorEleDimension.height = ele[0].offsetHeight;
 
@@ -148,8 +151,8 @@
       anchorEleMargin.bottom = Math.round(parseFloat(ele.css('margin-bottom').replace('px', '')));
       anchorEleMargin.left = Math.round(parseFloat(ele.css('margin-left').replace('px', '')));
 
-      console.log(anchorEleDimension);
-      console.log(anchorEleMargin);
+      //      console.log(anchorEleDimension);
+      //      console.log(anchorEleMargin);
     }
 
     function _enterFullScreen() {
@@ -170,7 +173,8 @@
 
       bodyElement
         .append($compile('' +
-          '<div class="ov-full-screen-backdrop" style="' +
+          '<div class="ov-full-screen-backdrop'/* + anchorElement[0].classList.value.replace('ov-full-screen-anchor', '')*/ +
+          '" style="' +
           'top: ' + (anchorEleDimension.top - 20) + 'px;' +
           'left: ' + (anchorEleDimension.left - 10) + 'px;' +
           'width: ' + (anchorEleDimension.width + 20) + 'px;' +
@@ -183,12 +187,12 @@
       anchorElement
         .css({
           position: 'fixed',
-          margin: 0,
+          // margin: 0,
           'z-index': 101,
-          top: anchorEleDimension.top - anchorEleMargin.top,
+          top: anchorEleDimension.top - (anchorEleMargin.top + bodyElement[0].scrollTop),
           right: windowEleDimension.width - (anchorEleDimension.left + anchorEleDimension.width + anchorEleMargin.right),
-          bottom: windowEleDimension.height - (anchorEleDimension.top + anchorEleDimension.height + anchorEleMargin.bottom),
-          left: anchorEleDimension.left/* + anchorEleMargin.left*/
+          bottom: windowEleDimension.height - (anchorEleDimension.top - bodyElement[0].scrollTop + anchorEleDimension.height + anchorEleMargin.bottom),
+          left: anchorEleDimension.left - anchorEleMargin.left
         });
 
       /** bind $event keyDown to $document */
