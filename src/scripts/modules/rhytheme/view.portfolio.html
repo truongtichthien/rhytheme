@@ -20,14 +20,16 @@
     </ul>
   </div>
   <div class="portfolio-list clearfix">
-    <div class="col-xs-offset-2 col-xs-8 col-sm-offset-0 col-sm-6 col-md-3 portfolio-item"
+    <div class="col-xs-offset-2 col-xs-8 col-sm-offset-0 col-sm-6 col-md-3 portfolio-item ov-full-screen-anchor"
          ng-repeat="item in rhytheme.portfolio.list"
          ng-click="">
       <a class="item-content" href
          ng-click="">
         <img class="item-img" ng-src="{{ item.img }}" src="">
         <i class="item-icon" ng-class="item.icon"></i>
-        <h5 class="item-caption">{{ item.name }}</h5>
+        <h5 class="item-caption">{{ item.name }}
+          <div ti-full-screen></div>
+        </h5>
       </a>
     </div>
   </div>
