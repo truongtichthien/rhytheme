@@ -16,22 +16,20 @@
     var childScope;
 
     var anchorEleDimension = {
-        top: 0,
-        left: 0,
-        width: 0,
-        height: 0
-      },
-      anchorEleMargin = {
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0
-      },
-      windowEleDimension = {
-        width: 0,
-        height: 0,
-        scrollTop: 0
-      };
+      top: 0,
+      left: 0,
+      width: 0,
+      height: 0
+    };
+
+    /** DEPRECATED
+     * var anchorEleMargin = { top: 0, right: 0, bottom: 0, left: 0 }, */
+
+    var bodyEleDimension = {
+      width: 0,
+      height: 0,
+      scrollTop: 0
+    };
 
     documentElement = ng.element($document);
 
@@ -60,32 +58,6 @@
         scope.ovFullScreen.api = {
           exitFullScreen: _exitFullScreen
         };
-
-        /** bind $event resize to $window */
-        windowElement.on('resize', _.debounce(
-          function () {
-            if (!scope.vm.fullScreenIsOpen) {
-              _calculateViewPortDimension();
-              _calculateElementDimension(anchorElement);
-            } else {
-              _calculateViewPortDimension();
-              _calculateElementDimension(imitatedElement);
-
-              /** update backdrop position for scaling out */
-              backdropElement
-                .css({
-                  top: (anchorEleDimension.top - 20) + 'px',
-                  left: (anchorEleDimension.left - 10) + 'px',
-                  width: (anchorEleDimension.width + 20) + 'px',
-                  height: (anchorEleDimension.height + 30) + 'px'
-                })
-            }
-          }, 100));
-
-        /** unbind $event resize when leaving app */
-        scope.$on('$destroy', function () {
-          windowElement.off('resize');
-        });
       }
     });
 
@@ -124,18 +96,14 @@
       imitatedElement = ng.element('.ov-full-screen-imitated-element');
       imitatedElement
         .css({
-          // width: '100%',
           height: anchorEleDimension.height
-          // 'margin-top': anchorEleMargin.top,
-          // 'margin-right': anchorEleMargin.right,
-          // 'margin-bottom': anchorEleMargin.bottom,
-          // 'margin-left': anchorEleMargin.left
         });
     }
 
     function _calculateViewPortDimension() {
-      windowEleDimension.width = windowElement[0].innerWidth;
-      windowEleDimension.height = windowElement[0].innerHeight;
+      bodyEleDimension.width = windowElement.innerWidth();
+      bodyEleDimension.height = windowElement.innerHeight();
+      bodyEleDimension.scrollTop = bodyElement.scrollTop();
     }
 
     function _calculateElementDimension(ele) {
@@ -146,16 +114,49 @@
       anchorEleDimension.width = ele[0].offsetWidth;
       anchorEleDimension.height = ele[0].offsetHeight;
 
-      anchorEleMargin.top = Math.round(parseFloat(ele.css('margin-top').replace('px', '')));
-      anchorEleMargin.right = Math.round(parseFloat(ele.css('margin-right').replace('px', '')));
-      anchorEleMargin.bottom = Math.round(parseFloat(ele.css('margin-bottom').replace('px', '')));
-      anchorEleMargin.left = Math.round(parseFloat(ele.css('margin-left').replace('px', '')));
+      /** DEPRECATED
+       * anchorEleMargin.top = parseFloat(ele.css('margin-top').replace('px', ''));
+       * anchorEleMargin.right = parseFloat(ele.css('margin-right').replace('px', ''));
+       * anchorEleMargin.bottom = parseFloat(ele.css('margin-bottom').replace('px', ''));
+       * anchorEleMargin.left = parseFloat(ele.css('margin-left').replace('px', ''));
+       * */
+    }
 
-      //      console.log(anchorEleDimension);
-      //      console.log(anchorEleMargin);
+    function _calculateElementPosition(bodyEle, anchorEle) {
+      var top = anchorEle.top - bodyEle.scrollTop,
+        left = anchorEle.left,
+        bottom = bodyEle.height - top - anchorEle.height,
+        right = bodyEle.width - left - anchorEle.width;
+
+      return {
+        top: top,
+        right: right,
+        bottom: bottom,
+        left: left
+      }
+    }
+
+    function _onScreenChangedCallback() {
+      _calculateViewPortDimension();
+      _calculateElementDimension(imitatedElement);
+
+      /** calculate position of anchor element */
+      var position = _calculateElementPosition(bodyEleDimension, anchorEleDimension);
+
+      /** update backdrop position for scaling out */
+      backdropElement
+        .css({
+          top: (position.top - 20) + 'px',
+          right: (position.width + 20) + 'px',
+          bottom: (position.height + 30) + 'px',
+          left: (position.left - 10) + 'px'
+        });
     }
 
     function _enterFullScreen() {
+      _calculateViewPortDimension();
+      _calculateElementDimension(anchorElement);
+
       _generateImitatedElement();
 
       /**  */
@@ -171,28 +172,30 @@
         keyDownHandler: _keyDownHandler
       };
 
+      /** calculate position of anchor element */
+      var position = _calculateElementPosition(bodyEleDimension, anchorEleDimension);
+
       bodyElement
         .append($compile('' +
-          '<div class="ov-full-screen-backdrop'/* + anchorElement[0].classList.value.replace('ov-full-screen-anchor', '')*/ +
-          '" style="' +
-          'top: ' + (anchorEleDimension.top - 20) + 'px;' +
-          'left: ' + (anchorEleDimension.left - 10) + 'px;' +
-          'width: ' + (anchorEleDimension.width + 20) + 'px;' +
-          'height: ' + (anchorEleDimension.height + 30) + 'px">' +
+          '<div class="ov-full-screen-backdrop" style="' +
+          'top: ' + (position.top - 20) + 'px;' +
+          'right: ' + (position.right - 10) + 'px;' +
+          'bottom: ' + (position.bottom - 20) + 'px;' +
+          'left: ' + (position.left - 10) + 'px;">' +
           '<h3 class="pull-left ov-full-screen-heading">{{ vm.headerTitle }}</h3>' +
           '<div class="pull-right ov-full-screen-remove-icon">' +
           '<i class="glyphicon glyphicon-remove" ng-click="vm.exitFullScreen()"></i></div></div>')(childScope));
 
       /** add in-line styles */
+      anchorElement.addClass('no-margin');
       anchorElement
         .css({
           position: 'fixed',
-          // margin: 0,
           'z-index': 101,
-          top: anchorEleDimension.top - (anchorEleMargin.top + bodyElement[0].scrollTop),
-          right: windowEleDimension.width - (anchorEleDimension.left + anchorEleDimension.width + anchorEleMargin.right),
-          bottom: windowEleDimension.height - (anchorEleDimension.top - bodyElement[0].scrollTop + anchorEleDimension.height + anchorEleMargin.bottom),
-          left: anchorEleDimension.left - anchorEleMargin.left
+          top: position.top,
+          right: position.right,
+          bottom: position.bottom,
+          left: position.left
         });
 
       /** bind $event keyDown to $document */
@@ -206,6 +209,14 @@
 
         anchorElement
           .addClass('floating');
+
+        /** bind $event resize to $window */
+        windowElement.on('resize', _.debounce(
+          _onScreenChangedCallback, 100));
+
+        /** bind $event scroll to $window */
+        windowElement.on('scroll', _.debounce(
+          _onScreenChangedCallback, 100));
       });
     }
 
@@ -221,13 +232,16 @@
         backdropElement
           .removeClass('full-screen');
 
+        /** calculate position of anchor element */
+        var position = _calculateElementPosition(bodyEleDimension, anchorEleDimension);
+
+        anchorElement.removeClass('no-margin');
         anchorElement
           .css({
-            margin: '',
-            top: anchorEleDimension.top - anchorEleMargin.top,
-            right: windowEleDimension.width - (anchorEleDimension.left + anchorEleDimension.width + anchorEleMargin.right),
-            bottom: windowEleDimension.height - (anchorEleDimension.top + anchorEleDimension.height + anchorEleMargin.bottom),
-            left: anchorEleDimension.left - anchorEleMargin.left
+            top: position.top,
+            right: position.right,
+            bottom: position.bottom,
+            left: position.left
           })
           .removeClass('floating');
 
@@ -257,8 +271,9 @@
               left: ''
             });
 
-          /** execute resize() to re-calculate anchorEleDimension */
-          windowElement.resize();
+          /** unbind $events */
+          windowElement.off('resize');
+          windowElement.off('scroll');
         }, 300);
       }
     }
