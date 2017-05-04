@@ -87,10 +87,12 @@
   right: 10px !important;
   bottom: 10px !important;
   left: 10px !important;
-  width: auto !important;
-  height: auto !important;
   max-width: 100% !important;
   max-height: 100% !important;
+}
+.ov-full-screen-anchor.free-width {
+  width: auto !important;
+  height: auto !important;
 }
 .ov-full-screen-imitated-element {
   position: relative;

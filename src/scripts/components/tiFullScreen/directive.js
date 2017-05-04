@@ -147,8 +147,8 @@
       backdropElement
         .css({
           top: (position.top - 20) + 'px',
-          right: (position.width + 20) + 'px',
-          bottom: (position.height + 30) + 'px',
+          right: (position.right + 10) + 'px',
+          bottom: (position.bottom + 10) + 'px',
           left: (position.left - 10) + 'px'
         });
     }
@@ -210,6 +210,10 @@
         anchorElement
           .addClass('floating');
 
+        console.log(anchorElement.css('width'));
+        anchorElement
+          .addClass('free-width');
+
         /** bind $event resize to $window */
         windowElement.on('resize', _.debounce(
           _onScreenChangedCallback, 100));
@@ -235,14 +239,16 @@
         /** calculate position of anchor element */
         var position = _calculateElementPosition(bodyEleDimension, anchorEleDimension);
 
-        anchorElement.removeClass('no-margin');
+        anchorElement
+          .removeClass('no-margin');
         anchorElement
           .css({
             top: position.top,
             right: position.right,
             bottom: position.bottom,
             left: position.left
-          })
+          });
+        anchorElement
           .removeClass('floating');
 
         /** listen $destroy on child scope */
@@ -270,6 +276,8 @@
               bottom: '',
               left: ''
             });
+          anchorElement
+            .removeClass('free-width');
 
           /** unbind $events */
           windowElement.off('resize');

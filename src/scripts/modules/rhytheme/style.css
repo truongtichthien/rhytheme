@@ -146,7 +146,6 @@ body {
   margin-top: 0;
 }
 .app-main {
-  height: 1000px;
   min-height: 100%;
   background: #e6e1d0 url("../../../images/grain.png");
 }
