@@ -2,10 +2,10 @@
  * Created by ThienTruong
  */
 
-(function (ng) {
+(function (ng, _) {
   'use strict';
 
-  function ovFullScreenDirectiveLink($document, $window, $timeout, $compile, scope, element) {
+  function tiFullScreenDirectiveLink($document, $window, $timeout, $compile, scope, element) {
     var anchorElement,
       backdropElement,
       imitatedElement,
@@ -31,34 +31,41 @@
       scrollTop: 0
     };
 
+    var fullScreenIsOpen = false;
+
     documentElement = ng.element($document);
 
     documentElement.ready(function () {
-      /** *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
-       * the MOST IMPORTANT thing is finding the HTML element containing 'anchor' class */
-      anchorElement = _findAnchorElement();
-      /** *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=* */
+      /** call $digest afterward because angularJs doesn't detect changes caused by non-angular functions */
+      scope.$apply(function () {
+        /** *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+         * the MOST IMPORTANT thing is finding the HTML element containing 'anchor' class */
+        anchorElement = _findAnchorElement();
+        /** *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=* */
 
-      if (anchorElement) {
-        windowElement = ng.element($window);
-        bodyElement = ng.element('body');
+        if (anchorElement) {
+          windowElement = ng.element($window);
+          bodyElement = ng.element('body');
 
-        _calculateViewPortDimension();
-        _calculateElementDimension(anchorElement);
+          _calculateViewPortDimension();
+          _calculateElementDimension(anchorElement);
 
-        scope.vm = {
-          enterFullScreen: _enterFullScreen,
-          exitFullScreen: _exitFullScreen,
-          fullScreenIsOpen: false,
-          iconClass: scope.ovFullScreen.iconClass || '',
-          headerTitle: scope.ovFullScreen.headerTitle || ''
-        };
+          scope.vm = {
+            enterFullScreen: _enterFullScreen,
+            exitFullScreen: _exitFullScreen,
+            iconClass: scope.tiFullScreen.iconClass || '',
+            headerTitle: scope.tiFullScreen.headerTitle || '',
+            showButton: !_.isUndefined(scope.tiFullScreen.showButton) ? scope.tiFullScreen.showButton : true
+          };
 
-        /** define which functions could be only referred from the outside controller */
-        scope.ovFullScreen.api = {
-          exitFullScreen: _exitFullScreen
-        };
-      }
+          /** define which functions could be only referred from the outside controller */
+          scope.tiFullScreen.api = {
+            stateOfFullScreen: _stateOfFullScreen,
+            enterFullScreen: _enterFullScreen,
+            exitFullScreen: _exitFullScreen
+          };
+        }
+      });
     });
 
     function _findParent(ele) {
@@ -82,7 +89,7 @@
       }
 
       if (targetEle[0].tagName === 'BODY') {
-        console.error('OvFullScreen Component: The HTML element with class .ov-full-screen-anchor could not found!');
+        console.error('TiFullScreen Component: The HTML element with class .ov-full-screen-anchor could not found!');
         return false;
       } else {
         return targetEle;
@@ -101,8 +108,8 @@
     }
 
     function _calculateViewPortDimension() {
-      bodyEleDimension.width = windowElement.innerWidth();
-      bodyEleDimension.height = windowElement.innerHeight();
+      bodyEleDimension.width = windowElement[0].innerWidth;
+      bodyEleDimension.height = windowElement[0].innerHeight;
       bodyEleDimension.scrollTop = bodyElement.scrollTop();
     }
 
@@ -153,82 +160,89 @@
         });
     }
 
+    function _stateOfFullScreen() {
+      return fullScreenIsOpen;
+    }
+
     function _enterFullScreen() {
-      _calculateViewPortDimension();
-      _calculateElementDimension(anchorElement);
+      if (fullScreenIsOpen) {
+        console.info('TiFullScreen Component: full-screen appeared already!');
+      } else {
+        _calculateViewPortDimension();
+        _calculateElementDimension(anchorElement);
 
-      _generateImitatedElement();
+        _generateImitatedElement();
 
-      /**  */
-      scope.vm.fullScreenIsOpen = true;
+        /** define variable to determine the state of fullScreen */
+        fullScreenIsOpen = true;
 
-      /** generate a new child scope */
-      childScope = scope.$new(true);
-      /** then define only necessary functions */
-      childScope.vm = {
-        fullScreenIsOpen: scope.vm.fullScreenIsOpen,
-        headerTitle: scope.vm.headerTitle,
-        exitFullScreen: scope.vm.exitFullScreen,
-        keyDownHandler: _keyDownHandler
-      };
+        /** generate a new child scope */
+        childScope = scope.$new(true);
+        /** then define only necessary functions */
+        childScope.vm = {
+          isOpen: true, // opening state of full-screen
+          headerTitle: scope.vm.headerTitle, // title at the top screen
+          exitFullScreen: _exitFullScreen, // exit function
+          keyDownHandler: _keyDownHandler // keyDown event handler
+        };
 
-      /** calculate position of anchor element */
-      var position = _calculateElementPosition(bodyEleDimension, anchorEleDimension);
+        /** calculate position of anchor element */
+        var position = _calculateElementPosition(bodyEleDimension, anchorEleDimension);
 
-      bodyElement
-        .append($compile('' +
-          '<div class="ov-full-screen-backdrop" style="' +
-          'top: ' + (position.top - 20) + 'px;' +
-          'right: ' + (position.right - 10) + 'px;' +
-          'bottom: ' + (position.bottom - 20) + 'px;' +
-          'left: ' + (position.left - 10) + 'px;">' +
-          '<h3 class="pull-left ov-full-screen-heading">{{ vm.headerTitle }}</h3>' +
-          '<div class="pull-right ov-full-screen-remove-icon">' +
-          '<i class="glyphicon glyphicon-remove" ng-click="vm.exitFullScreen()"></i></div></div>')(childScope));
+        bodyElement
+          .append($compile('' +
+            '<div class="ov-full-screen-backdrop" style="' +
+            'top: ' + (position.top - 20) + 'px;' +
+            'right: ' + (position.right - 10) + 'px;' +
+            'bottom: ' + (position.bottom - 20) + 'px;' +
+            'left: ' + (position.left - 10) + 'px;">' +
+            '<h3 class="pull-left ov-full-screen-heading">{{ vm.headerTitle }}</h3>' +
+            '<div class="pull-right ov-full-screen-remove-icon">' +
+            '<i class="glyphicon glyphicon-remove" ng-click="vm.exitFullScreen()"></i></div></div>')(childScope));
 
-      /** add in-line styles */
-      anchorElement.addClass('no-margin');
-      anchorElement
-        .css({
-          position: 'fixed',
-          'z-index': 101,
-          top: position.top,
-          right: position.right,
-          bottom: position.bottom,
-          left: position.left
+        /** add in-line styles */
+        anchorElement.addClass('no-space');
+        anchorElement
+          .css({
+            position: 'fixed',
+            'z-index': 101,
+            top: position.top,
+            right: position.right,
+            bottom: position.bottom,
+            left: position.left
+          });
+
+        /** bind $event keyDown to $document */
+        documentElement.on('keydown', _keyDownHandler);
+
+        $timeout(function () {
+          backdropElement = ng.element('.ov-full-screen-backdrop');
+
+          backdropElement
+            .addClass('full-screen');
+
+          anchorElement
+            .addClass('floating');
+
+          anchorElement
+            .addClass('free-width');
+
+          /** bind $event resize to $window */
+          windowElement.on('resize', _.debounce(
+            _onScreenChangedCallback, 100));
+
+          /** bind $event scroll to $window */
+          windowElement.on('scroll', _.debounce(
+            _onScreenChangedCallback, 100));
         });
-
-      /** bind $event keyDown to $document */
-      documentElement.on('keydown', _keyDownHandler);
-
-      $timeout(function () {
-        backdropElement = ng.element('.ov-full-screen-backdrop');
-
-        backdropElement
-          .addClass('full-screen');
-
-        anchorElement
-          .addClass('floating');
-
-        console.log(anchorElement.css('width'));
-        anchorElement
-          .addClass('free-width');
-
-        /** bind $event resize to $window */
-        windowElement.on('resize', _.debounce(
-          _onScreenChangedCallback, 100));
-
-        /** bind $event scroll to $window */
-        windowElement.on('scroll', _.debounce(
-          _onScreenChangedCallback, 100));
-      });
+      }
     }
 
     function _exitFullScreen() {
       if (!childScope) {
-        console.info('OvFullScreen Component: Exit full-screen already!');
+        console.info('TiFullScreen Component: full-screen disappeared already!');
       } else {
-        scope.vm.fullScreenIsOpen = false;
+        fullScreenIsOpen = false;
 
         /** unbind $event from $document, $window */
         documentElement.off('keydown');
@@ -240,7 +254,7 @@
         var position = _calculateElementPosition(bodyEleDimension, anchorEleDimension);
 
         anchorElement
-          .removeClass('no-margin');
+          .removeClass('no-space');
         anchorElement
           .css({
             top: position.top,
@@ -293,30 +307,38 @@
     }
   }
 
-  function ovFullScreenDirective($document, $window, $timeout, $compile) {
+  function tiFullScreenDirective($document, $window, $timeout, $compile) {
     var directive;
+
+    //todo define default config
+    /**
+     * default config
+     * {
+     *
+     * }
+     * */
 
     directive = {
       restrict: 'EA',
       scope: {
-        ovFullScreen: '=?'
+        tiFullScreen: '=?'
       },
       link: _link,
       templateUrl: 'scripts/components/tiFullScreen/directive.html'
     };
 
     function _link(scope, element) {
-      scope.ovFullScreen = scope.ovFullScreen || {};
+      scope.tiFullScreen = scope.tiFullScreen || {};
 
-      ovFullScreenDirectiveLink($document, $window, $timeout, $compile, scope, element);
+      tiFullScreenDirectiveLink($document, $window, $timeout, $compile, scope, element);
     }
 
     return directive;
   }
 
-  ovFullScreenDirective.$inject = ['$document', '$window', '$timeout', '$compile'];
+  tiFullScreenDirective.$inject = ['$document', '$window', '$timeout', '$compile'];
 
   ng.module('tiFullScreenModule', [])
-    .directive('tiFullScreen', ovFullScreenDirective);
+    .directive('tiFullScreen', tiFullScreenDirective);
 
-})(window.angular);
+})(window.angular, window._);

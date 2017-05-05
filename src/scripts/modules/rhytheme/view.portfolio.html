@@ -19,17 +19,20 @@
       </li>
     </ul>
   </div>
-  <div class="portfolio-list">
+  <div class="portfolio-list clearfix"> <!--todo replace col- class-->
     <div class="col-xs-offset-2 col-xs-8 col-sm-offset-0 col-sm-6 col-md-3 portfolio-item ov-full-screen-anchor"
-         ng-repeat="item in rhytheme.portfolio.list"
-         ng-click="">
+         ng-repeat="item in rhytheme.portfolio.list">
+      <!--alternative content on full-screen mode-->
+      <!--todo use ng-include-->
+      <div ng-if="item.tiFullScreen.api.stateOfFullScreen()">abc</div>
+      <!--portfolio item-->
       <a class="item-content" href
-         ng-click="">
+         ng-click="item.tiFullScreen.api.enterFullScreen()">
+        <!--thumbnail image-->
         <img class="item-img" ng-src="{{ item.img }}" src="">
         <i class="item-icon" ng-class="item.icon"></i>
-        <h5 class="item-caption">{{ item.name }}
-          <span ti-full-screen></span>
-        </h5>
+        <h5 class="item-caption">{{ item.name }}</h5>
+        <span ti-full-screen="item.tiFullScreen"></span>
       </a>
     </div>
   </div>
