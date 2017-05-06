@@ -33,9 +33,7 @@
 
     var fullScreenIsOpen = false;
 
-    documentElement = ng.element($document);
-
-    documentElement.ready(function () {
+    element.ready(function () {
       /** call $digest afterward because angularJs doesn't detect changes caused by non-angular functions */
       scope.$apply(function () {
         /** *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
@@ -44,6 +42,7 @@
         /** *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=* */
 
         if (anchorElement) {
+          documentElement = ng.element($document);
           windowElement = ng.element($window);
           bodyElement = ng.element('body');
 

@@ -24,16 +24,17 @@
          ng-repeat="item in rhytheme.portfolio.list">
       <!--alternative content on full-screen mode-->
       <!--todo use ng-include-->
-      <div ng-if="item.tiFullScreen.api.stateOfFullScreen()"
-           ng-include="item.replacedTpl">abc
-      </div>
+      <div class="item-replaced-template"
+           ng-if="item.tiFullScreen.api.stateOfFullScreen()"
+           ng-include="item.replacedTpl"></div>
       <!--portfolio item-->
       <a class="item-content" href
+         ng-hide="item.tiFullScreen.api.stateOfFullScreen()"
          ng-click="item.tiFullScreen.api.enterFullScreen()">
         <!--thumbnail image-->
-        <img class="item-img" ng-src="{{ item.img }}" src="">
+        <img class="item-img" ng-src="{{ ::item.img }}" src="">
         <i class="item-icon" ng-class="item.icon"></i>
-        <h5 class="item-caption">{{ item.name }}</h5>
+        <h5 class="item-caption">{{ ::item.name }}</h5>
         <span ti-full-screen="item.tiFullScreen"></span>
       </a>
     </div>

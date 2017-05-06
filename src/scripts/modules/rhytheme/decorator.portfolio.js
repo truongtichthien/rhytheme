@@ -28,8 +28,8 @@
         {
           name: 'httk',
           icon: 'fa fa-newspaper-o',
-          img: IMG_PATH + 'graphic-03-thumb11-480x360.jpg',
-          replacedTpl: 'scripts/modules/httk/app.html',
+          img: IMG_PATH + 'httk-thumb.jpg',
+          replacedTpl: 'scripts/modules/rhytheme/portfolios/httk.html',
           tiFullScreen: {
             showButton: false,
             iconClass: 'custom-icon',
@@ -53,7 +53,7 @@
           img: IMG_PATH + 'graphic-06-thumb11-480x360.jpg',
           replacedTpl: 'scripts/modules/httk/app.html',
           tiFullScreen: {
-            // showButton: false,
+            showButton: false,
             iconClass: 'custom-icon',
             headerTitle: 'tiFull-screen Component by Thien Truong'
           }

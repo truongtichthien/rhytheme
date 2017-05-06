@@ -7,7 +7,6 @@
 
   ng.module('rhythemeModule', [
     // 'ngAnimate',
-    'httkModule',
     'tiComponentsModule'
   ]);
 
