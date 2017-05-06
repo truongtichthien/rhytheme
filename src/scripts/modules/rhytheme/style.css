@@ -1,22 +1,22 @@
 @font-face {
   font-family: 'Bazar';
-  src: url("../../../fonts/Bazar.woff") format('woff');
+  src: url("fonts/Bazar.woff") format('woff');
 }
 @font-face {
   font-family: 'Roboto Slab';
-  src: /* IE9 Compat Modes */ url("../../../fonts/Roboto-Slab.eot"), /* IE6-IE8 */ url("../../../fonts/Roboto-Slab.eot?#iefix") format('embedded-opentype'), /* Safari, Android, iOS */ url("../../../fonts/Roboto-Slab.ttf") format('truetype'), /* Legacy iOS */ url("../../../fonts/Roboto-Slab.svg#roboto_slabregular") format('svg'), /* Modern Browsers */ url("../../../fonts/Roboto-Slab.woff") format('woff');
+  src: /* IE9 Compat Modes */ url("fonts/Roboto-Slab.eot"), /* IE6-IE8 */ url("fonts/Roboto-Slab.eot?#iefix") format('embedded-opentype'), /* Safari, Android, iOS */ url("fonts/Roboto-Slab.ttf") format('truetype'), /* Legacy iOS */ url("fonts/Roboto-Slab.svg#roboto_slabregular") format('svg'), /* Modern Browsers */ url("fonts/Roboto-Slab.woff") format('woff');
 }
 @font-face {
   font-family: 'Roboto Slab Bold';
-  src: /* IE9 Compat Modes */ url("../../../fonts/Roboto-Slab-Bold.eot"), /* IE6-IE8 */ url("../../../fonts/Roboto-Slab-Bold.eot?#iefix") format('embedded-opentype'), /* Safari, Android, iOS */ url("../../../fonts/Roboto-Slab-Bold.ttf") format('truetype'), /* Legacy iOS */ url("../../../fonts/Roboto-Slab-Bold.svg#roboto_slabbold") format('svg'), /* Modern Browsers */ url("../../../fonts/Roboto-Slab-Bold.woff") format('woff');
+  src: /* IE9 Compat Modes */ url("fonts/Roboto-Slab-Bold.eot"), /* IE6-IE8 */ url("fonts/Roboto-Slab-Bold.eot?#iefix") format('embedded-opentype'), /* Safari, Android, iOS */ url("fonts/Roboto-Slab-Bold.ttf") format('truetype'), /* Legacy iOS */ url("fonts/Roboto-Slab-Bold.svg#roboto_slabbold") format('svg'), /* Modern Browsers */ url("fonts/Roboto-Slab-Bold.woff") format('woff');
 }
 @font-face {
   font-family: 'Oswald';
-  src: /* IE9 Compat Modes */ url("../../../fonts/Oswald-Latin.eot"), /* IE6-IE8 */ url("../../../fonts/Oswald-Latin.eot?#iefix") format('embedded-opentype'), /* Safari, Android, iOS */ url("../../../fonts/Oswald-Latin.ttf") format('truetype'), /* Legacy iOS */ url("../../../fonts/Oswald-Latin.svg#Oswald") format('svg'), /* Modern Browsers */ url("../../../fonts/Oswald-Latin.woff") format('woff'), /* Super Modern Browsers */ url("../../../fonts/Oswald-Latin.woff2") format('woff2');
+  src: /* IE9 Compat Modes */ url("fonts/Oswald-Latin.eot"), /* IE6-IE8 */ url("fonts/Oswald-Latin.eot?#iefix") format('embedded-opentype'), /* Safari, Android, iOS */ url("fonts/Oswald-Latin.ttf") format('truetype'), /* Legacy iOS */ url("fonts/Oswald-Latin.svg#Oswald") format('svg'), /* Modern Browsers */ url("fonts/Oswald-Latin.woff") format('woff'), /* Super Modern Browsers */ url("fonts/Oswald-Latin.woff2") format('woff2');
 }
 @font-face {
   font-family: 'Oswald Bold';
-  src: /* Super Modern Browsers */ url("../../../fonts/Oswald-Latin-Bold.woff2") format('woff2');
+  src: /* Super Modern Browsers */ url("fonts/Oswald-Latin-Bold.woff2") format('woff2');
 }
 html,
 body,
@@ -59,7 +59,7 @@ body {
   padding: 24px 0;
 }
 .app-header {
-  background: #e68966 url("../../../images/grain.png");
+  background: #e68966 url("images/grain.png");
   height: 100px;
   position: fixed;
   top: 0;
@@ -147,10 +147,10 @@ body {
 }
 .app-main {
   min-height: 100%;
-  background: #e6e1d0 url("../../../images/grain.png");
+  background: #e6e1d0 url("images/grain.png");
 }
 .app-footer {
-  background: #4c5057 url("../../../images/grain.png");
+  background: #4c5057 url("images/grain.png");
   color: #f6edd8;
   z-index: 2;
   text-align: center;

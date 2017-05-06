@@ -24,7 +24,9 @@
          ng-repeat="item in rhytheme.portfolio.list">
       <!--alternative content on full-screen mode-->
       <!--todo use ng-include-->
-      <div ng-if="item.tiFullScreen.api.stateOfFullScreen()">abc</div>
+      <div ng-if="item.tiFullScreen.api.stateOfFullScreen()"
+           ng-include="item.replacedTpl">abc
+      </div>
       <!--portfolio item-->
       <a class="item-content" href
          ng-click="item.tiFullScreen.api.enterFullScreen()">

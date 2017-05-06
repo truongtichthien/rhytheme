@@ -6,7 +6,8 @@
   'use strict';
 
   function PortfolioDecorator() {
-    var _vm;
+    var _vm,
+      IMG_PATH = 'scripts/modules/rhytheme/images/';
 
     function _decorate(vm) {
       _vm = vm;
@@ -27,7 +28,8 @@
         {
           name: 'httk',
           icon: 'fa fa-newspaper-o',
-          img: '../../../images/graphic-03-thumb11-480x360.jpg',
+          img: IMG_PATH + 'graphic-03-thumb11-480x360.jpg',
+          replacedTpl: 'scripts/modules/httk/app.html',
           tiFullScreen: {
             showButton: false,
             iconClass: 'custom-icon',
@@ -37,7 +39,8 @@
         {
           name: 'blisk',
           icon: 'glyphicon glyphicon-picture',
-          img: '../../../images/graphic-04-thumb11-480x360.jpg',
+          img: IMG_PATH + 'graphic-04-thumb11-480x360.jpg',
+          replacedTpl: 'scripts/modules/httk/app.html',
           tiFullScreen: {
             showButton: false,
             iconClass: 'custom-icon',
@@ -47,7 +50,8 @@
         {
           name: 'dnn',
           icon: 'glyphicon glyphicon-ok',
-          img: '../../../images/graphic-06-thumb11-480x360.jpg',
+          img: IMG_PATH + 'graphic-06-thumb11-480x360.jpg',
+          replacedTpl: 'scripts/modules/httk/app.html',
           tiFullScreen: {
             // showButton: false,
             iconClass: 'custom-icon',
@@ -57,7 +61,8 @@
         {
           name: 'pics',
           icon: 'glyphicon glyphicon-picture',
-          img: '../../../images/graphic-04-thumb11-480x360.jpg',
+          img: IMG_PATH + 'graphic-04-thumb11-480x360.jpg',
+          replacedTpl: 'scripts/modules/httk/app.html',
           tiFullScreen: {
             showButton: false,
             iconClass: 'custom-icon',

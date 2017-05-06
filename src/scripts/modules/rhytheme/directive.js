@@ -19,7 +19,7 @@
     return directive;
   }
 
-  rhythemeAppDirective.$inject = ['$document', '$window', '$timeout', '$compile'];
+  rhythemeAppDirective.$inject = [];
 
   ng.module('rhythemeModule')
     .directive('rhythemeApp', rhythemeAppDirective);
