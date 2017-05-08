@@ -23,10 +23,9 @@
     <div class="col-xs-offset-2 col-xs-8 col-sm-offset-0 col-sm-6 col-md-3 portfolio-item ov-full-screen-anchor"
          ng-repeat="item in rhytheme.portfolio.list">
       <!--alternative content on full-screen mode-->
-      <!--todo use ng-include-->
       <div class="item-replaced-template"
            ng-if="item.tiFullScreen.api.stateOfFullScreen()"
-           ng-include="item.replacedTpl"></div>
+           ng-include="item.tiFullScreen.replacedTpl"></div>
       <!--portfolio item-->
       <a class="item-content" href
          ng-hide="item.tiFullScreen.api.stateOfFullScreen()"

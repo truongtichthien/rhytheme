@@ -160,7 +160,9 @@
     }
 
     function _stateOfFullScreen() {
+      // $timeout(function () {
       return fullScreenIsOpen;
+      // }, 250);
     }
 
     function _enterFullScreen() {

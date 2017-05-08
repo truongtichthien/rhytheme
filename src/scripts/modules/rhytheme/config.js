@@ -6,7 +6,7 @@
   'use strict';
 
   ng.module('rhythemeModule', [
-    // 'ngAnimate',
+    'ngAnimate',
     'tiComponentsModule'
   ]);
 

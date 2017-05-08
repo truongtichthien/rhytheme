@@ -29,44 +29,44 @@
           name: 'httk',
           icon: 'fa fa-newspaper-o',
           img: IMG_PATH + 'httk-thumb.jpg',
-          replacedTpl: 'scripts/modules/rhytheme/portfolios/httk.html',
           tiFullScreen: {
             showButton: false,
             iconClass: 'custom-icon',
-            headerTitle: 'tiFull-screen Component by Thien Truong'
+            headerTitle: 'HTTK Template',
+            replacedTpl: 'scripts/modules/rhytheme/portfolios/httk.html'
           }
         },
         {
           name: 'blisk',
           icon: 'glyphicon glyphicon-picture',
           img: IMG_PATH + 'graphic-04-thumb11-480x360.jpg',
-          replacedTpl: 'scripts/modules/httk/app.html',
           tiFullScreen: {
             showButton: false,
             iconClass: 'custom-icon',
-            headerTitle: 'tiFull-screen Component by Thien Truong'
+            headerTitle: 'Pics Template',
+            replacedTpl: 'scripts/modules/rhytheme/portfolios/pics.html'
           }
         },
         {
           name: 'dnn',
           icon: 'glyphicon glyphicon-ok',
           img: IMG_PATH + 'graphic-06-thumb11-480x360.jpg',
-          replacedTpl: 'scripts/modules/httk/app.html',
           tiFullScreen: {
             showButton: false,
             iconClass: 'custom-icon',
-            headerTitle: 'tiFull-screen Component by Thien Truong'
+            headerTitle: 'DNN Template',
+            replacedTpl: 'scripts/modules/rhytheme/portfolios/dnn.html'
           }
         },
         {
           name: 'pics',
           icon: 'glyphicon glyphicon-picture',
           img: IMG_PATH + 'graphic-04-thumb11-480x360.jpg',
-          replacedTpl: 'scripts/modules/httk/app.html',
           tiFullScreen: {
             showButton: false,
             iconClass: 'custom-icon',
-            headerTitle: 'tiFull-screen Component by Thien Truong'
+            headerTitle: 'Blisk Template',
+            replacedTpl: 'scripts/modules/rhytheme/portfolios/blisk.html'
           }
         }
       ];
