@@ -32,7 +32,7 @@
 
   /** config web server */
   var server = express();
-  var PORT = 3000;
+  var PORT = 3030;
   var songApi = '/api/song',
     listApi = '/api/playlist',
     songPlaylistApi = '/api/songplaylist';
