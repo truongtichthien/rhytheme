@@ -250,9 +250,11 @@ body
     margin 0 -10px 16px
 
     .portfolio-item
-      z-index 1
       padding 0 10px
       margin-bottom 20px
+
+      .full-screen-wrapper
+        z-index 1
 
       .portfolio-iframe
         width 100%
@@ -263,6 +265,7 @@ body
         height 100%
 
       .item-content
+        z-index initial
         display block
         position relative
         background #fcfaf7

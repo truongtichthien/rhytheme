@@ -273,9 +273,11 @@ body {
   margin: 0 -10px 16px;
 }
 .section-portfolio .portfolio-list .portfolio-item {
-  z-index: 1;
   padding: 0 10px;
   margin-bottom: 20px;
+}
+.section-portfolio .portfolio-list .portfolio-item .full-screen-wrapper {
+  z-index: 1;
 }
 .section-portfolio .portfolio-list .portfolio-item .portfolio-iframe {
   width: 100%;
@@ -286,6 +288,7 @@ body {
   height: 100%;
 }
 .section-portfolio .portfolio-list .portfolio-item .item-content {
+  z-index: initial;
   display: block;
   position: relative;
   background: #fcfaf7;
