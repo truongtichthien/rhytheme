@@ -1,0 +1,414 @@
+@import "reset.css";
+
+@font-face {
+  font-family: 'Franklin Gothic Demi Cond';
+  src: url('../fonts/FranklinGothicDemiCondRegular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Franklin Gothic Demi';
+  src: url('../fonts/FranklinGothicDemi.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Franklin Gothic Book';
+  src: url('../fonts/FranklinGothicBook.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Franklin Gothic Book Italic';
+  src: url('../fonts/FranklinGothicBookItalic.ttf') format('truetype');
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+	/*max-width: 1200px;*/
+	margin: 0 auto;	
+	color: #333;
+}
+
+#header {
+	background: #007ee5 url('../images/header_cloud.png') left top no-repeat;
+	height: 480px;
+	padding: 50px 70px;
+	position: relative;
+	overflow: hidden;
+}
+
+#header .title,
+#header .sub-title {
+	font-family: 'Franklin Gothic Demi Cond';
+	color: #fff;
+}
+
+#header .title {
+	font-size: 113px;
+}
+
+#header .sub-title {
+	font-size: 307px;
+}
+
+#header .header_graphic {
+	position: absolute;
+	bottom: -55px;
+	right: 0;
+}
+
+#section_one {
+	height: 315px;
+	background: #fff;
+	padding: 65px 40px;
+}
+
+#section_one p {
+	font-family: 'Franklin Gothic Book';
+	font-size: 27px;
+	line-height: 37px;
+}
+
+#section_two {
+	height: 310px;
+	background: #e1e1e1;
+}
+
+#section_two .graphic_left{
+	float: left;
+	width: 400px;
+	height: 100%;
+	position: relative;
+}
+
+#section_two .graphic_left .graphic_title {
+	font-family: 'Franklin Gothic Demi Cond';
+	font-size: 25px;
+	position: absolute;
+    top: 78px;
+    left: 178px;
+	color: #fff;
+	opacity: .5;
+	z-index: 1;
+}
+
+#section_two .graphic_left .graphic {
+	position: absolute;
+    top: 25px;
+    left: 70px;
+}
+
+#section_two .content_right{
+	float: right;
+	width: 800px;
+	padding: 65px 40px;
+}
+
+#section_two .content_right p {
+	font-family: 'Franklin Gothic Book';
+	font-size: 27px;
+	line-height: 37px;
+}
+
+#section_two .content_right p .bolder {
+	font-family: 'Franklin Gothic Demi';
+}
+
+#section_three {
+	height: 730px;
+	background: #fff;
+	padding: 80px 40px;
+}
+
+#section_three .title {
+	font-family: 'Franklin Gothic Demi Cond';
+	font-size: 38px;
+	color: #3d464d;
+    white-space: nowrap;
+}
+
+#section_three .content {
+	padding-top: 70px;
+}
+
+#section_three .content .radial_chart {
+	float: left;
+	width: 50%;
+}
+
+#section_three .content .radial_chart:last-child {
+	border-left: 4px rgba(0, 0, 0, 0.25) solid; 
+}
+
+#section_three .content .radial_chart .chart {
+	height: 300px;
+	width: 300px;
+    border-radius: 50%;
+    position: relative;
+	margin: 0 auto;
+}
+
+#section_three .content .radial_chart .chart .graphic_overlay {
+	position: absolute;
+	top: 30px;
+	left: 30px;
+    height: 240px;
+    width: 240px;
+	border-radius: 50%;
+	background: #fff;
+}
+
+#section_three .content .radial_chart:first-child .chart {
+	background-image: linear-gradient(30deg, #16a086 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #16a086 50%, #ebebeb 50%, #ebebeb);
+}
+
+#section_three .content .radial_chart:last-child .chart {
+	background-image: linear-gradient(56deg, #9a59b5 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(270deg, #9a59b5 50%, #ebebeb 50%, #ebebeb);
+}
+
+
+#section_three .content .radial_chart:first-child .chart .graphic_overlay .graphic {
+	position: absolute;
+	top: 65px;
+	left: 30px;
+}
+
+#section_three .content .radial_chart:last-child .chart .graphic_overlay .graphic {
+	position: absolute;
+    top: 60px;
+    left: 55px;
+}
+
+#section_three .content .radial_chart  .sub_title {
+	width: 480px;
+	margin: 0 auto;
+	padding-top: 30px;
+	text-align: center;
+}
+
+#section_three .content .radial_chart  .sub_title .index {
+	font-family: 'Franklin Gothic Demi Cond';
+	font-size: 73px;	
+}
+
+#section_three .content .radial_chart  .sub_title p {
+	font-family: 'Franklin Gothic Book';
+	font-size: 27px;
+    line-height: 32px;
+	padding-top: 10px;
+}
+
+#section_four {
+	height: 530px;
+	background: #fff;
+	padding: 80px 40px;
+}
+
+#section_four .title {
+	font-family: 'Franklin Gothic Demi Cond';
+	font-size: 38px;
+	color: #3d464d;
+    white-space: nowrap;
+}
+
+#section_four .content {
+	padding-top: 80px;
+}
+
+#section_four .content .bar_chart {
+	margin-bottom: 70px;
+}
+
+#section_four .content .bar_chart .graphic {
+	float: left;
+	width: 240px;	
+}
+
+#section_four .content .bar_chart .graphic .graphic_img {
+	margin-top: 10px;
+	margin-left: 60px;
+}
+
+#section_four .content .bar_chart .chart {
+	float: left;
+	width: 880px;
+}
+
+#section_four .content .bar_chart .chart .row .index {
+	float: left;
+	font-family: 'Franklin Gothic Demi Cond';
+	font-size: 73px;
+	width: 150px;
+}
+
+#section_four .content .bar_chart .chart .row .progress_bar {
+	float: left;
+	width: 100%;
+	background: #16a086;
+	height: 37px;
+	width: 730px;
+	margin-top: 20px;
+}
+
+#section_four .content .bar_chart:last-child .chart .row .progress_bar {
+	width: 580px;
+	background: #9a59b5;
+}
+
+#section_four .content .bar_chart .chart p {
+	clear: both;
+	font-family: 'Franklin Gothic Book';
+	font-size: 27px;
+	line-height: 32px;	
+} 
+
+#section_four .clear_both {
+	clear: both;
+}
+
+#section_five {
+	height: 580px;
+	background: #fff;
+	padding: 80px 40px;
+}
+
+#section_five .title {
+	font-family: 'Franklin Gothic Demi Cond';
+	font-size: 38px;
+	color: #3d464d;
+    white-space: nowrap;
+}
+
+#section_five .sub_title {
+	clear: both;
+	font-family: 'Franklin Gothic Book';
+	font-size: 27px;
+	line-height: 32px;	
+	padding-top: 45px;
+} 
+
+#section_five .content {
+	padding-top: 25px;
+}
+
+#section_five .content .legend {
+	float: left;
+	width: 480px;
+	padding-top: 50px;
+}
+
+#section_five .content .legend div {
+	padding-left: 90px;
+	padding-bottom: 40px;
+}
+
+#section_five .content .legend div .color {
+	display: inline-block;
+	height: 34px;
+	width: 36px;
+}
+
+#section_five .content .legend div:nth-child(1) .color {
+	background: #16a086;
+}
+
+#section_five .content .legend div:nth-child(2) .color{
+	background: #9a59b5;
+}
+
+#section_five .content .legend div:nth-child(3) .color{
+	background: #95a5a5;
+}
+
+#section_five .content .legend .title {
+	display: inline-block;
+	padding-left: 25px;
+	vertical-align: top;
+}
+
+#section_five .content .graphic {
+	float: left;
+	position: relative;
+}
+
+#section_five .content .graphic p {
+	font-family: 'Franklin Gothic Demi Cond';
+	font-size: 59px;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, 0.75);
+	position: absolute;
+	bottom: 50px;
+	left: 130px;
+}
+
+#section_six {
+	height: 500px;
+	background: #e1e1e1;
+	padding: 60px 40px;
+}
+
+#section_six h1 {
+	font-family: 'Franklin Gothic Demi Cond';
+	font-size: 38px;
+	padding-bottom: 40px;
+	color: #3d464d;
+}
+
+#section_six p {
+	font-family: 'Franklin Gothic Book';
+	font-size: 27px;
+	line-height: 32px;
+	padding-bottom: 30px;
+}
+
+#section_seven {
+	height: 240px;
+	background: #fff;
+	position: relative;
+	padding: 100px 50px;
+}
+
+#section_seven p{
+	font-family: 'Franklin Gothic Book';
+	font-size: 27px;
+}
+
+#section_seven p .smaller{
+	font-size: 21px;
+	line-height: 32px;
+}
+
+#section_seven .section_seven_logo{
+	position: absolute;
+    top: 85px;
+    right: 120px;
+}
+
+#footer {
+	background: #007ee5;
+	height: 125px;
+	overflow: hidden;
+}
+
+#footer .logo_left{
+	float: left;
+	width: 140px;
+	position: relative;
+}
+
+#footer .logo_left .logo {
+	position: absolute;
+	top: 45px;
+	left: 45px;
+}
+
+#footer .content_right {
+	float: right;
+	width: 1060px;
+	padding: 50px 0;
+}
+
+#footer .content_right p {
+	font-family: 'Franklin Gothic Book';
+	font-size: 15px;
+	line-height: 18px;
+	color: #fff;
+}
