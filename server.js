@@ -56,6 +56,10 @@
     res.sendFile('index.html', { root: __dirname + '/src' });
   });
 
+  server.get('/esg', function (req, res) {
+    res.sendFile('index.html', { root: __dirname + '/src/scripts/modules/esg' });
+  });
+
   server.get('*', function (req, res) {
     res.redirect('/rhytheme');
   });
