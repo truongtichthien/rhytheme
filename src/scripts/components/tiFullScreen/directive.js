@@ -107,8 +107,11 @@
     }
 
     function _calculateViewPortDimension() {
-      bodyEleDimension.width = windowElement[0].innerWidth;
+      /** get width of window without scrollbar'width */
+      bodyEleDimension.width = bodyElement[0].clientWidth;
+      /** get height of window */
       bodyEleDimension.height = windowElement[0].innerHeight;
+      /** get position of the vertical scrollbar */
       bodyEleDimension.scrollTop = bodyElement.scrollTop();
     }
 
@@ -153,16 +156,14 @@
       backdropElement
         .css({
           top: (position.top - 20) + 'px',
-          right: (position.right + 10) + 'px',
-          bottom: (position.bottom + 10) + 'px',
+          right: (position.right - 10) + 'px',
+          bottom: (position.bottom - 10) + 'px',
           left: (position.left - 10) + 'px'
         });
     }
 
     function _stateOfFullScreen() {
-      // $timeout(function () {
       return fullScreenIsOpen;
-      // }, 250);
     }
 
     function _enterFullScreen() {
@@ -191,6 +192,9 @@
         var position = _calculateElementPosition(bodyEleDimension, anchorEleDimension);
 
         bodyElement
+          .css({ overflow: 'hidden' });
+
+        bodyElement
           .append($compile('' +
             '<div class="ov-full-screen-backdrop" style="' +
             'top: ' + (position.top - 20) + 'px;' +
@@ -202,7 +206,6 @@
             '<i class="glyphicon glyphicon-remove" ng-click="vm.exitFullScreen()"></i></div></div>')(childScope));
 
         /** add in-line styles */
-        anchorElement.addClass('no-space');
         anchorElement
           .css({
             position: 'fixed',
@@ -254,8 +257,9 @@
         /** calculate position of anchor element */
         var position = _calculateElementPosition(bodyEleDimension, anchorEleDimension);
 
-        anchorElement
-          .removeClass('no-space');
+        bodyElement
+          .css({ overflow: '' });
+
         anchorElement
           .css({
             top: position.top,
