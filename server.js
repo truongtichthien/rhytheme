@@ -60,7 +60,17 @@
     res.sendFile('index.html', { root: __dirname + '/src/scripts/modules/esg' });
   });
 
+  server.get('/httk', function (req, res) {
+    res.sendFile('index.html', { root: __dirname + '/src/scripts/modules/httk' });
+  });
+
+  server.get('/httk/*', function (req, res) {
+    console.log('day ne');
+    res.redirect('/httk');
+  });
+
   server.get('*', function (req, res) {
+    console.log('not found');
     res.redirect('/rhytheme');
   });
 

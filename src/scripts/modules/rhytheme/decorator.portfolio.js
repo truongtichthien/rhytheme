@@ -43,8 +43,8 @@
           tiFullScreen: {
             showButton: false,
             iconClass: 'custom-icon',
-            headerTitle: 'Pics Template',
-            replacingTpl: '' //'scripts/modules/rhytheme/portfolios/pics.html'
+            headerTitle: 'HTTK Template',
+            replacingTpl: 'scripts/modules/rhytheme/portfolios/httk.html'
           }
         },
         {
