@@ -22,20 +22,20 @@
   <div class="portfolio-list clearfix"> <!--todo replace col- class-->
     <div class="col-xs-offset-2 col-xs-8 col-sm-offset-0 col-sm-6 col-md-3 portfolio-item"
          ng-repeat="item in rhytheme.portfolio.list">
-      <div class="ov-full-screen-anchor full-screen-wrapper">
-        <!--alternative content on full-screen mode-->
-        <div class="item-replaced-template"
-             ng-if="item.tiFullScreen.api.stateOfFullScreen()"
-             ng-include="item.tiFullScreen.replacedTpl"></div>
+      <div class="full-screen-wrapper">
         <!--portfolio item-->
         <a class="item-content" href
-           ng-hide="item.tiFullScreen.api.stateOfFullScreen()"
            ng-click="item.tiFullScreen.api.enterFullScreen()">
           <!--thumbnail image-->
-          <img class="item-img" ng-src="{{ ::item.img }}" src="">
+          <div class="ti-full-screen-anchor">
+            <!--alternative content on full-screen mode-->
+            <div class="ti-full-screen-replacing-template"
+                 ng-include="item.tiFullScreen.replacingTpl"></div>
+            <img class="item-img ti-full-screen-replaced-element" ng-src="{{ ::item.img }}" src="">
+            <span ti-full-screen="item.tiFullScreen"></span>
+          </div>
           <i class="item-icon" ng-class="item.icon"></i>
           <h5 class="item-caption">{{ ::item.name }}</h5>
-          <span ti-full-screen="item.tiFullScreen"></span>
         </a>
       </div>
     </div>

@@ -26,14 +26,14 @@
       //todo refactor portfolio list
       _vm.portfolio.list = [
         {
-          name: 'httk',
+          name: 'esg',
           icon: 'fa fa-newspaper-o',
-          img: IMG_PATH + 'httk-thumb.jpg',
+          img: IMG_PATH + 'esg-thumb.jpg',
           tiFullScreen: {
             showButton: false,
             iconClass: 'custom-icon',
-            headerTitle: 'HTTK Template',
-            replacedTpl: 'scripts/modules/rhytheme/portfolios/httk.html'
+            headerTitle: 'ESG Infographic Template',
+            replacingTpl: 'scripts/modules/rhytheme/portfolios/esg.html'
           }
         },
         {
@@ -44,7 +44,7 @@
             showButton: false,
             iconClass: 'custom-icon',
             headerTitle: 'Pics Template',
-            replacedTpl: 'scripts/modules/rhytheme/portfolios/pics.html'
+            replacingTpl: '' //'scripts/modules/rhytheme/portfolios/pics.html'
           }
         },
         {
@@ -55,7 +55,7 @@
             showButton: false,
             iconClass: 'custom-icon',
             headerTitle: 'DNN Template',
-            replacedTpl: 'scripts/modules/rhytheme/portfolios/dnn.html'
+            replacingTpl: '' //'scripts/modules/rhytheme/portfolios/dnn.html'
           }
         },
         {
@@ -66,7 +66,7 @@
             showButton: false,
             iconClass: 'custom-icon',
             headerTitle: 'Blisk Template',
-            replacedTpl: 'scripts/modules/rhytheme/portfolios/blisk.html'
+            replacingTpl: '' //'scripts/modules/rhytheme/portfolios/blisk.html'
           }
         }
       ];

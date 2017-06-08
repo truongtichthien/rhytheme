@@ -1,67 +1,59 @@
 @import '../../../../node_modules/nib';
 
-.no-space
-  padding 0 !important
-  padding-top 0 !important
-  padding-right 0 !important
-  padding-bottom 0 !important
-  padding-left 0 !important
-  margin 0 !important
-  margin-top 0 !important
-  margin-right 0 !important
-  margin-bottom 0 !important
-  margin-left 0 !important
+translationDuration = 400ms
+translationDelay = 100ms
 
-.ov-full-screen-icon
+.ti-full-screen-icon
   padding 5px
   cursor pointer
   border-radius 3px
   border 1px #ccc solid
   opacity 1
-  transition opacity 250ms ease-out
+  transition opacity translationDuration ease-out
 
-.ov-full-screen-icon:hover
+.ti-full-screen-icon:hover
   box-shadow 0 1px 1px rgba(0, 0, 0, 0.02)
 
-.ov-full-screen-backdrop
+.ti-full-screen-backdrop
   background rgba(0, 0, 0, 0)
   color #fff
   position fixed
   padding 10px
-  transition all 250ms ease-out 50ms
+  transition all translationDuration ease-out translationDelay
   z-index 100
 
-  .ov-full-screen-heading
-  .ov-full-screen-remove-icon
+  .ti-full-screen-heading
+  .ti-full-screen-remove-icon
     opacity 0
-    transition all 250ms ease-out
+    transition all translationDuration ease-out
 
-  .ov-full-screen-heading
+  .ti-full-screen-heading
     margin-top 10px
 
-  .ov-full-screen-remove-icon
+  .ti-full-screen-remove-icon
     margin-top 5px
     font-size 20px
 
-.ov-full-screen-backdrop.full-screen
+.ti-full-screen-backdrop.full-screen
   background rgba(0, 0, 0, 0.7)
   top 0 !important
   right 0 !important
   bottom 0 !important
   left 0 !important
 
-  .ov-full-screen-heading
-  .ov-full-screen-remove-icon
+  .ti-full-screen-heading
+  .ti-full-screen-remove-icon
     opacity 1
 
-  .ov-full-screen-remove-icon .glyphicon
+  .ti-full-screen-remove-icon .glyphicon
     cursor pointer
 
-.ov-full-screen-anchor
+.ti-full-screen-anchor
+  //overflow hidden
   position relative
-  transition all 250ms ease-out 50ms
+  transition all translationDuration ease-out translationDelay
 
-.ov-full-screen-anchor.floating
+.ti-full-screen-anchor.floating
   top 60px !important
   right 10px !important
   bottom 10px !important
@@ -69,9 +61,27 @@
   max-width 100% !important
   max-height 100% !important
 
-.ov-full-screen-anchor.free-width
+  .ti-full-screen-replacing-template
+    z-index 1
+
+.ti-full-screen-anchor.free-width
   width auto !important
   height auto !important
 
-.ov-full-screen-imitated-element
+.ti-full-screen-imitated-element
   position relative
+
+.ti-full-screen-replaced-element
+  opacity 1
+  transition opacity 300ms ease-out
+
+  &.fade-out
+    opacity 0
+
+.ti-full-screen-replacing-template
+  position absolute
+  top 0
+  right 0
+  bottom 0
+  left 0
+  z-index -1

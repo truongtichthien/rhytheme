@@ -11,7 +11,13 @@
       imitatedElement,
       documentElement,
       windowElement,
-      bodyElement;
+      bodyElement,
+      replacedItemElement;
+
+    var bodyTagName = 'BODY';
+
+    var anchorClassName = 'ti-full-screen-anchor',
+      replacedElementClassName = 'ti-full-screen-replaced-element';
 
     var childScope;
 
@@ -33,6 +39,9 @@
 
     var fullScreenIsOpen = false;
 
+    var translationDuration = 400,
+      translationDelay = 100;
+
     element.ready(function () {
       /** call $digest afterward because angularJs doesn't detect changes caused by non-angular functions */
       scope.$apply(function () {
@@ -44,7 +53,11 @@
         if (anchorElement) {
           documentElement = ng.element($document);
           windowElement = ng.element($window);
-          bodyElement = ng.element('body');
+          bodyElement = ng.element(bodyTagName);
+
+          if (_hasReplacingTpl()) {
+            replacedItemElement = _findReplacedItemElement(anchorElement);
+          }
 
           _calculateViewPortDimension();
           _calculateElementDimension(anchorElement);
@@ -67,11 +80,11 @@
       });
     });
 
-    function _findParent(ele) {
+    function _findParent(ele, className) {
       var parent = ele.parent();
       var classList = parent[0].classList.value;
 
-      if (classList.indexOf('ov-full-screen-anchor') >= 0 || parent[0].tagName === 'BODY') {
+      if (classList.indexOf(className) >= 0 || parent[0].tagName === bodyTagName) {
         return parent;
       } else {
         return _findParent(parent);
@@ -81,25 +94,33 @@
     function _findAnchorElement() {
       var classList = element[0].classList.value,
         targetEle;
-      if (classList.indexOf('ov-full-screen-anchor') >= 0) {
+      if (classList.indexOf(anchorClassName) >= 0) {
         targetEle = element;
       } else {
-        targetEle = _findParent(element);
+        targetEle = _findParent(element, anchorClassName);
       }
 
-      if (targetEle[0].tagName === 'BODY') {
-        console.error('TiFullScreen Component: The HTML element with class .ov-full-screen-anchor could not found!');
+      if (targetEle[0].tagName === bodyTagName) {
+        console.error('TiFullScreen Component: The HTML element with class .ti-full-screen-anchor could not found!');
         return false;
       } else {
         return targetEle;
       }
     }
 
-    function _generateImitatedElement() {
-      var classList = anchorElement[0].classList.value.replace('ov-full-screen-anchor', '');
-      anchorElement.after('<div class="ov-full-screen-imitated-element ' + classList + '"></div>');
+    function _hasReplacingTpl() {
+      return _.isString(scope.tiFullScreen.replacingTpl) && scope.tiFullScreen.replacingTpl !== '';
+    }
 
-      imitatedElement = ng.element('.ov-full-screen-imitated-element');
+    function _findReplacedItemElement(ele) {
+      return ele.find('.' + replacedElementClassName);
+    }
+
+    function _generateImitatedElement() {
+      var classList = anchorElement[0].classList.value.replace('ti-full-screen-anchor', '');
+      anchorElement.after('<div class="ti-full-screen-imitated-element ' + classList + '"></div>');
+
+      imitatedElement = ng.element('.ti-full-screen-imitated-element');
       imitatedElement
         .css({
           height: anchorEleDimension.height
@@ -176,7 +197,13 @@
         _generateImitatedElement();
 
         /** define variable to determine the state of fullScreen */
-        fullScreenIsOpen = true;
+        $timeout(function callback() {
+          fullScreenIsOpen = true;
+
+          if (_hasReplacingTpl()) {
+            replacedItemElement.addClass('fade-out');
+          }
+        }, translationDelay);
 
         /** generate a new child scope */
         childScope = scope.$new(true);
@@ -196,13 +223,13 @@
 
         bodyElement
           .append($compile('' +
-            '<div class="ov-full-screen-backdrop" style="' +
+            '<div class="ti-full-screen-backdrop" style="' +
             'top: ' + (position.top - 20) + 'px;' +
             'right: ' + (position.right - 10) + 'px;' +
             'bottom: ' + (position.bottom - 20) + 'px;' +
             'left: ' + (position.left - 10) + 'px;">' +
-            '<h3 class="pull-left ov-full-screen-heading">{{ vm.headerTitle }}</h3>' +
-            '<div class="pull-right ov-full-screen-remove-icon">' +
+            '<h3 class="pull-left ti-full-screen-heading">{{ vm.headerTitle }}</h3>' +
+            '<div class="pull-right ti-full-screen-remove-icon">' +
             '<i class="glyphicon glyphicon-remove" ng-click="vm.exitFullScreen()"></i></div></div>')(childScope));
 
         /** add in-line styles */
@@ -220,7 +247,7 @@
         documentElement.on('keydown', _keyDownHandler);
 
         $timeout(function () {
-          backdropElement = ng.element('.ov-full-screen-backdrop');
+          backdropElement = ng.element('.ti-full-screen-backdrop');
 
           backdropElement
             .addClass('full-screen');
@@ -246,7 +273,13 @@
       if (!childScope) {
         console.info('TiFullScreen Component: full-screen disappeared already!');
       } else {
-        fullScreenIsOpen = false;
+        $timeout(function callback() {
+          fullScreenIsOpen = false;
+
+          if (_hasReplacingTpl()) {
+            replacedItemElement.removeClass('fade-out');
+          }
+        }, translationDuration + translationDelay);
 
         /** unbind $event from $document, $window */
         documentElement.off('keydown');
@@ -301,7 +334,7 @@
           /** unbind $events */
           windowElement.off('resize');
           windowElement.off('scroll');
-        }, 300);
+        }, translationDuration + translationDelay);
       }
     }
 
