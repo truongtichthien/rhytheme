@@ -29,6 +29,7 @@
           <!--thumbnail image-->
           <div class="ti-full-screen-anchor">
             <!--alternative content on full-screen mode-->
+            <!--todo implement directly ti-full-screen-replacing-template in directive-->
             <div class="ti-full-screen-replacing-template"
                  ng-include="item.tiFullScreen.replacingTpl"></div>
             <img class="item-img ti-full-screen-replaced-element" ng-src="{{ ::item.img }}" src="">
