@@ -1,0 +1,35 @@
+{
+	"phoneNumber":
+	[
+		{
+			"number": "Click on the link to perform poll \"Devices\"",
+			"message": "Update also synchronizes the changes to the switches. \nDo you want to proceed?"
+		},
+		{
+			"number": "Click on the link to perform poll \"Devices\"",
+			"instructionFileStartEnd": "Instruction file path cannot start or end with \"\\\" or \"/\"",
+			"instructionFilePathValid": "File path can only be a single \".\" (root directory) or a valid alpha numeric path (no space)",
+			"message": "Update also synchronizes the changes to the switches. \nDo you want to proceed?",
+			"notContainsCharacter": "File Name must not contain special characters *:?”|\\\/<>"
+		},
+		{
+			"number": 20,
+			"key": "",
+			"number": "Click on the link to perform poll \"Devices\"",
+			"instructionFileStartEnd": "Instruction file path cannot start or end with \"\\\" or \"/\"",
+			"instructionFilePathValid": "File path can only be a single \".\" (root directory) or a valid alpha numeric path (no space)",
+			"message": "Update also synchronizes the changes to the switches. \nDo you want to proceed?",
+			"notContainsCharacter": "File Name must not contain special characters *:?”|\\\/<>",
+			"noLicense": "VMM License is not found. Please go to <a href ng-click='ovAlert.injectedFunction()'>VMM License</a> to import license."
+		},
+		{
+			"key": "",
+			"defaultPassword": "**********",
+			"number": "Click on the link to perform poll \"Devices\"",
+			"instructionFileStartEnd": "Instruction file path cannot start or end with \"\\\" or \"/\"",
+			"instructionFilePathValid": "File path can only be a single \".\" (root directory) or a valid alpha numeric path (no space)",
+			"message": "Update also synchronizes the changes to the switches. \nDo you want to proceed?",
+			"notContainsCharacter": "File Name must not contain special characters *:?”|\\\/<>"		
+		}
+	]
+}

@@ -1,0 +1,23 @@
+<div ng-controller="OvTreeViewDemoCtrl as vm">
+  <div class="tree-view-btn" ov-tree-view-functional-button tree-view-object="vm.ovTreeViewObj" functional-button-config="vm.ovTreeViewFuncButtonConfig.expand"></div>
+  <div class="tree-view-btn" ov-tree-view-functional-button tree-view-object="vm.ovTreeViewObj" functional-button-config="vm.ovTreeViewFuncButtonConfig.collapse"></div>
+  <div class="tree-view-btn" ov-tree-view-functional-button tree-view-object="vm.ovTreeViewObj" functional-button-config="vm.ovTreeViewFuncButtonConfig.rebuild"></div>
+
+  <button type="button" class="btn btn-default" ng-click="vm.changeData()">Change data</button>
+
+  <!--<button type="button" class="btn btn-default" ng-click="vm.ovTreeViewObj.controlFunction.rebuildTree(); vm.disabledRebuild = !vm.disabledRebuild"-->
+          <!--ng-disabled="vm.disabledRebuild">Rebuild tree</button>-->
+  <div>
+    <input id="local-search" type="radio" name="search-method" ng-model="vm.ovTreeViewObj.searchObject.method" ng-value="'local'"/>
+    <label for="local-search">Local Search</label>
+    <input id="mixed-search" type="radio" name="search-method" ng-model="vm.ovTreeViewObj.searchObject.method" ng-value="'mixed'"/>
+    <label for="mixed-search">Mixed Search</label>
+    <input id="server-search" type="radio" name="search-method" ng-model="vm.ovTreeViewObj.searchObject.method" ng-value="'server'"/>
+    <label for="server-search">Server Search</label>
+  </div>
+  <label for="search"></label>
+  <input id="search" type="search" ng-model="vm.ovTreeViewObj.searchObject.str" ng-change="vm.ovTreeViewObj.controlFunction.searchNode()"/>
+
+  <div ov-tree-view tree-view-object="vm.ovTreeViewObj"></div>
+
+</div>

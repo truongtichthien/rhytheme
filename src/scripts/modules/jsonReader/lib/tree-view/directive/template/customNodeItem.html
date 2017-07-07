@@ -1,0 +1,15 @@
+<span class="item-icon">
+  <i ng-class="item.iconClass ? item.iconClass : 'glyphicon glyphicon-heart'"></i>
+</span>
+<span class="item-content-id" ng-if="!item.hasChildren">
+  {{ item.id + ' :' }}
+</span>
+<span class="item-content" title="{{ item.title }}"
+      ng-class="{ 'is-parent': item.hasChildren, 'is-child': !item.hasChildren }">
+      <span ng-if="!item.searchMatched">{{ item.title }}</span>
+      <span ng-if="item.searchMatched" ng-bind-html="item.highlightedTitle"></span>
+</span>
+<span class="item-children-number" ng-if="item.hasChildren">
+  {{ ': '+ item.typeLabel +' ' }}
+  <span class="number">{{ '[' + item.menuItems.length +  ']' }}</span>
+</span>

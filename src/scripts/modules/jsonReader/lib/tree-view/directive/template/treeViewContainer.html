@@ -1,0 +1,15 @@
+<div class="ov-tree-view-container"
+     ng-style="{ 'max-height': vm.treeViewConfig.maxHeight + 'rem' }"
+     vs-repeat>
+  <div class="node-item-wrapper"
+       ng-repeat="item in vm.treeViewArray track by item._id"
+       ng-dblclick="vm.toggleExpansion(item)"
+       ng-click="vm.selectNode(item, true)">
+    <div class="node-item-background"
+         ng-style="{ 'background-color': item.isSelected ? '#bfddfb' : 'transparent', 'width': vm.treeViewContainerScrollWidth }">
+      <div class="node-item" ng-style="{ 'margin-left': item.level * 2 + 1.5 + 'rem'}"
+           ng-include="vm.treeViewConfig.nodeItemWrapperTpl">
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="node-dotted-line" ng-repeat="l in item.lineArray track by $index" ng-if="l.leftBorder || l.bottomBorder"
+     ng-style="{ 'left': - ($index * 2 + 1.4) + 'rem', 'border-bottom-width': l.bottomBorder ? 1 : 0 + 'px', 'border-left-width': l.leftBorder ? 1 : 0 + 'px' }"
+     ng-class="{ 'not-first-child': l.extraBorder }">&nbsp
+</div>
+<div>
+  <div class="node-item-content">
+    <span class="item-icon" ng-click="vm.toggleExpansion(item); $event.stopPropagation()">
+      <span ng-show="item.hasChildren">
+        <span class="toggle-icon" ng-class="{'show-children': item.showChildren}" ng-hide="item.isWaiting"></span>
+        <i class="fa fa-spin fa-spinner spinner-icon" ng-show="item.isWaiting"></i>
+      </span>
+    </span>
+    <span ng-if="vm.treeViewConfig.showCheckbox || vm.treeViewConfig.isChecklist">
+      <span
+          ng-class="{ 'node-item-checkbox': vm.treeViewConfig.showCheckbox, 'node-item-checklist': vm.treeViewConfig.isChecklist }"
+          ov-checkbox item="item" func="vm.toggleCheckNode(item, event)"></span>
+    </span>
+    <span class="custom-node-item-tpl"
+          ng-class="{ 'task-done': vm.treeViewConfig.isChecklist && item.check === 'checked' }"
+          ng-include="vm.treeViewConfig.nodeItemTpl"></span>
+  </div>
+</div>

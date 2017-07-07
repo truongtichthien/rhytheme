@@ -1,0 +1,10 @@
+<div id="ov-tree-view-{{vm.treeViewConfig.id}}" class="ov-tree-view-wrapper" tabindex="0" ng-keydown="vm.keyBinding($event)">
+  <div class="ov-tree-view-spinner"
+       ov-spinner-loading="vm.spinner"
+       spinner-id="'tree-view-main-spinner'"
+       ng-include="vm.treeViewConfig.ovTreeViewContainerTpl">
+    <div class="ov-tree-view-default-result" ng-show="vm.treeViewArray.length === 0">
+      I have no damn thing to show!
+    </div>
+  </div>
+</div>

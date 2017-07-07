@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<link rel="stylesheet" type="text/css" href="highlight.min.css">
+<link rel="stylesheet" type="text/css" href="style/style.css">
+<div id="page-wrapper">
+
+  <!-- 	<h1>JSON File Reader</h1> -->
+  <!--   <h3>Read the content of JSON translation files</h3> -->
+  <div>
+    Select a JSON file:
+    <input type="file" id="fileInput">
+    <br>
+    Occurence:
+    <br>
+    From: <input type="text" id="maxOccurence">
+    To: <input type="text" id="minOccurence">
+    <br>
+    <button id="reloadBtn">Reload</button>
+  </div>
+  <pre>
+	<code></code>
+  </pre>
+  <!-- 	<div>
+      File name: <span id="fileNameDisplayArea"></span>
+    </div> -->
+  <pre id="fileDisplayArea"><pre>
+</div>
+<script src="highlight.min.js"></script>
+<script src="script.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<body>
+
+</body>
+</html>
