@@ -8,6 +8,6 @@
 (function (ng) {
   'use strict';
 
-  ng.module('jsonReaderApp', ['vs-repeat', 'treeView', 'dottie']);
+  ng.module('jsonReaderApp', ['vs-repeat', 'treeView', 'treeViewLight', 'dottie']);
 
 })(angular);

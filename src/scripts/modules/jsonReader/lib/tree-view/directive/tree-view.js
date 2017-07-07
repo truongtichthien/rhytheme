@@ -6,7 +6,7 @@
  * photocopying, or otherwise without the prior permission of ALE USA Inc..
  */
 
-(function (ng) {
+(function (ng, _) {
   'use strict';
 
   function TreeViewConstant() {}
@@ -1399,4 +1399,4 @@
     .directive('ovTreeViewFunctionalButton', OvTreeViewFunctionalButton)
     .directive('ovCheckbox', OVCheckbox);
 
-})(angular);
+})(window.angular, window._);
