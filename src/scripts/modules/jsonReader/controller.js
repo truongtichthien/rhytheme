@@ -8,10 +8,45 @@
 (function (ng) {
   'use strict';
 
-  function JReaderController(scope) {
+  function JReaderController($timeout, scope) {
     var vm = this,
       _resultObj = {},
       localResultObj = {};
+
+    vm.tools = {};
+    vm.nodes = [];
+    vm.seeds = [
+      {
+        id: 'parentZero',
+        title: 'Parent Zero',
+        typeLabel: 'Parent Zero',
+        children: [
+          { id: 'alpha', title: 'Alpha' },
+          { id: 'bravo', title: 'Bravo' }
+        ]
+      },
+      {
+        id: 'parentOne',
+        title: 'Parent One',
+        typeLabel: 'Parent One',
+        children: [
+          { id: 'charlie', title: 'Charlie' },
+          { id: 'delta', title: 'Delta' }
+        ]
+      }
+    ];
+
+    $timeout(function () {
+      vm.seeds.push({
+        id: 'parentTwo',
+        title: 'Parent Two',
+        typeLabel: 'Parent Two',
+        children: [
+          { id: 'charlie', title: 'Charlie' },
+          { id: 'delta', title: 'Delta' }
+        ]
+      })
+    }, 1);
 
     vm.jsonObj = {};
     vm.jsonObj.seedArray = [
@@ -147,7 +182,7 @@
     }
   }
 
-  JReaderController.$inject = ['$scope'];
+  JReaderController.$inject = ['$timeout', '$scope'];
 
   function fileInput() {
     return {

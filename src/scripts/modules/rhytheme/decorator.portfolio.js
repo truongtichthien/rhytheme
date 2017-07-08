@@ -44,7 +44,7 @@
             showButton: false,
             iconClass: 'custom-icon',
             headerTitle: 'HTTK Template',
-            replacingTpl: 'scripts/modules/rhytheme/portfolios/httk.html'
+            replacingTpl: '' //'scripts/modules/rhytheme/portfolios/httk.html'
           }
         },
         {

@@ -13,6 +13,13 @@
       scope: {},
       controller: 'RhythemeController',
       controllerAs: 'rhytheme',
+      link: function (scope, element) {
+        element.ready(function () {
+          scope.$apply(function () {
+            console.log('module ready');
+          });
+        });
+      },
       templateUrl: 'scripts/modules/rhytheme/view.html'
     };
 

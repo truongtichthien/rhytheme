@@ -12,12 +12,14 @@
       documentElement,
       windowElement,
       bodyElement,
-      replacedItemElement;
+      replacedItemElement,
+      iFrameElement;
 
     var bodyTagName = 'BODY';
 
     var anchorClassName = 'ti-full-screen-anchor',
-      replacedElementClassName = 'ti-full-screen-replaced-element';
+      replacedElementClassName = 'ti-full-screen-replaced-element',
+      iFrameElementClassName = 'ti-full-screen-iframe';
 
     var childScope;
 
@@ -54,10 +56,6 @@
           documentElement = ng.element($document);
           windowElement = ng.element($window);
           bodyElement = ng.element(bodyTagName);
-
-          if (_hasReplacingTpl()) {
-            replacedItemElement = _findReplacedItemElement(anchorElement);
-          }
 
           _calculateViewPortDimension();
           _calculateElementDimension(anchorElement);
@@ -114,6 +112,10 @@
 
     function _findReplacedItemElement(ele) {
       return ele.find('.' + replacedElementClassName);
+    }
+
+    function _findIFrameElement(ele) {
+      return ele.find('.' + iFrameElementClassName);
     }
 
     function _generateImitatedElement() {
@@ -201,6 +203,7 @@
           fullScreenIsOpen = true;
 
           if (_hasReplacingTpl()) {
+            replacedItemElement = _findReplacedItemElement(anchorElement);
             replacedItemElement.addClass('fade-out');
           }
         }, translationDelay);
@@ -218,8 +221,8 @@
         /** calculate position of anchor element */
         var position = _calculateElementPosition(bodyEleDimension, anchorEleDimension);
 
-        bodyElement
-          .css({ overflow: 'hidden' });
+        // bodyElement
+        //   .css({ overflow: 'hidden' });
 
         bodyElement
           .append($compile('' +
@@ -253,9 +256,7 @@
             .addClass('full-screen');
 
           anchorElement
-            .addClass('floating');
-
-          anchorElement
+            .addClass('floating')
             .addClass('free-width');
 
           /** bind $event resize to $window */

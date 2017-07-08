@@ -1,0 +1,7 @@
+<div ng-style="{'margin-left': node.core.level + 'rem'}">
+  <span ng-if="node.core.children.length">
+    <a href ng-click="node.expand()" ng-if="!node.core.expanded">+</a>
+    <a href ng-click="node.collapse()" ng-if="node.core.expanded">-</a>
+  </span>
+  {{ node.core.title + ' - ' + node.core._id }}
+</div>

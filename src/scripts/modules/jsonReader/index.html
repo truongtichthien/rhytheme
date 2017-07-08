@@ -8,42 +8,58 @@
   <link rel="stylesheet" type="text/css" href="style/style.css">
 </head>
 <body ng-app="jsonReaderApp">
-<div id="page-wrapper" ng-controller="JReaderController as vm">
+  <div id="page-wrapper" ng-controller="JReaderController as vm">
 
-  <!-- 	<h1>JSON File Reader</h1> --><!--   <h3>Read the content of JSON translation files</h3> -->
+    <!--<h1>JSON File Reader</h1>-->
+    <!--<h3>Read the content of JSON translation files</h3>-->
 
-  <!--<div>--><!--Select a JSON file:--><!--<input type="file" file-input="vm.fileInput" ng-model="vm.fileInput"/>-->
-  <!--&lt;!&ndash;<textarea file-input="vm.fileInput" ng-model="vm.fileInput"></textarea>&ndash;&gt;-->
+    <!--<div>Select a JSON file:<input type="file" file-input="vm.fileInput" ng-model="vm.fileInput"/>-->
+    <!--<textarea file-input="vm.fileInput" ng-model="vm.fileInput"></textarea>-->
 
-  <!--<br>--><!--Occurrence:--><!--<label for="min-occurrence">From:</label>-->
-  <!--<input type="text" id="min-occurrence" ng-model="vm.minOccurrence">-->
+    <!--<br>Occurrence:<label for="min-occurrence">From:</label>-->
+    <!--<input type="text" id="min-occurrence" ng-model="vm.minOccurrence">-->
 
-  <!--<label for="max-occurrence">To:</label>-->
-  <!--<input type="text" id="max-occurrence" ng-model="vm.maxOccurrence">--><!--<br>--><!--<button id="reload-btn"-->
-  <!--ng-click="vm.countValueOccurrence()"--><!--ng-disabled="!vm.fileInput">Discover me!--><!--</button>-->
-  <!--</div>-->
+    <!--<label for="max-occurrence">To:</label>-->
+    <!--<input type="text" id="max-occurrence" ng-model="vm.maxOccurrence"><br>-->
+    <!--<button id="reload-btn"-->
+    <!--ng-click="vm.countValueOccurrence()" ng-disabled="!vm.fileInput">Discover me!-->
+    <!--</button>-->
+    <!--</div>-->
 
-  <!--<div>--><!--File name: <span id="fileNameDisplayArea"></span>--><!--</div>-->
+    <!--<div>File name: <span id="fileNameDisplayArea"></span></div>-->
 
-  <!--<div class="tree-view-btn" ov-tree-view-functional-button tree-view-object="vm.jsonObj"-->
-  <!--functional-button-config="vm.ovTreeViewFuncButtonConfig.expand"></div>-->
-  <!--<div class="tree-view-btn" ov-tree-view-functional-button tree-view-object="vm.jsonObj"-->
-  <!--functional-button-config="vm.ovTreeViewFuncButtonConfig.collapse"></div>-->
-  <!--<div class="tree-view-btn" ov-tree-view-functional-button tree-view-object="vm.jsonObj"-->
-  <!--functional-button-config="vm.ovTreeViewFuncButtonConfig.rebuild"></div>--><!--<div>-->
-  <!--<input id="local-search" type="radio" name="search-method" ng-model="vm.jsonObj.searchObject.method" ng-value="'local'"/>-->
-  <!--<label for="local-search">Local Search</label>-->
-  <!--<input id="mixed-search" type="radio" name="search-method" ng-model="vm.jsonObj.searchObject.method" ng-value="'mixed'"/>-->
-  <!--<label for="mixed-search">Mixed Search</label>-->
-  <!--<input id="server-search" type="radio" name="search-method" ng-model="vm.jsonObj.searchObject.method" ng-value="'server'"/>-->
-  <!--<label for="server-search">Server Search</label>--><!--</div>--><!--<label for="search"></label>-->
-  <!--<input id="search" type="search" ng-model="vm.jsonObj.searchObject.str"--><!--ng-disabled="!vm.fileInput"-->
-  <!--ng-change="vm.jsonObj.controlFunction.searchNode()"/>-->
+    <!--<div class="tree-view-btn"-->
+    <!--ov-tree-view-functional-button tree-view-object="vm.jsonObj"-->
+    <!--functional-button-config="vm.ovTreeViewFuncButtonConfig.expand"></div>-->
+    <!--<div class="tree-view-btn" ov-tree-view-functional-button tree-view-object="vm.jsonObj"-->
+    <!--functional-button-config="vm.ovTreeViewFuncButtonConfig.collapse"></div>-->
 
-  <!--<div ov-tree-view tree-view-object="vm.jsonObj"></div>-->
-  <div tree-view-light seeds="vm.jsonObj"></div>
+    <!--<div class="tree-view-btn" ov-tree-view-functional-button tree-view-object="vm.jsonObj"-->
+    <!--functional-button-config="vm.ovTreeViewFuncButtonConfig.rebuild"></div>-->
 
-</div>
+    <!--<div>-->
+    <!--<input id="local-search" type="radio" name="search-method" ng-model="vm.jsonObj.searchObject.method"-->
+    <!--ng-value="'local'"/>-->
+    <!--<label for="local-search">Local Search</label>-->
+    <!--<input id="mixed-search" type="radio" name="search-method" ng-model="vm.jsonObj.searchObject.method"-->
+    <!--ng-value="'mixed'"/>-->
+    <!--<label for="mixed-search">Mixed Search</label>-->
+    <!--<input id="server-search" type="radio" name="search-method" ng-model="vm.jsonObj.searchObject.method"-->
+    <!--ng-value="'server'"/>-->
+    <!--<label for="server-search">Server Search</label>-->
+    <!--</div>-->
+    <!--<label for="search"></label>-->
+    <!--<input id="search" type="search" ng-model="vm.jsonObj.searchObject.str" ng-disabled="!vm.fileInput"-->
+    <!--ng-change="vm.jsonObj.controlFunction.searchNode()"/>-->
+
+    <!--<div ov-tree-view tree-view-object="vm.jsonObj"></div>-->
+
+    <button ng-click="vm.tools.build()">Build</button>
+    <button ng-click="vm.tools.expand()">Expand</button>
+    <button ng-click="vm.tools.collapse()">Collapse</button>
+    <div tree-view-light seeds="vm.seeds" nodes="vm.nodes" tools="vm.tools"></div>
+
+  </div>
 </body>
 <script src="lib/jquery/jquery-3.1.1.js"></script>
 <script src="lib/angular/angular.js"></script>
