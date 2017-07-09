@@ -1,0 +1,22 @@
+.tree-main-frame {
+  position: relative;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.tree-main-frame .repeat-wrapper {
+  overflow-y: auto;
+}
+.tree-main-frame .repeat-node:hover .node-wrapper {
+  background: #ddd;
+}
+.tree-main-frame .repeat-node:hover .node-wrapper.selected {
+  background: #bfddfb;
+}
+.tree-main-frame .node-wrapper {
+  height: 2rem;
+  line-height: 2rem;
+  white-space: nowrap;
+}
+.tree-main-frame .node-wrapper.selected {
+  background: #bfddfb;
+}

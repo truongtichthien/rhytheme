@@ -13,8 +13,8 @@
       _resultObj = {},
       localResultObj = {};
 
-    vm.tools = {};
-    vm.nodes = [];
+    // vm.nodes = [];
+    // vm.tools = {};
     vm.seeds = [
       {
         id: 'parentZero',
@@ -31,7 +31,14 @@
         typeLabel: 'Parent One',
         children: [
           { id: 'charlie', title: 'Charlie' },
-          { id: 'delta', title: 'Delta' }
+          {
+            id: 'delta',
+            title: 'Delta',
+            children: [
+              { id: 'golf', title: 'Golf' },
+              { id: 'hotel', title: 'Hotel' }
+            ]
+          }
         ]
       }
     ];
@@ -42,11 +49,11 @@
         title: 'Parent Two',
         typeLabel: 'Parent Two',
         children: [
-          { id: 'charlie', title: 'Charlie' },
-          { id: 'delta', title: 'Delta' }
+          { id: 'echo', title: 'Echo Echo Echo Echo Echo Echo' },
+          { id: 'foxtrot', title: 'Foxtrot Foxtrot Foxtrot Foxtrot Foxtrot Foxtrot' }
         ]
-      })
-    }, 1);
+      });
+    }, 100);
 
     vm.jsonObj = {};
     vm.jsonObj.seedArray = [

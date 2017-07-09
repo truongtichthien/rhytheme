@@ -1,0 +1,23 @@
+.tree-main-frame
+  position relative
+  overflow-y hidden
+  overflow-x auto
+
+  .repeat-wrapper
+    overflow-y auto
+
+  .repeat-node:hover
+    .node-wrapper
+      background #ddd
+    .node-wrapper.selected
+      background #bfddfb
+
+  .node-wrapper
+    height 2rem
+    line-height 2rem
+    white-space nowrap
+
+    &.selected
+      background #bfddfb
+
+//.node-content
