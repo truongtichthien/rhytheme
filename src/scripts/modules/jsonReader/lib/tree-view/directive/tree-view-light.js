@@ -98,6 +98,7 @@
         target.expanded = true;
         /** insert new node after targetIndex */
         var children = _.filter(nodes, function (node) {
+          /*todo find targetID*/
           return (node._id !== target._id) &&
             (node._id.indexOf(target._id) >= 0) &&
             (node.parent._id === target._id);
@@ -246,6 +247,7 @@
       var node = self;
 
       node.select = function (event) {
+        /*todo enhance function selectNode*/
         event.stopPropagation();
         node.toggle();
         // treeCtrl.toggleNode(target, index, event);
