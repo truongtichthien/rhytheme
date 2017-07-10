@@ -9,25 +9,24 @@
     pxRemRatio: 16
   };
 
-  function treeView($window, $timeout) {
+  function treeView($timeout) {
     var tree;
-
     tree = {
       restrict: 'EA',
       scope: {
         seeds: '=',
         nodes: '=?',
         tools: '=?'
+        // search: '=?'
       },
       templateUrl: 'lib/tree-view/directive/templateLight/frame.html',
       link: function (scope, element) {
-        treeViewLink($window, $timeout, scope, element);
+        treeViewLink($timeout, scope, element);
       },
       controller: 'TreeViewLightCtrl',
       controllerAs: 'tree',
       bindToController: true
     };
-
     return tree;
   }
 
@@ -35,90 +34,109 @@
     /** execute constructor */
     _constructor(this, _build, _expand, _collapse);
 
-    function _constructor(self, build, expand, collapse) {
+    function _constructor(self, _buildTree, _expandTree, _collapseTree) {
       var tree = self,
-        seeds, nodes,
-        selectedNode;
+        nodes, selectedNode;
 
-      /** get binding models from outside scope */
-      seeds = tree.seeds;
+      if (_.isUndefined(tree.seeds)) {
+        console.error('No seeds, no trees! Give me seed please!');
+        return false;
+      }
 
       _.isUndefined(tree.nodes) && (tree.nodes = []);
       _.isUndefined(tree.tools) && (tree.tools = {});
-      _.isUndefined(tree.fn) && (tree.fn = {});
+      // _.isUndefined(tree.search) && (tree.search = {});
 
-      /** define equipments that be required */
+      /** reachable functions from outside scope */
       tree.tools.build = _build;
       tree.tools.expand = _expand;
       tree.tools.collapse = _collapse;
+      tree.tools.search = _search;
 
-      /** supported functions for individual node */
-      tree.fn.toggleNode = _toggleNode;
+      // tree.search.key = '';
 
-      /** owned functions */
-
+      /** internal usage functions */
+      tree.toggleNode = _toggleNode;
       tree.selectNode = _selectNode;
-      // tree.toggleNode = _toggleNode;
       tree.maxWidthOfNodes = _maxWidthOfNodes;
 
-      function _filterRoots(nodes) {
-        return _.filter(nodes, function (node) {
-          return !node.parent;
-        });
-      }
-
       function _build() {
-        nodes = build(seeds);
+        nodes = _buildTree(tree.seeds);
         /** clear nodes */
         tree.nodes = [];
         /** re-build nodes by new seeds */
         $timeout(function () {
           tree.nodes = _filterRoots(nodes);
         });
+
+        function _filterRoots(nodes) {
+          return _.filter(nodes, function (node) {
+            return !node.parent;
+          });
+        }
       }
 
       function _expand() {
-        tree.nodes = expand(nodes);
+        tree.nodes = _expandTree(nodes);
       }
 
       function _collapse() {
-        tree.nodes = collapse(tree.nodes);
+        tree.nodes = _collapseTree(tree.nodes);
+      }
+
+      function _search(key) {
+        console.log('orgKey ', key);
+        _.isString(key) && ((key.trim() !== '') && (_doSearch(key)) || (key.trim() === '') && (_expand()));
+
+        function _doSearch(key) {
+          /** clear nodes */
+          tree.nodes = [];
+
+          var found = [];
+
+          _.forEach(nodes, function (o) {
+            (_.includes(_.lowerCase(o.title), _.lowerCase(key))) && (found.push(o));
+          });
+
+          $timeout(function () {
+            tree.nodes = found;
+          });
+        }
       }
 
       function _toggleNode(target, index) {
-        // $event.stopPropagation();
         if (!target.expanded) {
           _expandNode(target, index);
         } else {
           _collapseNode(target, index);
         }
-      }
 
-      function _expandNode(target, index) {
-        target.expanded = true;
-        /** insert new node after targetIndex */
-        var children = _.filter(nodes, function (node) {
-          /*todo find targetID*/
-          return (node._id !== target._id) &&
-            (node._id.indexOf(target._id) >= 0) &&
-            (node.parent._id === target._id);
-        });
-        _.forEach(children, function (child) {
-          index++;
-          tree.nodes.splice(index, 0, child);
-        });
-      }
-
-      function _collapseNode(target) {
-        target.expanded = false;
-        _.remove(tree.nodes, function (node) {
-          (target.expanded) && (target.expanded = false);
-          (target.selected) && (target.selected = false);
-          _.forEach(target.children, function (child) {
-            (child.expanded) && (child.expanded = false);
+        function _expandNode(target, index) {
+          target.expanded = true;
+          /** insert new node after targetIndex */
+          var children = _.filter(nodes, function (node) {
+            return (node._id !== target._id) &&
+              (_.includes(node._id, target._id)) &&
+              (node.parent._id === target._id);
           });
-          return (node._id !== target._id) && (node._id.indexOf(target._id) >= 0);
-        });
+          _.forEach(children, function (child) {
+            index++;
+            tree.nodes.splice(index, 0, child);
+          });
+        }
+
+        function _collapseNode(target) {
+          target.expanded = false;
+          _.remove(tree.nodes, function (node) {
+            /** compare _id to remove children and its descendants */
+            if ((node._id !== target._id) && (_.includes(node._id, target._id))) {
+              (node.selected) && (node.selected = false);
+              (node.children && node.expanded) && (node.expanded = false);
+              return true;
+            }
+            return false;
+          });
+        }
       }
 
       function _selectNode(target) {
@@ -133,14 +151,14 @@
       function _maxWidthOfNodes() {
         var max = _.maxBy(tree.nodes, function (node) {
           if (node.appear) {
-            return node.actualWidth;
+            return node.realWidth;
           }
         });
 
         _.forEach(tree.nodes, function (node) {
           if (node.appear) {
             console.log();
-            node.width = max.actualWidth > tree.frameWidth() ? max.actualWidth : tree.frameWidth();
+            node.width = max.realWidth > tree.frameWidth() ? max.realWidth : tree.frameWidth();
           }
         });
       }
@@ -202,11 +220,11 @@
     }
   }
 
-  function treeViewLink(window, timeout, scope, element) {
+  function treeViewLink(timeout, scope, element) {
     var tree = scope.tree;
 
     tree.frameWidth = _treeFrameWidth;
-
+    /** todo: calculate frame's width once window triggers onResize */
     timeout(_treeFrameWidth);
 
     scope.$on('vsRepeatTrigger', function () {
@@ -218,7 +236,7 @@
     }
   }
 
-  function treeNode($window, $timeout, treeViewConst) {
+  function treeNode($timeout, treeViewConst) {
     var node;
     node = {
       restrict: 'EA',
@@ -229,7 +247,7 @@
       },
       templateUrl: 'lib/tree-view/directive/templateLight/node.html',
       link: function (scope, element, attribute, required) {
-        treeNodeLink($window, $timeout, treeViewConst, scope, element, attribute, required);
+        treeNodeLink($timeout, treeViewConst, scope, element, required);
       },
       controller: 'TreeNodeCtrl',
       controllerAs: 'node',
@@ -238,7 +256,7 @@
     return node;
   }
 
-  function treeNodeCtrl(scope) {
+  function treeNodeCtrl() {
 
     /** execute constructor */
     _constructor(this);
@@ -247,15 +265,14 @@
       var node = self;
 
       node.select = function (event) {
-        /*todo enhance function selectNode*/
         event.stopPropagation();
+        /** call binding toggleNode function */
         node.toggle();
-        // treeCtrl.toggleNode(target, index, event);
       };
     }
   }
 
-  function treeNodeLink(window, timeout, treeViewConst, scope, element, attribute, required) {
+  function treeNodeLink(timeout, treeViewConst, scope, element, required) {
     var node = scope.node,
       treeCtrl = required;
 
@@ -268,7 +285,7 @@
 
     function _nodeCompiled() {
       node.core.appear = true;
-      node.core.actualWidth = _nodeWidth(node.core);
+      node.core.realWidth = _nodeWidth(node.core);
 
       timeout(treeCtrl.maxWidthOfNodes);
     }
@@ -287,10 +304,10 @@
     }
   }
 
-  treeView.$inject = ['$window', '$timeout'];
+  treeView.$inject = ['$timeout'];
   treeViewCtrl.$inject = ['$timeout'];
 
-  treeNode.$inject = ['$window', '$timeout', 'treeViewConst'];
+  treeNode.$inject = ['$timeout', 'treeViewConst'];
   treeNodeCtrl.$inject = ['$scope'];
 
   ng.module('treeViewLight', ['ngSanitize']);

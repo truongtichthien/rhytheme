@@ -2,6 +2,7 @@
   position: relative;
   overflow-y: hidden;
   overflow-x: auto;
+  outline: none;
 }
 .tree-main-frame .repeat-wrapper {
   overflow-y: auto;
@@ -19,4 +20,7 @@
 }
 .tree-main-frame .node-wrapper.selected {
   background: #bfddfb;
+}
+.tree-main-frame .node-wrapper .node-content .node-toggle {
+  cursor: pointer;
 }
