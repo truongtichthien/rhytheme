@@ -2,7 +2,7 @@
      class="tree-main-frame"
      tabindex="0">
   <div class="repeat-wrapper"
-       ng-style="{ 'max-height': 20 + 'rem' }" vs-repeat="32">
+       ng-style="{ 'max-height': 20 + 'rem', 'min-height': 10 + 'rem' }" vs-repeat="32">
     <div class="repeat-node"
          ng-click="tree.selectNode(node)"
          ng-repeat="node in tree.nodes track by node._id">
