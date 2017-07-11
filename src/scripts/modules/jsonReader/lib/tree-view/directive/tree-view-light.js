@@ -31,6 +31,8 @@
   }
 
   function treeViewCtrl($timeout) {
+    var skeleton, geneMap, instance;
+
     /** execute constructor */
     _constructor(this, _build, _expand, _collapse);
 
@@ -59,29 +61,57 @@
       tree.toggleNode = _toggleNode;
       tree.selectNode = _selectNode;
       tree.maxWidthOfNodes = _maxWidthOfNodes;
+      tree.getGeneMap = _getGeneMap;
+      tree.getNodeState = _getNodeState;
+      tree.setNodeState = _setNodeState;
 
       function _build() {
+        /** property explanation
+         * _id: unique identity
+         * root: the _id of the parent node
+         * branches: the _id(s) of the children node
+         * proto: original seed passed from outside
+         * level: generation of node
+         * asleep: determine whether could appear or not (use for searching)
+         * appeared: node currently appears on tree */
+
         nodes = _buildTree(tree.seeds);
-        /** clear nodes */
+
+        console.log('skeleton ', skeleton);
+        console.log('gene map ', geneMap);
+        instance = _.cloneDeep(geneMap);
+
+        /** clear all nodes then re-build to force rendering new node on DOM */
         tree.nodes = [];
-        /** re-build nodes by new seeds */
         $timeout(function () {
-          tree.nodes = _filterRoots(nodes);
+          tree.nodes = _.filter(skeleton, function (o) {
+            /** display matched node */
+            (!instance[o].root) && (instance[o].appeared = true) && (instance[o].asleep = false);
+            return !instance[o].root;
+          });
+
+          console.log('instance ', instance);
         });
 
-        function _filterRoots(nodes) {
-          return _.filter(nodes, function (node) {
-            return !node.parent;
-          });
-        }
+        // /** clear nodes */
+        // tree.nodes = [];
+        // /** re-build nodes by new seeds */
+        // $timeout(function () {
+        //   tree.nodes = _filterRoots(nodes);
+        // });
+        // function _filterRoots(nodes) {
+        //   return _.filter(nodes, function (node) {
+        //     return !node.parent;
+        //   });
+        // }
       }
 
       function _expand() {
-        tree.nodes = _expandTree(nodes);
+        tree.nodes = _expandTree(skeleton);
       }
 
       function _collapse() {
-        tree.nodes = _collapseTree(tree.nodes);
+        tree.nodes = _collapseTree(skeleton);
       }
 
       function _search(key) {
@@ -105,33 +135,53 @@
       }
 
       function _toggleNode(target, index) {
-        if (!target.expanded) {
+        var isExpanded = !!(_.filter(instance[target].branches, function (o) {
+          return instance[o].appeared;
+        })).length;
+
+        if (!isExpanded) {
           _expandNode(target, index);
-        } else {
+        }
+        else /*if (!instance[target].collapsed)*/ {
           _collapseNode(target, index);
         }
 
         function _expandNode(target, index) {
-          target.expanded = true;
+          // target.expanded = true;
           /** insert new node after targetIndex */
-          var children = _.filter(nodes, function (node) {
-            return (node._id !== target._id) &&
-              (_.includes(node._id, target._id)) &&
-              (node.parent._id === target._id);
-          });
+            // var children = _.filter(nodes, function (node) {
+            //   return (node._id !== target._id) &&
+            //     (_.includes(node._id, target._id)) &&
+            //     (node.parent._id === target._id);
+            // });
+          var children = instance[target].branches;
+
+          // instance[target].expanded = true;
+          // instance[target].collapsed = !instance[target].expanded;
+
           _.forEach(children, function (child) {
             index++;
+            instance[child].asleep = false;
+            instance[child].appeared = !instance[child].asleep;
             tree.nodes.splice(index, 0, child);
           });
+
+          console.log(instance);
         }
 
         function _collapseNode(target) {
-          target.expanded = false;
+          // target.expanded = false;
+
+          // instance[target].collapsed = true;
+          // instance[target].expanded = !instance[target].collapsed;
+
           _.remove(tree.nodes, function (node) {
             /** compare _id to remove children and its descendants */
-            if ((node._id !== target._id) && (_.includes(node._id, target._id))) {
-              (node.selected) && (node.selected = false);
-              (node.children && node.expanded) && (node.expanded = false);
+            if ((node !== target) && (_.includes(node, target))) {
+              instance[node].asleep = true;
+              instance[node].appeared = !instance[node].asleep;
+              // (node.selected) && (node.selected = false);
+              // (node.children && node.expanded) && (node.expanded = false);
               return true;
             }
             return false;
@@ -150,23 +200,38 @@
 
       function _maxWidthOfNodes() {
         var max = _.maxBy(tree.nodes, function (node) {
-          if (node.appear) {
-            return node.realWidth;
+          if (instance[node].appeared) {
+            return instance[node].realWidth;
           }
         });
 
         _.forEach(tree.nodes, function (node) {
-          if (node.appear) {
+          if (instance[node].appeared) {
             console.log();
-            node.width = max.realWidth > tree.frameWidth() ? max.realWidth : tree.frameWidth();
+            instance[node].width = instance[max].realWidth > tree.frameWidth() ? instance[max].realWidth : tree.frameWidth();
           }
         });
+      }
+
+      function _getGeneMap() {
+        return geneMap;
+      }
+
+      function _getNodeState(id) {
+        return (id) && (instance[id]);
+      }
+
+      function _setNodeState(id, key, value) {
+        (id) && (instance[id][key] = value);
       }
     }
 
     function _build(seeds) {
       var nodes = [],
         rootLevel = -1;
+
+      skeleton = [];
+      geneMap = {};
 
       _collectSeed(seeds);
 
@@ -185,13 +250,25 @@
 
           node = _.cloneDeep(s);
 
+          /** consider deprecation */
           node._id = _.get(parent, '_id', '') + s.id;
           node.level = _.get(parent, 'level', rootLevel) + 1;
           node.parent = parent || null;
 
           nodes.push(node);
+          skeleton.push(node._id);
+          geneMap[node._id] = {};
+          geneMap[node._id].proto = _.cloneDeep(s);
+          geneMap[node._id]._id = _.get(parent, '_id', '') + s.id;
+          geneMap[node._id].level = _.get(parent, 'level', rootLevel) + 1;
+          geneMap[node._id].root = _.get(parent, '_id', null);
+          geneMap[node._id].asleep = true;
+
+          /** create children array */
+          (parent) && (geneMap[parent._id].branches.push(node._id));
 
           if (_.isArray(node.children) && (node.children.length)) {
+            geneMap[node._id].branches = [];
             _collectSeed(node.children, node);
           }
         });
@@ -201,22 +278,39 @@
     }
 
     function _expand(nodes) {
-      var iteratee = function (node) {
-        _.isArray(node.children) && (node.expanded = true);
-        return node;
-      };
+      // var iteratee = function (node) {
+      //   _.isArray(node.children) && (node.expanded = true);
+      //   return node;
+      // };
+      // return _.map(nodes, iteratee);
+      return _.map(nodes, function (o) {
+        // (instance[o].branches) && (instance[o].expanded = true) && (instance[o].collapsed = !instance[o].expanded);
+        instance[o].asleep = false;
+        instance[o].appeared = !instance[o].asleep;
 
-      return _.map(nodes, iteratee);
+        return o;
+      });
     }
 
     function _collapse(nodes) {
-      _.remove(nodes, function (node) {
-        _.isArray(node.children) && (node.expanded = false);
-        (node.selected) && (node.selected = false);
-        return node.level > 0;
-      });
+      // _.remove(nodes, function (node) {
+      //   _.isArray(node.children) && (node.expanded = false);
+      //   (node.selected) && (node.selected = false);
+      //   return node.level > 0;
+      // });
+      // return nodes;
 
-      return nodes;
+      return _.filter(nodes, function (o) {
+        /** display matched node */
+        if (!instance[o].root) {
+          instance[o].appeared = true;
+          instance[o].asleep = !instance[o].appeared;
+        } else {
+          instance[o].appeared = false;
+          instance[o].asleep = !instance[o].appeared;
+        }
+        return !instance[o].root;
+      });
     }
   }
 
@@ -274,7 +368,10 @@
 
   function treeNodeLink(timeout, treeViewConst, scope, element, required) {
     var node = scope.node,
-      treeCtrl = required;
+      nodeState,
+      treeCtrl;
+
+    treeCtrl = node.treeCtrl = required;
 
     /** to ensure that element rendered completely */
     timeout(_nodeCompiled);
@@ -283,22 +380,63 @@
       console.log('vs trigger');
     });
 
+    nodeState = treeCtrl.getNodeState(node.core);
+
+    node.title = nodeState.proto.title;
+    node.level = nodeState.level;
+    node.width = nodeState.width;
+
+    node.branches = function () {
+      var branches = (nodeState.branches) && (nodeState.branches.length || 0);
+
+      _.forEach(nodeState.branches, function (o) {
+        var s = treeCtrl.getNodeState(o);
+        (s.appeared) && (node.expanded = s.appeared) && (node.collapsed = !node.expanded);
+        (s.asleep) && (node.collapsed = s.asleep) && (node.expanded = !node.collapsed);
+        if (s.appeared || s.asleep) {
+          // treeCtrl.setNodeState(node.core, 'expanded', s.appeared || s.asleep);
+          return false;
+        }
+      });
+
+      return branches;
+    };
+
+    // node.expanded = function () {
+    //   return !!_.find(nodeState.branches, function (o) {
+    //     var s = treeCtrl.getNodeState(o);
+    //     return s.appeared;
+    //   });
+    // };
+    // node.collapsed = function () {
+    //   return !!_.find(nodeState.branches, function (o) {
+    //     var s = treeCtrl.getNodeState(o);
+    //     return s.asleep;
+    //   });
+    // };
+
+    // console.log(treeCtrl.getNodeState());
+    // console.log(treeCtrl.getNodeState('parentOne'));
+
     function _nodeCompiled() {
-      node.core.appear = true;
-      node.core.realWidth = _nodeWidth(node.core);
+      // node.core.appear = true;
+      // node.core.realWidth = _nodeWidth(node.core);
+
+      var width = _nodeWidth(node.core);
+      treeCtrl.setNodeState(node.core, 'realWidth', width);
 
       timeout(treeCtrl.maxWidthOfNodes);
     }
 
-    function _nodeWidth(code) {
+    function _nodeWidth(node) {
       var width, padding;
       width = element.find('.node-title').width();
-      padding = code.level * treeViewConst.pxRemRatio;
+      padding = treeCtrl.getNodeState(node).level * treeViewConst.pxRemRatio;
       return width + padding;
     }
 
     function _nodeDestroy() {
-      node.core.appear = false;
+      // node.core.appear = false;
 
       timeout(treeCtrl.maxWidthOfNodes);
     }

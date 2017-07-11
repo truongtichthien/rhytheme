@@ -1,11 +1,11 @@
-<div id="node-{{ node.core._id }}" class="node-content"
-     ng-style="{'padding-left': node.core.level + 'rem'}">
+<div id="node-{{ node.core }}" class="node-content"
+     ng-style="{'padding-left': node.level + 'rem'}">
   <span class="node-toggle"
-      ng-if="node.core.children.length" ng-click="node.select($event)">
-    <span ng-if="!node.core.expanded">+</span>
-    <span ng-if="node.core.expanded">-</span>
+      ng-if="node.branches()" ng-click="node.select($event)">
+    <span ng-if="node.collapsed">+</span>
+    <span ng-if="node.expanded">-</span>
   </span>
   <span class="node-title">
-    {{ node.core.title + ' - ' + node.core._id }}
+    {{ node.title + ' - ' + node.core }}
   </span>
 </div>
