@@ -72,26 +72,27 @@
          * branches: the _id(s) of the children node
          * proto: original seed passed from outside
          * level: generation of node
-         * asleep: determine whether could appear or not (use for searching)
-         * appeared: node currently appears on tree */
+         * matched, aka asleep (alias): determine whether could appear or not (use for searching)
+         * appeared: currently appeared node on tree */
 
         nodes = _buildTree(tree.seeds);
+        instance = _.cloneDeep(geneMap);
 
         console.log('skeleton ', skeleton);
         console.log('gene map ', geneMap);
-        instance = _.cloneDeep(geneMap);
+        console.log('instance ', instance);
 
         /** clear all nodes then re-build to force rendering new node on DOM */
-        tree.nodes = [];
-        $timeout(function () {
-          tree.nodes = _.filter(skeleton, function (o) {
-            /** display matched node */
-            (!instance[o].root) && (instance[o].appeared = true) && (instance[o].asleep = false);
-            return !instance[o].root;
-          });
-
-          console.log('instance ', instance);
+        // tree.nodes = [];
+        // $timeout(function () {
+        tree.nodes = _.filter(skeleton, function (o) {
+          /** display matched node */
+          (!instance[o].root)
+          && (instance[o].appeared = true)
+          && (instance[o].matched = true);
+          return !instance[o].root;
         });
+        // });
 
         // /** clear nodes */
         // tree.nodes = [];
@@ -108,6 +109,7 @@
 
       function _expand() {
         tree.nodes = _expandTree(skeleton);
+        return true;
       }
 
       function _collapse() {
@@ -116,21 +118,82 @@
 
       function _search(key) {
         console.log('orgKey ', key);
-        _.isString(key) && ((key.trim() !== '') && (_doSearch(key)) || (key.trim() === '') && (_expand()));
+
+        // _.isString(key)
+        // && ((key.trim() !== '') && ());
+        // || (key.trim() === '') && (_expand()));
+
+        (_.isString(key))
+        && (_doSearch(key))
+        && (_expand())
+        || (console.error('Searching key is not a string!'));
 
         function _doSearch(key) {
           /** clear nodes */
           tree.nodes = [];
 
-          var found = [];
+          var found = [], additional = [];
 
-          _.forEach(nodes, function (o) {
-            (_.includes(_.lowerCase(o.title), _.lowerCase(key))) && (found.push(o));
+          /*todo separate searching function into 2 parts*/
+
+          _.forEach(skeleton, function (o) {
+            // tree.nodes.push(o);
+            instance[o].matched = false;
+            instance[o].appeared = false;
+
+            /** compare required string with node's title */
+            (_.includes(_.lowerCase(instance[o].proto.title), _.lowerCase(key)))
+            /** if true, node is matched */
+            && (instance[o].matched = true)
+            // && (instance[o].appeared = true)
+            && (found.push(o));
+
+            if (instance[o].matched) {
+              var root = o;
+
+              while (root) {
+                (instance[root].root)
+                && (instance[instance[root].root].appeared = true);
+                root = instance[root].root;
+              }
+            }
           });
 
-          $timeout(function () {
-            tree.nodes = found;
-          });
+          // additional = found;
+
+          // _.forEach(found, function (o) {
+          //   var index,
+          //     root = o;
+          //
+          //   additional.push(root);
+          //   index = additional.length - 1;
+          //
+          //   while (root) {
+          //     if (instance[root].root) {
+          //       instance[instance[root].root].appeared = true;
+          //
+          //       // var str = instance[root].root;
+          //       var rootExist = !!_.find(additional, (function (rootId) {
+          //         return function (o) {
+          //           return rootId === o;
+          //         };
+          //       })(instance[root].root));
+          //
+          //       if (!rootExist) {
+          //         additional.splice(index, 0, instance[root].root);
+          //       }
+          //       // index--;
+          //     }
+          //     root = instance[root].root;
+          //   }
+          //
+          //   // (instance[o].root) && (instance[instance[o].root].appeared = true) && (additional.splice(index, 0, instance[o].root));
+          // });
+
+          // $timeout(function () {
+          //   tree.nodes = additional;
+          // });
+          return true;
         }
       }
 
@@ -159,12 +222,13 @@
           // instance[target].expanded = true;
           // instance[target].collapsed = !instance[target].expanded;
 
-          _.forEach(children, function (child) {
-            index++;
-            instance[child].asleep = false;
-            instance[child].appeared = !instance[child].asleep;
-            tree.nodes.splice(index, 0, child);
-          });
+          (!!children.length) && (_.forEach(children, function (child) {
+            if (instance[child].matched) {
+              index++;
+              instance[child].appeared = true;
+              tree.nodes.splice(index, 0, child);
+            }
+          }));
 
           console.log(instance);
         }
@@ -178,8 +242,8 @@
           _.remove(tree.nodes, function (node) {
             /** compare _id to remove children and its descendants */
             if ((node !== target) && (_.includes(node, target))) {
-              instance[node].asleep = true;
-              instance[node].appeared = !instance[node].asleep;
+              // instance[node].matched = true;
+              instance[node].appeared = false;
               // (node.selected) && (node.selected = false);
               // (node.children && node.expanded) && (node.expanded = false);
               return true;
@@ -201,16 +265,18 @@
       function _maxWidthOfNodes() {
         var max = _.maxBy(tree.nodes, function (node) {
           if (instance[node].appeared) {
-            return instance[node].realWidth;
+            return instance[node]['realWidth'];
           }
         });
 
-        _.forEach(tree.nodes, function (node) {
-          if (instance[node].appeared) {
-            console.log();
-            instance[node].width = instance[max].realWidth > tree.frameWidth() ? instance[max].realWidth : tree.frameWidth();
-          }
-        });
+        if (!_.isUndefined(max)) {
+          _.forEach(tree.nodes, function (node) {
+            if (instance[node].appeared) {
+              console.log();
+              instance[node].width = instance[max]['realWidth'] > tree.frameWidth() ? instance[max]['realWidth'] : tree.frameWidth();
+            }
+          });
+        }
       }
 
       function _getGeneMap() {
@@ -262,7 +328,7 @@
           geneMap[node._id]._id = _.get(parent, '_id', '') + s.id;
           geneMap[node._id].level = _.get(parent, 'level', rootLevel) + 1;
           geneMap[node._id].root = _.get(parent, '_id', null);
-          geneMap[node._id].asleep = true;
+          geneMap[node._id].matched = true;
 
           /** create children array */
           (parent) && (geneMap[parent._id].branches.push(node._id));
@@ -283,12 +349,15 @@
       //   return node;
       // };
       // return _.map(nodes, iteratee);
-      return _.map(nodes, function (o) {
+      return _.filter(nodes, function (o) {
         // (instance[o].branches) && (instance[o].expanded = true) && (instance[o].collapsed = !instance[o].expanded);
-        instance[o].asleep = false;
-        instance[o].appeared = !instance[o].asleep;
-
-        return o;
+        /** nodes which marked 'appeared' could be displayed
+         * as well as ones 'matched' searching key */
+        /*todo not good*/
+        if (instance[o].appeared || instance[o].matched) {
+          // instance[o].appeared = true;
+          return true;
+        }
       });
     }
 
@@ -301,15 +370,9 @@
       // return nodes;
 
       return _.filter(nodes, function (o) {
-        /** display matched node */
-        if (!instance[o].root) {
-          instance[o].appeared = true;
-          instance[o].asleep = !instance[o].appeared;
-        } else {
-          instance[o].appeared = false;
-          instance[o].asleep = !instance[o].appeared;
-        }
-        return !instance[o].root;
+        /** only display nodes which don't have root and have appeared */
+        /*todo not good*/
+        return (!instance[o].root) && (instance[o].appeared);
       });
     }
   }
@@ -368,7 +431,7 @@
 
   function treeNodeLink(timeout, treeViewConst, scope, element, required) {
     var node = scope.node,
-      nodeState,
+      state,
       treeCtrl;
 
     treeCtrl = node.treeCtrl = required;
@@ -380,38 +443,41 @@
       console.log('vs trigger');
     });
 
-    nodeState = treeCtrl.getNodeState(node.core);
+    state = treeCtrl.getNodeState(node.core);
 
-    node.title = nodeState.proto.title;
-    node.level = nodeState.level;
-    node.width = nodeState.width;
+    node.title = state.proto.title;
+    node.level = state.level;
+    node.width = state.width;
 
     node.branches = function () {
-      var branches = (nodeState.branches) && (nodeState.branches.length || 0);
+      var branches = (state.branches) && (state.branches.length || 0);
 
-      _.forEach(nodeState.branches, function (o) {
+      (!!branches) && (_.forEach(state.branches, function (o) {
         var s = treeCtrl.getNodeState(o);
-        (s.appeared) && (node.expanded = s.appeared) && (node.collapsed = !node.expanded);
-        (s.asleep) && (node.collapsed = s.asleep) && (node.expanded = !node.collapsed);
-        if (s.appeared || s.asleep) {
-          // treeCtrl.setNodeState(node.core, 'expanded', s.appeared || s.asleep);
+        // (s.appeared) && (node.expanded = s.appeared) && (node.collapsed = !node.expanded);
+        // (s.matched) && (node.showBranches = s.matched) && (node.expanded = !node.collapsed);
+        node.showBranches = s.matched || s.appeared;
+        node.expanded = s.appeared;
+        // if (s.appeared || s.matched) {
+        if (node.expanded || node.showBranches) {
+          // treeCtrl.setNodeState(node.core, 'expanded', s.appeared || s.matched);
           return false;
         }
-      });
+      }));
 
       return branches;
     };
 
     // node.expanded = function () {
-    //   return !!_.find(nodeState.branches, function (o) {
+    //   return !!_.find(state.branches, function (o) {
     //     var s = treeCtrl.getNodeState(o);
     //     return s.appeared;
     //   });
     // };
     // node.collapsed = function () {
-    //   return !!_.find(nodeState.branches, function (o) {
+    //   return !!_.find(state.branches, function (o) {
     //     var s = treeCtrl.getNodeState(o);
-    //     return s.asleep;
+    //     return s.matched;
     //   });
     // };
 
