@@ -4,13 +4,13 @@
   <div class="repeat-wrapper"
        ng-style="{ 'height': 20 + 'rem' }" vs-repeat="32">
     <div class="repeat-node"
-         ng-click="tree.selectNode(node)"
+         ng-click="tree.node.select(node)"
          ng-repeat="node in tree.nodes track by node">
 
       <div class="node-wrapper"
-           ng-style="{ 'width': tree.getNodeState(node).width + 'px' }"
+           ng-style="{ 'width': tree.node.getState(node).width + 'px' }"
            ng-class="{ 'selected': node.selected }"
-           tree-node core="node" toggle="tree.toggleNode(node, $index + startIndex)">
+           tree-node core="node" toggle="tree.node.toggle(node, $index + startIndex)">
       </div>
     </div>
   </div>

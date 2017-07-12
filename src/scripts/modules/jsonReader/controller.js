@@ -22,7 +22,6 @@
       {
         id: 'parentZero',
         title: 'Parent Zero',
-        typeLabel: 'Parent Zero',
         children: [
           { id: 'alpha', title: 'Alpha' },
           { id: 'bravo', title: 'Bravo' }
@@ -31,7 +30,6 @@
       {
         id: 'parentOne',
         title: 'Parent One',
-        typeLabel: 'Parent One',
         children: [
           { id: 'charlie', title: 'Charlie' },
           {
@@ -50,13 +48,14 @@
       vm.seeds.push({
         id: 'parentTwo',
         title: 'Parent Two',
-        typeLabel: 'Parent Two',
         children: [
           { id: 'echo', title: 'Echo Echo Echo Echo Echo Echo' },
           { id: 'foxtrot', title: 'Foxtrot Foxtrot Foxtrot Foxtrot Foxtrot Foxtrot' }
         ]
       });
     }, 100);
+
+    // vm.seeds.length = 0;
 
     vm.jsonObj = {};
     vm.jsonObj.seedArray = [
