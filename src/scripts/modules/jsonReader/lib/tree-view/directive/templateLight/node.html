@@ -1,11 +1,12 @@
 <div id="node-{{ node.core }}" class="node-content"
      ng-style="{'padding-left': node.level + 'rem'}">
   <span class="node-toggle"
-      ng-if="node.branches() && node.showBranches" ng-click="node.select($event)">
+      ng-if="node.branches() && node.childMatched" ng-click="node.click($event)">
     <span ng-if="!node.expanded">+</span>
     <span ng-if="node.expanded">-</span>
   </span>
   <span class="node-title">
-    {{ node.title + ' - ' + node.core }}
+    <span ng-if="!node.highlighted">{{ node.title }}</span>
+    <span ng-if="node.highlighted" ng-bind-html="node.highlighted"></span>
   </span>
 </div>

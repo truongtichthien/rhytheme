@@ -24,3 +24,6 @@
 .tree-main-frame .node-wrapper .node-content .node-toggle {
   cursor: pointer;
 }
+.tree-main-frame .node-wrapper .node-content .highlighted {
+  background-color: #ff0;
+}

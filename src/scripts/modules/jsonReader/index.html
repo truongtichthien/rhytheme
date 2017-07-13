@@ -55,14 +55,25 @@
 
     <!--<div ov-tree-view tree-view-object="vm.jsonObj"></div>-->
 
-    <button ng-click="vm.tools.build()">Build</button>
-    <button ng-click="vm.tools.expand()">Expand</button>
-    <button ng-click="vm.tools.collapse()">Collapse</button>
-    <span>
-      <label for="search-tree">Search</label>
-      <input id="search-tree" ng-model="vm.search.key"
-             ng-change="vm.tools.search(vm.search.key)">
-    </span>
+    <div>
+      <button ng-click="vm.tools.build()">Build</button>
+      <button ng-click="vm.tools.expand()">Expand</button>
+      <button ng-click="vm.tools.collapse()">Collapse</button>
+    </div>
+    <div>
+      <span>
+        <label for="search-tree" style="display: inline-block; width: 4rem">Search</label>
+        <input id="search-tree" ng-model="vm.search.key"
+               ng-change="vm.tools.search(vm.search.key)">
+      </span>
+    </div>
+    <div>
+      <span>
+        <label for="select-node" style="display: inline-block; width: 4rem">Select</label>
+        <input id="select-node" ng-model="vm.node.id">
+        <button ng-click="vm.tools.select(vm.node.id)">Pick!</button>
+      </span>
+    </div>
     <div tree-view-light seeds="vm.seeds" nodes="vm.nodes" tools="vm.tools"></div>
 
   </div>

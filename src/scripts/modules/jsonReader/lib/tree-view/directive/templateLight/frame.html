@@ -9,8 +9,8 @@
 
       <div class="node-wrapper"
            ng-style="{ 'width': tree.node.getState(node).width + 'px' }"
-           ng-class="{ 'selected': node.selected }"
-           tree-node core="node" toggle="tree.node.toggle(node, $index + startIndex)">
+           ng-class="{ 'selected': tree.node.getState(node).selected }"
+           tree-node core="node" toggle="tree.node.toggle(node)">
       </div>
     </div>
   </div>

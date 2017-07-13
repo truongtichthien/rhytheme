@@ -18,6 +18,9 @@
     vm.search = {
       key: ''
     };
+    vm.node = {
+      id: ''
+    };
     vm.seeds = [
       {
         id: 'parentZero',
