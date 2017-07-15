@@ -29,19 +29,36 @@
     return tree;
   }
 
-  function treeViewCtrl($timeout, $sce) {
-    var skeleton, geneMap, instance, selectedNode;
+  function treeViewCtrl($sce) {
+    var tree;
 
     /** execute constructor */
-    _constructor(this, _build, _expand, _collapse);
+    _constructor(this);
+    _init();
 
-    function _constructor(self, _buildTree, _expandTree, _collapseTree) {
-      var tree = self;
+    function _constructor(self) {
+      tree = self;
+    }
 
-      if (_.isUndefined(tree.seeds) || !tree.seeds.length) {
+    function _init() {
+      var _skeleton, _geneMap, _instance,
+        selectedNode;
+
+      var _observer = {
+        canBuild: false,
+        canExpand: false,
+        canCollapse: false,
+        canSearch: false,
+        canPick: false
+      };
+
+      (_.isUndefined(tree.seeds) || !tree.seeds.length)
+      && (function () {
         console.error('No seeds, no trees! Give me seeds please!');
         return false;
-      }
+      })();
+
+      _observer.canBuild = true;
 
       _.isUndefined(tree.nodes) && (tree.nodes = []);
       _.isUndefined(tree.tools) && (tree.tools = {});
@@ -53,7 +70,8 @@
       tree.tools.expand = _expand;
       tree.tools.collapse = _collapse;
       tree.tools.search = _search;
-      tree.tools.select = _select;
+      tree.tools.pick = _pick;
+      tree.tools.observer = _observer;
 
       /** internal usage functions */
       tree.node.toggle = _toggleNode;
@@ -63,43 +81,115 @@
       tree.node.setState = _setNodeState;
 
       /** external functions for debugging */
+      tree.debug.getSkeleton = _getSkeleton;
       tree.debug.getGeneMap = _getGeneMap;
       tree.debug.getInstance = _getInstance;
 
       function _build() {
-        // nodes = _buildTree(tree.seeds);
-        instance = _buildTree(tree.seeds);
+        var rootLevel = -1;
 
-        console.log('skeleton ', skeleton);
-        console.log('gene map ', geneMap);
-        console.log('instance ', instance);
+        _skeleton = [];
+        _geneMap = _collectSeed(tree.seeds);
+        _instance = _.cloneDeep(_geneMap);
 
-        /** clear all nodes then re-build to force rendering new node on DOM */
-        // tree.nodes = [];
-        // $timeout(function () {
-        tree.nodes = _.filter(skeleton, function (o) {
+        // console.info('skeleton ', _skeleton);
+        // console.info('gene map ', _geneMap);
+        // console.info('instance ', _instance);
+
+        tree.nodes = _.filter(_skeleton, function (o) {
           /** display matched node */
-          (!instance[o].root)
-          && (instance[o].appeared = true)
-          && (instance[o].matched = true);
-          return !instance[o].root;
+          (!_instance[o].root)
+          && (_instance[o].appeared = true)
+          && (_instance[o].matched = true);
+          return !_instance[o].root;
         });
-        // });
+
+        (tree.nodes.length)
+        && (_observer.canExpand = true)
+        && (_observer.canCollapse = true)
+        && (_observer.canSearch = true)
+        && (_observer.canPick = true);
+
+        function _collectSeed(seeds) {
+          var map = {};
+
+          _splitSeed(map, seeds);
+
+          return map;
+        }
+
+        function _splitSeed(map, seeds, parent) {
+          /** property explanation
+           * _id: unique identity
+           * root: the _id of the parent node
+           * branches: the _id(s) of the children node
+           * proto: original seed passed from outside
+           * level: generation of node
+           * matched, aka asleep (alias): determine whether could appear or not (use for searching)
+           * appeared: currently appeared node on tree */
+
+          _.forEach(seeds, function (o) {
+            /** need to inspect id */
+            !(o.id)
+            && (console.error('Every single seed requires a specific id!'))
+            || (function () {
+              var id = (parent || '') + o.id;
+
+              /** generate tree skeleton */
+              _skeleton.push(id);
+
+              map[id] = {};
+              map[id]._id = id;
+              map[id].proto = _.cloneDeep(o);
+              map[id].level = _.get(map[parent], 'level', rootLevel) + 1;
+              map[id].root = parent || null;
+              map[id].matched = true;
+
+              /** create children array */
+              (parent)
+              && (map[parent].branches.push(id));
+
+              /** collect seeds through children */
+              _.isArray(o.children)
+              && (o.children.length)
+              && (map[id].branches = [])
+              && (map[id].childMatched = true)
+              && (_splitSeed(map, o.children, id));
+            })()
+          });
+        }
+
+        return true;
       }
 
       function _expand() {
-        tree.nodes = _expandTree(skeleton);
+        tree.nodes = _.filter(_skeleton, function (o) {
+          /** nodes which marked 'appeared' could be displayed
+           * as well as ones 'matched' searching key */
+          ((_instance[o].matched) || (_instance[o].childMatched))
+          && (_instance[o].appeared = true);
+
+          if (_instance[o].appeared) {
+            return true;
+          }
+        });
+
         return true;
       }
 
       function _collapse() {
-        tree.nodes = _collapseTree(skeleton);
+        tree.nodes = _.filter(_skeleton, function (o) {
+          /** only display nodes which don't have root and have appeared */
+          return (!_instance[o].root)
+            && (_instance[o].matched)
+            && (_instance[o].appeared = true)
+            || (_instance[o].appeared = false);
+        });
+
         return true;
       }
 
       function _search(key) {
-        console.log('orgKey ', key);
-
         (_.isString(key))
         && (_doSearch(key))
         && (_expand())
@@ -113,71 +203,64 @@
 
           /*todo separate searching function into 2 parts*/
 
-          _.forEach(skeleton, function (o) {
-            instance[o].matched = false;
-            instance[o].childMatched = false;
-            instance[o].appeared = false;
-            instance[o].highlighted = null;
+          _.forEach(_skeleton, function (o) {
+            _instance[o].matched = false;
+            _instance[o].childMatched = false;
+            _instance[o].appeared = false;
+            _instance[o].highlighted = null;
 
             /** compare required string with node's title */
-            (_.includes(_.lowerCase(instance[o].proto.title), _.lowerCase(key)))
+            (_.includes(_.lowerCase(_instance[o].proto.title), _.lowerCase(key)))
             /** if true, node is matched */
-            && (instance[o].matched = true)
+            && (_instance[o].matched = true)
             // && (instance[o].appeared = true)
             && (found.push(o));
 
-            (instance[o].matched)
+            (_instance[o].matched)
             && (function () {
-
-              // (_markKey(instance[o].proto.title, key, false))
-              // && (instance[o].highlighted = _highlight(instance[o].proto.title, key, false));
-              (instance[o].highlighted = _highlight(instance[o].proto.title, key, false));
+              (_instance[o].highlighted = _highlight(_instance[o].proto.title, key, false));
 
               var root = o;
-
               while (root) {
-                (instance[root].root)
-                // && (instance[instance[root].root].appeared = true);
-                && (instance[instance[root].root].childMatched = true);
-                root = instance[root].root;
-              }
-
-              function _highlight(string, key, sensitive) {
-                var regex = new RegExp(key, sensitive ? 'g' : 'gi');
-                return $sce.trustAsHtml(
-                  string
-                    .replace(/</g, '&lt;')
-                    .replace(/>/g, '&gt;')
-                    .replace(regex, '<span class="highlighted">$&</span>')
-                );
+                (_instance[root].root)
+                && (_instance[_instance[root].root].childMatched = true);
+                root = _instance[root].root;
               }
             })()
           });
+
+          function _highlight(string, key, sensitive) {
+            var regex = new RegExp(key, sensitive ? 'g' : 'gi');
+            return $sce.trustAsHtml(
+              string
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(regex, '<span class="highlighted">$&</span>')
+            );
+          }
 
           return true;
         }
       }
 
-      function _select(target) {
-        (instance[target].appeared)
-        // && (_selectNode(target))
+      function _pick(target) {
+        (_instance)
+        && (_instance[target].appeared)
         || (function () {
           var root = target;
           var roots = [];
 
           while (root) {
-            (instance[root].root)
-            && (roots.unshift(instance[root].root));
-            // && (instance[instance[root].root].appeared = true)
-            // && (_toggleNode(instance[root].root));
-            root = instance[root].root;
+            (_instance[root].root)
+            && (roots.unshift(_instance[root].root));
+            root = _instance[root].root;
           }
 
           (roots.length)
           && (_.forEach(roots, function (o) {
-            (instance[o].appeared)
-            && (instance[o].branches)
-            && (instance[o].branches.length)
+            (_instance[o].appeared)
+            && (_instance[o].branches)
+            && (_instance[o].branches.length)
             && (_expandNode(o))
           }));
         })();
@@ -186,8 +269,8 @@
       }
 
       function _toggleNode(target) {
-        var isExpanded = !!(_.filter(instance[target].branches, function (o) {
-          return instance[o].appeared;
+        var isExpanded = !!(_.filter(_instance[target].branches, function (o) {
+          return _instance[o].appeared;
         })).length;
 
         if (!isExpanded) {
@@ -198,8 +281,8 @@
       }
 
       function _findIndex(target) {
-        var nodes = _.filter(skeleton, function (o) {
-          return instance[o].appeared;
+        var nodes = _.filter(_skeleton, function (o) {
+          return _instance[o].appeared;
         });
 
         return _.findIndex(nodes, function (o) {
@@ -208,23 +291,15 @@
       }
 
       function _expandNode(target) {
-        // target.expanded = true;
-        /** insert new node after targetIndex */
-          // var children = _.filter(nodes, function (node) {
-          //   return (node._id !== target._id) &&
-          //     (_.includes(node._id, target._id)) &&
-          //     (node.parent._id === target._id);
-          // });
-
         var index = _findIndex(target);
-        var children = instance[target].branches || [];
+        var children = _instance[target].branches || [];
 
         (!!children.length) && (_.forEach(children, function (child) {
-          (!instance[child].appeared)
+          (!_instance[child].appeared)
           && (function () {
-            if (instance[child].matched || instance[child].childMatched) {
+            if (_instance[child].matched || _instance[child].childMatched) {
               index++;
-              instance[child].appeared = true;
+              _instance[child].appeared = true;
               tree.nodes.splice(index, 0, child);
             }
           })()
@@ -235,8 +310,7 @@
         _.remove(tree.nodes, function (node) {
           /** compare _id to remove children and its descendants */
           if ((node !== target) && (_.includes(node, target))) {
-            // instance[node].matched = true;
-            instance[node].appeared = false;
+            _instance[node].appeared = false;
             return true;
           }
           return false;
@@ -247,120 +321,48 @@
         /** disabled selected inside referenced node */
         selectedNode && (selectedNode.selected = false);
         /** enabled selected */
-        instance[target].selected = true;
+        _instance[target].selected = true;
         /** keep reference */
-        selectedNode = instance[target];
+        selectedNode = _instance[target];
       }
 
       function _maxWidthOfNodes() {
         var max = _.maxBy(tree.nodes, function (node) {
-          if (instance[node].appeared) {
-            return instance[node]['realWidth'];
+          if (_instance[node].appeared) {
+            return _instance[node]['realWidth'];
           }
         });
 
         if (!_.isUndefined(max)) {
           _.forEach(tree.nodes, function (node) {
-            if (instance[node].appeared) {
-              console.log();
-              instance[node].width = instance[max]['realWidth'] > tree.debug.frameWidth() ? instance[max]['realWidth'] : tree.debug.frameWidth();
+            if (_instance[node].appeared) {
+              (_instance[max]['realWidth'] > tree.debug.frameWidth())
+              && (_instance[node].width = _instance[max]['realWidth'])
+              || (_instance[node].width = tree.debug.frameWidth());
             }
           });
         }
       }
 
+      function _getSkeleton() {
+        return _skeleton;
+      }
+
       function _getGeneMap() {
-        return geneMap;
+        return _geneMap;
       }
 
       function _getInstance() {
-        return instance;
+        return _instance;
       }
 
       function _getNodeState(id) {
-        return (id) && (instance[id]);
+        return (id) && (_instance[id]);
       }
 
       function _setNodeState(id, key, value) {
-        (id) && (instance[id][key] = value);
+        (id) && (_instance[id][key] = value);
       }
-    }
-
-    function _build(seeds) {
-      var rootLevel = -1;
-
-      skeleton = [];
-      geneMap = {};
-
-      _collectSeed(seeds);
-
-      function _collectSeed(seeds, parent) {
-        /** property explanation
-         * _id: unique identity
-         * root: the _id of the parent node
-         * branches: the _id(s) of the children node
-         * proto: original seed passed from outside
-         * level: generation of node
-         * matched, aka asleep (alias): determine whether could appear or not (use for searching)
-         * appeared: currently appeared node on tree */
-
-        _.forEach(seeds, function (o) {
-          /** need to inspect id */
-          !(o.id)
-          && (console.error('Every single seed requires a specific ID!'))
-          || (function () {
-            var id = (parent || '') + o.id;
-
-            /** generate tree skeleton */
-            skeleton.push(id);
-
-            geneMap[id] = {};
-            geneMap[id]._id = id;
-            geneMap[id].proto = _.cloneDeep(o);
-            geneMap[id].level = _.get(geneMap[parent], 'level', rootLevel) + 1;
-            geneMap[id].root = parent || null;
-            geneMap[id].matched = true;
-
-            /** create children array */
-            (parent)
-            && (geneMap[parent].branches.push(id));
-
-            /** collect seeds through children */
-            _.isArray(o.children)
-            && (o.children.length)
-            && (geneMap[id].branches = [])
-            && (geneMap[id].childMatched = true)
-            && (_collectSeed(o.children, id));
-          })()
-        });
-      }
-
-      return _.cloneDeep(geneMap);
-    }
-
-    function _expand(nodes) {
-      return _.filter(nodes, function (o) {
-        /** nodes which marked 'appeared' could be displayed
-         * as well as ones 'matched' searching key */
-        /*todo not good*/
-        ((instance[o].matched) || (instance[o].childMatched)) && (instance[o].appeared = true);
-
-        if (instance[o].appeared) {
-          return true;
-        }
-      });
-    }
-
-    function _collapse(nodes) {
-      return _.filter(nodes, function (o) {
-        /** only display nodes which don't have root and have appeared */
-        /*todo not good*/
-
-        return (!instance[o].root)
-          && (instance[o].matched)
-          && (instance[o].appeared = true)
-          || (instance[o].appeared = false);
-      });
     }
   }
 
@@ -377,7 +379,7 @@
   }
 
   treeView.$inject = ['$timeout'];
-  treeViewCtrl.$inject = ['$timeout', '$sce'];
+  treeViewCtrl.$inject = ['$sce'];
 
   ng.module('treeViewLight', ['ngSanitize']);
 

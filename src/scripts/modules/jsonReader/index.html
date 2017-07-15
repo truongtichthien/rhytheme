@@ -56,22 +56,33 @@
     <!--<div ov-tree-view tree-view-object="vm.jsonObj"></div>-->
 
     <div>
-      <button ng-click="vm.tools.build()">Build</button>
-      <button ng-click="vm.tools.expand()">Expand</button>
-      <button ng-click="vm.tools.collapse()">Collapse</button>
+      <button ng-click="vm.tools.build()"
+              ng-disabled="!vm.tools.observer.canBuild">Build
+      </button>
+      <button ng-click="vm.tools.expand()"
+              ng-disabled="!vm.tools.observer.canExpand">Expand
+      </button>
+      <button ng-click="vm.tools.collapse()"
+              ng-disabled="!vm.tools.observer.canCollapse">Collapse
+      </button>
     </div>
     <div>
       <span>
-        <label for="search-tree" style="display: inline-block; width: 4rem">Search</label>
+        <label for="search-tree"
+               style="display: inline-block; width: 6rem">Search node</label>
         <input id="search-tree" ng-model="vm.search.key"
-               ng-change="vm.tools.search(vm.search.key)">
+               ng-change="vm.tools.search(vm.search.key)"
+               ng-disabled="!vm.tools.observer.canSearch">
       </span>
     </div>
     <div>
       <span>
-        <label for="select-node" style="display: inline-block; width: 4rem">Select</label>
-        <input id="select-node" ng-model="vm.node.id">
-        <button ng-click="vm.tools.select(vm.node.id)">Pick!</button>
+        <label for="select-node"
+               style="display: inline-block; width: 6rem">Pick a node</label>
+        <input id="select-node" ng-model="vm.node.id"
+               ng-disabled="!vm.tools.observer.canPick">
+        <button ng-click="vm.tools.pick(vm.node.id)"
+                ng-disabled="!vm.tools.observer.canPick">Pick!</button>
       </span>
     </div>
     <div tree-view-light seeds="vm.seeds" nodes="vm.nodes" tools="vm.tools"></div>
