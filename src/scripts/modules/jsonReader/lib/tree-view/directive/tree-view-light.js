@@ -29,7 +29,7 @@
     return tree;
   }
 
-  function treeViewCtrl($sce) {
+  function treeViewCtrl($timeout, $sce) {
     var tree;
 
     /** execute constructor */
@@ -96,19 +96,22 @@
         // console.info('gene map ', _geneMap);
         // console.info('instance ', _instance);
 
-        tree.nodes = _.filter(_skeleton, function (o) {
-          /** display matched node */
-          (!_instance[o].root)
-          && (_instance[o].appeared = true)
-          && (_instance[o].matched = true);
-          return !_instance[o].root;
-        });
+        tree.nodes = [];
+        $timeout(function () {
+          tree.nodes = _.filter(_skeleton, function (o) {
+            /** display matched node */
+            (!_instance[o].root)
+            && (_instance[o].appeared = true)
+            && (_instance[o].matched = true);
+            return !_instance[o].root;
+          });
 
-        (tree.nodes.length)
-        && (_observer.canExpand = true)
-        && (_observer.canCollapse = true)
-        && (_observer.canSearch = true)
-        && (_observer.canPick = true);
+          (tree.nodes.length)
+          && (_observer.canExpand = true)
+          && (_observer.canCollapse = true)
+          && (_observer.canSearch = true)
+          && (_observer.canPick = true);
+        });
 
         function _collectSeed(seeds) {
           var map = {};
@@ -123,7 +126,7 @@
            * _id: unique identity
            * root: the _id of the parent node
            * branches: the _id(s) of the children node
-           * proto: original seed passed from outside
+           * core: original seed passed from outside
            * level: generation of node
            * matched, aka asleep (alias): determine whether could appear or not (use for searching)
            * appeared: currently appeared node on tree */
@@ -140,7 +143,7 @@
 
               map[id] = {};
               map[id]._id = id;
-              map[id].proto = _.cloneDeep(o);
+              map[id].core = _.cloneDeep(o);
               map[id].level = _.get(map[parent], 'level', rootLevel) + 1;
               map[id].root = parent || null;
               map[id].matched = true;
@@ -189,17 +192,17 @@
         return true;
       }
 
-      function _search(key) {
+      function _search(key, sensitive) {
         (_.isString(key))
-        && (_doSearch(key))
+        && (_doSearch(key, sensitive))
         && (_expand())
         || (console.error('Searching key is not a string!'));
 
-        function _doSearch(key) {
+        function _doSearch(key, sensitive) {
           /** clear nodes */
           tree.nodes = [];
 
-          var found = [];
+          // var found = [];
 
           /*todo separate searching function into 2 parts*/
 
@@ -210,15 +213,15 @@
             _instance[o].highlighted = null;
 
             /** compare required string with node's title */
-            (_.includes(_.lowerCase(_instance[o].proto.title), _.lowerCase(key)))
+            var regex = new RegExp(key, sensitive ? 'g' : 'gi'),
+              found = _instance[o].core.title.match(regex);
             /** if true, node is matched */
-            && (_instance[o].matched = true)
-            // && (instance[o].appeared = true)
-            && (found.push(o));
+            (_.isArray(found) && found.length)
+            && (_instance[o].matched = true);
 
             (_instance[o].matched)
             && (function () {
-              (_instance[o].highlighted = _highlight(_instance[o].proto.title, key, false));
+              (_instance[o].highlighted = _highlight(_instance[o].core.title, regex));
 
               var root = o;
               while (root) {
@@ -229,8 +232,7 @@
             })()
           });
 
-          function _highlight(string, key, sensitive) {
-            var regex = new RegExp(key, sensitive ? 'g' : 'gi');
+          function _highlight(string, regex) {
             return $sce.trustAsHtml(
               string
                 .replace(/</g, '&lt;')
@@ -244,9 +246,9 @@
       }
 
       function _pick(target) {
-        (_instance)
-        && (_instance[target].appeared)
-        || (function () {
+        (_.isString(target) && (target !== ''))
+        && (_instance[target])
+        && ((_instance[target].appeared) || (function () {
           var root = target;
           var roots = [];
 
@@ -263,9 +265,9 @@
             && (_instance[o].branches.length)
             && (_expandNode(o))
           }));
-        })();
-
-        _selectNode(target);
+        })())
+        && (_selectNode(target))
+        || (console.log('Node not found!'));
       }
 
       function _toggleNode(target) {
@@ -273,11 +275,9 @@
           return _instance[o].appeared;
         })).length;
 
-        if (!isExpanded) {
-          _expandNode(target);
-        } else {
-          _collapseNode(target);
-        }
+        (!isExpanded)
+        && (_expandNode(target))
+        || (_collapseNode(target))
       }
 
       function _findIndex(target) {
@@ -297,13 +297,16 @@
         (!!children.length) && (_.forEach(children, function (child) {
           (!_instance[child].appeared)
           && (function () {
-            if (_instance[child].matched || _instance[child].childMatched) {
+            (_instance[child].matched || _instance[child].childMatched)
+            && (function () {
               index++;
               _instance[child].appeared = true;
               tree.nodes.splice(index, 0, child);
-            }
+            })();
           })()
         }));
+
+        return true;
       }
 
       function _collapseNode(target) {
@@ -315,15 +318,21 @@
           }
           return false;
         });
+
+        return true;
       }
 
-      function _selectNode(target) {
+      function _selectNode(target, execute) {
         /** disabled selected inside referenced node */
         selectedNode && (selectedNode.selected = false);
         /** enabled selected */
         _instance[target].selected = true;
         /** keep reference */
         selectedNode = _instance[target];
+
+        (_.isBoolean(execute) && execute)
+        && (_.isFunction(_instance[target].core.onClick))
+        && (_instance[target].core.onClick());
       }
 
       function _maxWidthOfNodes() {
@@ -379,7 +388,7 @@
   }
 
   treeView.$inject = ['$timeout'];
-  treeViewCtrl.$inject = ['$sce'];
+  treeViewCtrl.$inject = ['$timeout', '$sce'];
 
   ng.module('treeViewLight', ['ngSanitize']);
 

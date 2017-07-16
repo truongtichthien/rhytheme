@@ -16,7 +16,8 @@
     // vm.nodes = [];
     // vm.tools = {};
     vm.search = {
-      key: ''
+      key: '',
+      sensitive: true
     };
     vm.node = {
       id: ''
@@ -25,6 +26,9 @@
       {
         id: 'parentZero',
         title: 'Parent Zero',
+        onClick: function () {
+          console.log('Chay ne!');
+        },
         children: [
           { id: 'alpha', title: 'Alpha' },
           { id: 'bravo', title: 'Bravo' }
@@ -33,6 +37,7 @@
       {
         id: 'parentOne',
         title: 'Parent One',
+        icon: 'glyphicon glyphicon-globe',
         children: [
           { id: 'charlie', title: 'Charlie' },
           {

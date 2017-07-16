@@ -11,7 +11,7 @@
       restrict: 'EA',
       require: '^treeViewLight',
       scope: {
-        core: '=',
+        id: '=',
         toggle: '&'
       },
       templateUrl: 'lib/tree-view/directive/templateLight/node.html',
@@ -45,10 +45,11 @@
     scope.$on('$destroy', _nodeDestroy);
 
     node.branches = function () {
-      var state = treeCtrl.node.getState(node.core),
+      var state = treeCtrl.node.getState(node.id),
         branches = (state.branches) && (state.branches.length || 0);
 
-      node.title = state.proto.title;
+      node.title = state.core.title;
+      node.icon = state.core.icon;
       node.level = state.level;
       node.width = state.width;
       node.matched = state.matched;
@@ -72,8 +73,8 @@
     };
 
     function _nodeCompiled() {
-      var width = _nodeWidth(node.core);
-      treeCtrl.node.setState(node.core, 'realWidth', width);
+      var width = _nodeWidth(node.id);
+      treeCtrl.node.setState(node.id, 'realWidth', width);
 
       timeout(treeCtrl.node.maxWidth);
     }

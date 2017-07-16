@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>JSON Reader</title>
+  <link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="lib/angular-material/angular-material.css">
   <link rel="stylesheet" type="text/css" href="lib/tree-view/directive/tree-view.css">
   <link rel="stylesheet" type="text/css" href="lib/tree-view/directive/style.css">
@@ -55,41 +56,61 @@
 
     <!--<div ov-tree-view tree-view-object="vm.jsonObj"></div>-->
 
-    <div>
-      <button ng-click="vm.tools.build()"
+    <div class="form-group">
+      <button class="btn btn-primary"
+              ng-click="vm.tools.build()"
               ng-disabled="!vm.tools.observer.canBuild">Build
       </button>
-      <button ng-click="vm.tools.expand()"
+      <button class="btn btn-default"
+              ng-click="vm.tools.expand()"
               ng-disabled="!vm.tools.observer.canExpand">Expand
       </button>
-      <button ng-click="vm.tools.collapse()"
+      <button class="btn btn-default"
+              ng-click="vm.tools.collapse()"
               ng-disabled="!vm.tools.observer.canCollapse">Collapse
       </button>
     </div>
-    <div>
-      <span>
+    <div class="form-horizontal">
+      <div class="clearfix form-group">
         <label for="search-tree"
-               style="display: inline-block; width: 6rem">Search node</label>
-        <input id="search-tree" ng-model="vm.search.key"
-               ng-change="vm.tools.search(vm.search.key)"
-               ng-disabled="!vm.tools.observer.canSearch">
-      </span>
-    </div>
-    <div>
-      <span>
+               class="col-sm-3 control-label">Search node</label>
+        <div class="col-sm-5">
+          <input id="search-tree"
+                 class="form-control"
+                 ng-model="vm.search.key"
+                 ng-change="vm.tools.search(vm.search.key, vm.search.sensitive)"
+                 ng-disabled="!vm.tools.observer.canSearch">
+        </div>
+        <div class="col-sm-4">
+          <label for="search-sensitive">Case Sensitive</label>
+          <input type="checkbox" id="search-sensitive"
+                 ng-model="vm.search.sensitive">
+        </div>
+      </div>
+      <div class="clearfix form-group">
         <label for="select-node"
-               style="display: inline-block; width: 6rem">Pick a node</label>
-        <input id="select-node" ng-model="vm.node.id"
-               ng-disabled="!vm.tools.observer.canPick">
-        <button ng-click="vm.tools.pick(vm.node.id)"
-                ng-disabled="!vm.tools.observer.canPick">Pick!</button>
-      </span>
+               class="col-sm-3 control-label">Pick a node</label>
+        <div class="col-sm-5">
+          <input id="select-node"
+                 class="form-control"
+                 ng-model="vm.node.id"
+                 ng-disabled="!vm.tools.observer.canPick">
+        </div>
+        <div class="col-sm-2">
+          <button class="btn btn-default"
+                  ng-click="vm.tools.pick(vm.node.id)"
+                  ng-disabled="!vm.tools.observer.canPick">Pick!
+          </button>
+        </div>
+      </div>
     </div>
+
     <div tree-view-light seeds="vm.seeds" nodes="vm.nodes" tools="vm.tools"></div>
 
   </div>
 </body>
 <script src="lib/jquery/jquery-3.1.1.js"></script>
+<script src="lib/bootstrap/dist/js/bootstrap.js"></script>
 <script src="lib/angular/angular.js"></script>
 <script src="lib/angular/angular-sanitize.js"></script>
 <script src="lib/angular-vs-repeat/angular-vs-repeat.js"></script>

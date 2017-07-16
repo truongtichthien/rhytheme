@@ -1,3 +1,7 @@
+icon-size = 4
+addUnit(num)
+  (num) px
+
 .tree-main-frame
   position relative
   overflow-y hidden
@@ -8,22 +12,60 @@
     overflow-y auto
 
   .repeat-node:hover
+
     .node-wrapper
       background #ddd
+
     .node-wrapper.selected
       background #bfddfb
 
   .node-wrapper
-    height 2rem
-    line-height 2rem
+    height 3rem
+    line-height 3rem
     white-space nowrap
 
     &.selected
       background #bfddfb
 
     .node-content
+      margin-left 1rem
+
       .node-toggle
         cursor pointer
+        position relative
+        top 1px
+
+        .toggle-icon
+          position relative
+          display inline-block
+          height 0
+          width 0
+          border-top addUnit(icon-size + 2) transparent solid
+          border-right 0
+          border-bottom addUnit(icon-size + 2) transparent solid
+          border-left addUnit(icon-size + 2) #8e8e8e solid
+
+          &::after
+            content ''
+            position absolute
+            left addUnit((- icon-size) - 1)
+            top addUnit(- icon-size)
+            width 0
+            height 0
+            display inline-block
+            border-top addUnit(icon-size) transparent solid
+            border-right 0
+            border-bottom addUnit(icon-size) transparent solid
+            border-left addUnit(icon-size) solid
+
+          &.expanded
+            transform rotate(45deg)
+
+            &::after
+              border-left-color #282829
+
+          &.collapsed::after
+            border-left-color #fff
 
       .highlighted
         background-color #ffff00
