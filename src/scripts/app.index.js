@@ -6,8 +6,12 @@
   'use strict';
 
   /** manually bootstrap app */
-  ng.element(function () {
-    ng.bootstrap(doc, ['rhythemeModule']);
-  });
+  function manuallyBootstrap(document) {
+    ng.bootstrap(document, ['rhythemeModule']);
+  }
+
+  ng.element((function (doc) {
+    return manuallyBootstrap(doc);
+  })(doc));
 
 })(window.angular, window.document);

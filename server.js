@@ -44,7 +44,7 @@
   server.use(bodyParser.json());
 
   // parse serverlication/vnd.api+json as json
-//server.use(bodyParser.json({ type: 'serverlication/vnd.api+json' }));
+  // server.use(bodyParser.json({ type: 'serverlication/vnd.api+json' }));
 
   // server.use(methodOverride());
 
@@ -54,6 +54,10 @@
 
   server.get('/rhytheme', function (req, res) {
     res.sendFile('index.html', { root: __dirname + '/src' });
+  });
+
+  server.get('/demo', function (req, res) {
+    res.sendFile('demo.html', { root: __dirname + '/src' });
   });
 
   server.get('/esg', function (req, res) {
@@ -71,12 +75,8 @@
 
   server.get('*', function (req, res) {
     console.log('not found');
-    res.redirect('/rhytheme');
-  });
-
-  server.get('/demo', function (req, res) {
-    // res.send('Hello World!');
-    res.sendFile('demo.html', { root: __dirname + '/src' });
+    // res.redirect('/rhytheme');
+    res.redirect('/demo');
   });
 
   server.get('/api/get', function (req, res) {

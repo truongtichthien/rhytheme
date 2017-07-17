@@ -1,0 +1,17 @@
+<div id="tree-view"
+     class="tree-main-frame"
+     tabindex="0">
+  <div class="repeat-wrapper"
+       ng-style="{ 'height': 30 + 'rem' }" vs-repeat="30">
+    <div class="repeat-node"
+         ng-click="tree.node.select(node, true)"
+         ng-repeat="node in tree.nodes track by node">
+
+      <div class="node-wrapper"
+           ng-style="{ 'width': tree.node.getState(node).width + 'px' }"
+           ng-class="{ 'selected': tree.node.getState(node).selected }"
+           tree-node id="node" toggle="tree.node.toggle(node)">
+      </div>
+    </div>
+  </div>
+</div>

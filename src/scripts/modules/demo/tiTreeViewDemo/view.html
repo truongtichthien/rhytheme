@@ -1,0 +1,53 @@
+<div id="page-wrapper">
+  <div class="form-group">
+    <button class="btn btn-primary"
+            ng-click="ti.tools.build()"
+            ng-disabled="!ti.tools.observer.canBuild">Build
+    </button>
+    <button class="btn btn-default"
+            ng-click="ti.tools.expand()"
+            ng-disabled="!ti.tools.observer.canExpand">Expand
+    </button>
+    <button class="btn btn-default"
+            ng-click="ti.tools.collapse()"
+            ng-disabled="!ti.tools.observer.canCollapse">Collapse
+    </button>
+  </div>
+  <div class="form-horizontal">
+    <div class="clearfix form-group">
+      <label for="search-tree"
+             class="col-sm-3 control-label">Search node</label>
+      <div class="col-sm-5">
+        <input id="search-tree"
+               class="form-control"
+               ng-model="ti.search.key"
+               ng-change="ti.tools.search(ti.search.key, ti.search.sensitive)"
+               ng-disabled="!ti.tools.observer.canSearch">
+      </div>
+      <div class="col-sm-4">
+        <label for="search-sensitive">Case Sensitive</label>
+        <input type="checkbox" id="search-sensitive"
+               ng-model="ti.search.sensitive">
+      </div>
+    </div>
+    <div class="clearfix form-group">
+      <label for="select-node"
+             class="col-sm-3 control-label">Pick a node</label>
+      <div class="col-sm-5">
+        <input id="select-node"
+               class="form-control"
+               ng-model="ti.node.id"
+               ng-disabled="!ti.tools.observer.canPick">
+      </div>
+      <div class="col-sm-2">
+        <button class="btn btn-default"
+                ng-click="ti.tools.pick(ti.node.id)"
+                ng-disabled="!ti.tools.observer.canPick">Pick!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div tree-view seeds="ti.seeds" nodes="ti.nodes" tools="ti.tools"></div>
+
+</div>

@@ -1,0 +1,66 @@
+.tree-main-frame {
+  position: relative;
+  overflow-y: hidden;
+  overflow-x: auto;
+  outline: none;
+}
+.tree-main-frame .repeat-wrapper {
+  overflow-y: auto;
+}
+.tree-main-frame .repeat-node:hover .node-wrapper {
+  background: #ddd;
+}
+.tree-main-frame .repeat-node:hover .node-wrapper.selected {
+  background: #bfddfb;
+}
+.tree-main-frame .node-wrapper {
+  height: 3rem;
+  line-height: 3rem;
+  white-space: nowrap;
+}
+.tree-main-frame .node-wrapper.selected {
+  background: #bfddfb;
+}
+.tree-main-frame .node-wrapper .node-content {
+  margin-left: 1rem;
+}
+.tree-main-frame .node-wrapper .node-content .node-toggle {
+  cursor: pointer;
+  position: relative;
+  top: 1px;
+}
+.tree-main-frame .node-wrapper .node-content .node-toggle .toggle-icon {
+  position: relative;
+  display: inline-block;
+  height: 0;
+  width: 0;
+  border-top: 6px transparent solid;
+  border-right: 0;
+  border-bottom: 6px transparent solid;
+  border-left: 6px #8e8e8e solid;
+}
+.tree-main-frame .node-wrapper .node-content .node-toggle .toggle-icon::after {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: -4px;
+  width: 0;
+  height: 0;
+  display: inline-block;
+  border-top: 4px transparent solid;
+  border-right: 0;
+  border-bottom: 4px transparent solid;
+  border-left: 4px solid;
+}
+.tree-main-frame .node-wrapper .node-content .node-toggle .toggle-icon.expanded {
+  transform: rotate(45deg);
+}
+.tree-main-frame .node-wrapper .node-content .node-toggle .toggle-icon.expanded::after {
+  border-left-color: #282829;
+}
+.tree-main-frame .node-wrapper .node-content .node-toggle .toggle-icon.collapsed::after {
+  border-left-color: #fff;
+}
+.tree-main-frame .node-wrapper .node-content .highlighted {
+  background-color: #ff0;
+}

@@ -1,120 +1,75 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7" ng-app="rhythemeModule" ng-controller="MainCtrl as main">
-  <head>
-    <base href="/">
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <!--<title>{{ 'mMnger' | i18next }}</title>-->
-    <meta name="description" content="A Sample App Using AngularJS">
-    <meta name="viewport" content="width=device-width">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+<html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7" ng-controller="DemoController as demo">
+<head>
+  <base href="/">
+  <meta charset="UTF-8">
+  <title>Demo Zone</title>
+  <!--<title>{{ 'mMnger' | i18next }}</title>-->
+  <meta name="description" content="Sample Apps Using AngularJS">
+  <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="styles/mainStyle.css">
-    <link rel="stylesheet" href="scripts/components/tiFullScreen/ovFullScreen.style.css">
-    <link rel="stylesheet" href="scripts/modules/tiFullScreenDemo/ovFullScreenDemo.style.css">
-  </head>
-  <body>
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="bower_components/bootstrap-select/dist/css/bootstrap-select.min.css"/>
+  <link rel="stylesheet" href="bower_components/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"/>
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css"/>
 
-    <div id="mainWrapper" class="main-wrapper container">
-      <header id="appHeader" class="app-header">
-        <nav id="appNav" class="navbar navbar-default">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <a class="navbar-brand" href="/demo#/">Project</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li ng-class="{ active: main.menu === 'demo#/' }">
-                  <a href="/demo#/" ng-click="main.activateMenu($event)">Home</a>
-                </li>
-                <li ng-class="{ active: main.menu === 'demo#/ov-full-screen' }">
-                  <a href="/demo#/ov-full-screen" ng-click="main.activateMenu($event)">OV Full-screen</a>
-                </li>
-              </ul>
-            </div>
+  <!--include ti-components module's required files-->
+  <link rel="stylesheet" href="scripts/components/tiFullScreen/style.css">
+  <link rel="stylesheet" href="scripts/components/tiTreeView/style.css">
+
+  <!--include demo module's required files-->
+  <link rel="stylesheet" href="scripts/modules/demo/style.css">
+</head>
+<body ng-cloak>
+
+  <div id="main-wrapper" class="main-wrapper container">
+    <header id="appHeader" class="app-header">
+      <nav id="appNav" class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/demo#/">Project</a>
           </div>
-        </nav>
-      </header>
-
-      <section id="appSection" class="app-section">
-        <!--<button ng-click="main.getData()">Get Data</button>-->
-        <!--<button ng-click="main.getString()">Get String</button>-->
-        <!--<button ng-click="main.postData()">Post Data</button>-->
-      </section>
-
-      <section id="modalSection" class="modal-section">
-        <!-- Button trigger modal -->
-        <!--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">-->
-        <!--Launch demo modal-->
-        <!--</button>-->
-
-        <!-- Modal -->
-        <!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
-        <!--<div class="modal-dialog" role="document">-->
-        <!--<div class="modal-content">-->
-        <!--<div class="modal-header">-->
-        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
-        <!--aria-hidden="true">&times;</span></button>-->
-        <!--<h4 class="modal-title" id="myModalLabel">Modal title</h4>-->
-        <!--</div>-->
-        <!--<div class="modal-body">-->
-        <!--text here-->
-        <!--</div>-->
-        <!--<div class="modal-footer">-->
-        <!--<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="main.saveModal('abc', $event)">-->
-        <!--Close-->
-        <!--</button>-->
-        <!--<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="main.saveModal('abc', $event)">-->
-        <!--Save changes-->
-        <!--</button>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-      </section>
-
-      <section ng-view=""></section>
-
-      <footer id="appFooter" class="app-footer"></footer>
-    </div>
-
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bower_components/lodash/dist/lodash.min.js"></script>
-
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/angular-route/angular-route.min.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
-    <script src="scripts/app.js"></script>
-    <!--ov-full-screen-component-->
-    <script src="scripts/components/tiFullScreen/ovFullScreen.directive.js"></script>
-
-    <script src="scripts/controllers/mainCtrl.js"></script>
-    <script src="scripts/controllers/pageOneCtrl.js"></script>
-    <script src="scripts/modules/tiFullScreenDemo/ovFullScreenDemo.controller.js"></script>
-
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-          </div>
-          <div class="modal-body">
-            text here
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">
-              Close
-            </button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">
-              Save changes
-            </button>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li ng-class="{ active: demo.menu === 'demo#/home' }">
+                <a href="/demo#/home" ng-click="demo.activateMenu($event)">Home</a>
+              </li>
+              <li ng-class="{ active: demo.menu === 'demo#/ov-tree-view' }">
+                <a href="/demo#/tree-view" ng-click="demo.activateMenu($event)">OV Tree View</a>
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
-    </div>
-  </body>
+      </nav>
+    </header>
+
+    <section ng-view></section>
+
+    <footer id="appFooter" class="app-footer"></footer>
+  </div>
+
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="bower_components/lodash/dist/lodash.min.js"></script>
+
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-route/angular-route.min.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+
+  <!--include ti-components module's required files-->
+  <script src="scripts/components/config.js"></script>
+  <script src="scripts/components/tiFullScreen/directive.js"></script>
+  <script src="scripts/components/tiTreeView/directive.frame.js"></script>
+  <script src="scripts/components/tiTreeView/directive.node.js"></script>
+
+  <!--include demo module's required files-->
+  <script src="scripts/modules/demo/config.js"></script>
+  <script src="scripts/modules/demo/controller.js"></script>
+  <script src="scripts/modules/demo/tiTreeViewDemo/controller.js"></script>
+
+  <!--bootstrap module-->
+  <script src="scripts/app.demo.js"></script>
+</body>
 </html>
