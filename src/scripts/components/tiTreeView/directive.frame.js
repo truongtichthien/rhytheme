@@ -71,6 +71,7 @@
       tree.tools.collapse = _collapse;
       tree.tools.search = _search;
       tree.tools.pick = _pick;
+      tree.tools.getNode = _getNodeState;
       tree.tools.observer = _observer;
 
       /** internal usage functions */
