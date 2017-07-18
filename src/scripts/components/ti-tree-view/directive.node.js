@@ -11,8 +11,7 @@
       restrict: 'EA',
       require: '^treeView',
       scope: {
-        id: '=',
-        toggle: '&'
+        id: '='
       },
       templateUrl: 'scripts/components/ti-tree-view/view.node.html',
       link: function (scope, element, attribute, required) {
@@ -66,10 +65,10 @@
 
       return branches;
     };
-    node.click = function (event) {
+    node.toggle = function (event, node) {
       event.stopPropagation();
       /** call binding toggleNode function */
-      node.toggle();
+      treeCtrl.node.toggle(node);
     };
 
     function _nodeCompiled() {
