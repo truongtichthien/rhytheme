@@ -6,7 +6,7 @@
   'use strict';
 
   var treeViewConst = {
-    pxRemRatio: 16
+    pxRemRatio: 10
   };
 
   function treeView($timeout) {
@@ -18,7 +18,7 @@
         nodes: '=?',
         tools: '=?'
       },
-      templateUrl: 'scripts/components/tiTreeView/frame.html',
+      templateUrl: 'scripts/components/ti-tree-view/view.frame.html',
       link: function (scope, element) {
         treeViewLink($timeout, scope, element);
       },

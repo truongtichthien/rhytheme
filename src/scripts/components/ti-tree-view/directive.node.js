@@ -14,7 +14,7 @@
         id: '=',
         toggle: '&'
       },
-      templateUrl: 'scripts/components/tiTreeView/node.html',
+      templateUrl: 'scripts/components/ti-tree-view/view.node.html',
       link: function (scope, element, attribute, required) {
         treeNodeLink(timeout, treeConst, scope, element, required);
       },

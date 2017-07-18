@@ -5,6 +5,35 @@
 (function (ng, _) {
   'use strict';
 
+  function tiFullScreenDirective($document, $window, $timeout, $compile) {
+    var directive;
+
+    //todo define default config
+    /**
+     * default config
+     * {
+     *
+     * }
+     * */
+
+    directive = {
+      restrict: 'EA',
+      scope: {
+        tiFullScreen: '=?'
+      },
+      link: _link,
+      templateUrl: 'scripts/components/ti-full-screen/directive.html'
+    };
+
+    function _link(scope, element) {
+      scope.tiFullScreen = scope.tiFullScreen || {};
+
+      tiFullScreenDirectiveLink($document, $window, $timeout, $compile, scope, element);
+    }
+
+    return directive;
+  }
+
   function tiFullScreenDirectiveLink($document, $window, $timeout, $compile, scope, element) {
     var anchorElement,
       backdropElement,
@@ -344,35 +373,6 @@
         _exitFullScreen();
       }
     }
-  }
-
-  function tiFullScreenDirective($document, $window, $timeout, $compile) {
-    var directive;
-
-    //todo define default config
-    /**
-     * default config
-     * {
-     *
-     * }
-     * */
-
-    directive = {
-      restrict: 'EA',
-      scope: {
-        tiFullScreen: '=?'
-      },
-      link: _link,
-      templateUrl: 'scripts/components/tiFullScreen/directive.html'
-    };
-
-    function _link(scope, element) {
-      scope.tiFullScreen = scope.tiFullScreen || {};
-
-      tiFullScreenDirectiveLink($document, $window, $timeout, $compile, scope, element);
-    }
-
-    return directive;
   }
 
   tiFullScreenDirective.$inject = ['$document', '$window', '$timeout', '$compile'];
