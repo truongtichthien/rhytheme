@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OV Full-screen</title>
+</head>
+<body>
+  <div class="panel panel-default ti-full-screen-anchor">
+    <div class="panel-heading">
+      abc
+      <div ti-full-screen="ov.panelModel"></div>
+    </div>
+    <div class="panel-body">
+      def
+    </div>
+    <div class="panel-footer">
+      ghi
+      <button class="btn btn-default"
+              ng-click="ov.panelModel.api.exitFullScreen()">Exit full-screen
+      </button>
+    </div>
+  </div>
+  <div class="jumbotron ti-full-screen-anchor">
+    <h1>Hello, world!</h1>
+    <div ti-full-screen="ov.jumbotron"></div>
+    <p>...</p>
+    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+      Launch demo modal
+    </button>
+    <button class="btn btn-default"
+            ng-click="ov.jumbotron.api.exitFullScreen()">Exit full-screen
+    </button>
+  </div>
+  <section id="appSection" class="app-section">
+    Full Screen Component
+    <!--<button ng-click="demo.getData()">Get Data</button>-->
+    <!--<button ng-click="demo.getString()">Get String</button>-->
+    <!--<button ng-click="demo.postData()">Post Data</button>-->
+  </section>
+
+  <section id="modalSection" class="modal-section">
+    <!-- Button trigger modal -->
+    <!--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">-->
+    <!--Launch demo modal-->
+    <!--</button>-->
+
+    <!-- Modal -->
+    <!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
+    <!--<div class="modal-dialog" role="document">-->
+    <!--<div class="modal-content">-->
+    <!--<div class="modal-header">-->
+    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
+    <!--aria-hidden="true">&times;</span></button>-->
+    <!--<h4 class="modal-title" id="myModalLabel">Modal title</h4>-->
+    <!--</div>-->
+    <!--<div class="modal-body">-->
+    <!--text here-->
+    <!--</div>-->
+    <!--<div class="modal-footer">-->
+    <!--<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="demo.saveModal('abc', $event)">-->
+    <!--Close-->
+    <!--</button>-->
+    <!--<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="demo.saveModal('abc', $event)">-->
+    <!--Save changes-->
+    <!--</button>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+  </section>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          text here
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

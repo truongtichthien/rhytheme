@@ -79,11 +79,16 @@
     }
 
     function _nodeWidth(node) {
-      var width, padding;
+      var width, padding, margin;
       width = element.find('.node-title').width();
-      padding = treeCtrl.node.getState(node).level * treeConst.pxRemRatio;
+      padding = _findCssProperty('padding-left');
+      margin = _findCssProperty('margin-left');
 
-      return width + padding;
+      function _findCssProperty(property) {
+        return parseInt(element.find('.node-content').css(property));
+      }
+
+      return width + padding + margin;
     }
 
     function _nodeDestroy() {

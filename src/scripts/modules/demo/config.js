@@ -14,10 +14,10 @@
         templateUrl: 'scripts/modules/demo/view.home.html'
       })
       .when('/full-screen', {
-        templateUrl: 'scripts/modules/demo/tiFullScreenDemo/view.html'
+        templateUrl: 'scripts/modules/demo/ti-full-screen-demo/view.html'
       })
       .when('/tree-view', {
-        templateUrl: 'scripts/modules/demo/tiTreeViewDemo/view.html',
+        templateUrl: 'scripts/modules/demo/ti-tree-view-demo/view.html',
         controller: 'TiTreeViewDemoController',
         controllerAs: 'ti'
       })
