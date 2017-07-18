@@ -86,6 +86,9 @@
       tree.debug.getGeneMap = _getGeneMap;
       tree.debug.getInstance = _getInstance;
 
+      /** build tree initially */
+      _build();
+
       function _build() {
         var rootLevel = -1;
 
