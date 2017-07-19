@@ -79,16 +79,16 @@
     }
 
     function _nodeWidth(node) {
-      var width, padding, margin;
-      width = element.find('.node-title').width();
-      padding = _findCssProperty('padding-left');
-      margin = _findCssProperty('margin-left');
+      var toggle, icon, title, padding, margin;
 
-      function _findCssProperty(property) {
-        return parseInt(element.find('.node-content').css(property));
-      }
+      toggle = (element.find('.node-toggle').width() || 0);
+      icon = (element.find('.node-icon').width() || 0) + 4; // distance between 2 <span>s in 2 continuous lines is 4px
 
-      return width + padding + margin;
+      title = (element.find('.node-title').width() || 0);
+      padding = parseInt(element.find('.node-content').css('padding-left'));
+      margin = 20;
+
+      return toggle + icon + title + padding + margin;
     }
 
     function _nodeDestroy() {

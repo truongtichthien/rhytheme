@@ -60,10 +60,15 @@
       $timeout(function () {
         vm.seeds.push({
           id: 'parentTwo',
-          title: 'Parent Two',
+          title: 'Parent Two Parent Two Parent Two Parent Two Parent Two',
+          icon: 'glyphicon glyphicon-globe',
           children: [
             { id: 'echo', title: 'Echo Echo Echo Echo Echo Echo' },
-            { id: 'foxtrot', title: 'Foxtrot Foxtrot Foxtrot Foxtrot Foxtrot Foxtrot' }
+            {
+              id: 'foxtrot',
+              title: 'Foxtrot Foxtrot Foxtrot Foxtrot Foxtrot Foxtrot',
+              icon: 'glyphicon glyphicon-globe'
+            }
           ]
         });
       }, 100);
