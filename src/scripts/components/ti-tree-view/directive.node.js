@@ -79,16 +79,13 @@
     }
 
     function _nodeWidth(node) {
-      var toggle, icon, title, padding, margin;
+      var padding, margin, content;
 
-      toggle = (element.find('.node-toggle').width() || 0);
-      icon = (element.find('.node-icon').width() || 0) + 4; // distance between 2 <span>s in 2 continuous lines is 4px
-
-      title = (element.find('.node-title').width() || 0);
-      padding = parseInt(element.find('.node-content').css('padding-left'));
+      padding = parseInt(element.find('.node-frame').css('padding-left'));
       margin = 20;
+      content = element.find('.node-content').width();
 
-      return toggle + icon + title + padding + margin;
+      return content + padding + margin;
     }
 
     function _nodeDestroy() {

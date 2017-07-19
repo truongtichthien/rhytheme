@@ -21,16 +21,16 @@
 .tree-main-frame .node-wrapper.selected {
   background: #bfddfb;
 }
-.tree-main-frame .node-wrapper .node-content {
+.tree-main-frame .node-wrapper .node-frame {
   margin-left: 10px;
   margin-right: 10px;
 }
-.tree-main-frame .node-wrapper .node-content .node-toggle {
+.tree-main-frame .node-wrapper .node-frame .node-toggle {
   cursor: pointer;
   position: relative;
   top: 1px;
 }
-.tree-main-frame .node-wrapper .node-content .toggle-icon {
+.tree-main-frame .node-wrapper .node-frame .toggle-icon {
   position: relative;
   display: inline-block;
   height: 0;
@@ -40,7 +40,7 @@
   border-bottom: 6px transparent solid;
   border-left: 6px #8e8e8e solid;
 }
-.tree-main-frame .node-wrapper .node-content .toggle-icon::after {
+.tree-main-frame .node-wrapper .node-frame .toggle-icon::after {
   content: '';
   position: absolute;
   left: -5px;
@@ -53,15 +53,15 @@
   border-bottom: 4px transparent solid;
   border-left: 4px solid;
 }
-.tree-main-frame .node-wrapper .node-content .toggle-icon.expanded {
+.tree-main-frame .node-wrapper .node-frame .toggle-icon.expanded {
   transform: rotate(45deg);
 }
-.tree-main-frame .node-wrapper .node-content .toggle-icon.expanded::after {
+.tree-main-frame .node-wrapper .node-frame .toggle-icon.expanded::after {
   border-left-color: #282829;
 }
-.tree-main-frame .node-wrapper .node-content .toggle-icon.collapsed::after {
+.tree-main-frame .node-wrapper .node-frame .toggle-icon.collapsed::after {
   border-left-color: #fff;
 }
-.tree-main-frame .node-wrapper .node-content .highlighted {
+.tree-main-frame .node-wrapper .node-frame .highlighted {
   background-color: #ff0;
 }

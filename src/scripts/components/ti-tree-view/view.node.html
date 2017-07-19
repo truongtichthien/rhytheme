@@ -1,12 +1,14 @@
-<div id="node-{{ node.id }}" class="node-content"
+<div id="node-{{ node.id }}" class="node-frame"
      ng-style="{'padding-left': node.level * 1.5 + 'rem'}">
-  <span class="node-toggle"
-        ng-if="node.branches() && node.childMatched" ng-click="node.toggle($event, node.id)">
-    <i class="toggle-icon" ng-class="{ expanded: node.expanded, collapsed: !node.expanded }"></i>
-  </span>
-  <span class="node-icon" ng-class="node.icon"></span>
-  <span class="node-title">
-    <span ng-if="!node.highlighted">{{ node.title }}</span>
-    <span ng-if="node.highlighted" ng-bind-html="node.highlighted"></span>
+  <span class="node-content">
+    <span class="node-toggle"
+          ng-if="node.branches() && node.childMatched" ng-click="node.toggle($event, node.id)">
+      <i class="toggle-icon" ng-class="{ expanded: node.expanded, collapsed: !node.expanded }"></i>
+    </span>
+    <span class="node-icon" ng-class="node.icon"></span>
+    <span class="node-title">
+      <span ng-if="!node.highlighted">{{ node.title }}</span>
+      <span ng-if="node.highlighted" ng-bind-html="node.highlighted"></span>
+    </span>
   </span>
 </div>
