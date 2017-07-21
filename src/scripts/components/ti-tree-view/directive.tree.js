@@ -9,7 +9,7 @@
     pxRemRatio: 10
   };
 
-  function treeView($timeout) {
+  function treeView($timeout, $q) {
     var tree;
     tree = {
       restrict: 'EA',
@@ -18,9 +18,9 @@
         nodes: '=?',
         tools: '=?'
       },
-      templateUrl: 'scripts/components/ti-tree-view/view.frame.html',
+      templateUrl: 'scripts/components/ti-tree-view/view.tree.html',
       link: function (scope, element) {
-        treeViewLink($timeout, scope, element);
+        treeViewLink($timeout, $q, scope, element);
       },
       controller: 'treeViewCtrl',
       controllerAs: 'tree',
@@ -52,7 +52,7 @@
         canPick: false
       };
 
-      (_.isUndefined(tree.seeds) || !tree.seeds.length)
+      (_.isUndefined(tree.seeds))
       && (function () {
         console.error('No seeds, no trees! Give me seeds please!');
         return false;
@@ -65,13 +65,17 @@
       _.isUndefined(tree.node) && (tree.node = {});
       _.isUndefined(tree.debug) && (tree.debug = {});
 
+      /** be used in link function */
+      tree.build = _build;
+
       /** reachable functions from outside scope */
-      tree.tools.build = _build;
+      // tree.tools.build // re-define in link function
       tree.tools.expand = _expand;
       tree.tools.collapse = _collapse;
       tree.tools.search = _search;
       tree.tools.pick = _pick;
       tree.tools.getNode = _getNodeState;
+      tree.tools.getSelected = _getSelected;
       tree.tools.observer = _observer;
 
       /** internal usage functions */
@@ -85,6 +89,7 @@
       tree.debug.getSkeleton = _getSkeleton;
       tree.debug.getGeneMap = _getGeneMap;
       tree.debug.getInstance = _getInstance;
+      // tree.debug.frameWidth // re-define in link function
 
       /** build tree initially */
       _build();
@@ -92,16 +97,17 @@
       function _build() {
         var rootLevel = -1;
 
-        _skeleton = [];
-        _geneMap = _collectSeed(tree.seeds);
-        _instance = _.cloneDeep(_geneMap);
-
         // console.info('skeleton ', _skeleton);
         // console.info('gene map ', _geneMap);
         // console.info('instance ', _instance);
 
         tree.nodes = [];
         $timeout(function () {
+          _skeleton = [];
+          /** bring the function _collectSeed here
+           * to make sure tree.seeds has been updated before */
+          _geneMap = _collectSeed(tree.seeds);
+          _instance = _.cloneDeep(_geneMap);
           tree.nodes = _.filter(_skeleton, function (o) {
             /** display matched node */
             (!_instance[o].root)
@@ -281,7 +287,9 @@
 
         (!isExpanded)
         && (_expandNode(target))
-        || (_collapseNode(target))
+        || (_collapseNode(target));
+
+        return true;
       }
 
       function _findIndex(target) {
@@ -337,6 +345,8 @@
         (_.isBoolean(execute) && execute)
         && (_.isFunction(_instance[target].core.onClick))
         && (_instance[target].core.onClick());
+
+        return true;
       }
 
       function _maxWidthOfNodes() {
@@ -369,6 +379,10 @@
         return _instance;
       }
 
+      function _getSelected() {
+        return selectedNode;
+      }
+
       function _getNodeState(id) {
         return (id) && (_instance[id]);
       }
@@ -379,19 +393,30 @@
     }
   }
 
-  function treeViewLink(timeout, scope, element) {
+  function treeViewLink(_timeout, _q, scope, element) {
     var tree = scope.tree;
+    var deferred = _q.defer();
+    /** todo: consider to return a promise to know when the component rendered completely */
 
+    tree.tools.build = _build;
     tree.debug.frameWidth = _treeFrameWidth;
     /** todo: calculate frame's width once window triggers onResize */
-    timeout(_treeFrameWidth);
+    _timeout(function () {
+      _treeFrameWidth();
+      deferred.resolve('Completed');
+    });
+
+    function _build() {
+      tree.build();
+      return deferred.promise;
+    }
 
     function _treeFrameWidth() {
       return element.find('.repeat-wrapper')[0].clientWidth;
     }
   }
 
-  treeView.$inject = ['$timeout'];
+  treeView.$inject = ['$timeout', '$q'];
   treeViewCtrl.$inject = ['$timeout', '$sce'];
 
   ng.module('tiTreeViewModule', ['ngSanitize']);

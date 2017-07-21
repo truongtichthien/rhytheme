@@ -27,35 +27,7 @@
       vm.node = {
         id: ''
       };
-      vm.seeds = [
-        {
-          id: 'parentZero',
-          title: 'Parent Zero',
-          onClick: function () {
-            console.log('Chay ne!');
-          },
-          children: [
-            { id: 'alpha', title: 'Alpha' },
-            { id: 'bravo', title: 'Bravo' }
-          ]
-        },
-        {
-          id: 'parentOne',
-          title: 'Parent One',
-          icon: 'glyphicon glyphicon-globe',
-          children: [
-            { id: 'charlie', title: 'Charlie' },
-            {
-              id: 'delta',
-              title: 'Delta',
-              children: [
-                { id: 'golf', title: 'Golf' },
-                { id: 'hotel', title: 'Hotel' }
-              ]
-            }
-          ]
-        }
-      ];
+      vm.seeds = [];
 
       $timeout(function () {
         vm.seeds.push({
@@ -71,7 +43,11 @@
             }
           ]
         });
-      }, 100);
+        var promise = vm.tools.build();
+        (promise) && (promise.then(function (data) {
+          console.log('Built ', data);
+        }))
+      }, 5000);
     }
   }
 
