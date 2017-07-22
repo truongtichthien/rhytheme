@@ -65,7 +65,6 @@
       _.isUndefined(tree.tools) && (tree.tools = {});
       _.isUndefined(tree.node) && (tree.node = {});
       _.isUndefined(tree.debug) && (tree.debug = {});
-      _.isUndefined(tree.debug) && (tree.debug = {});
       _.isUndefined(tree.init) && (tree.init = ng.noop);
 
       /** be used in link function */
@@ -95,8 +94,8 @@
       // tree.debug.frameWidth // re-define in link function
 
       function _build() {
-        var rootLevel = -1,
-          tmp;
+        var rootLevel = -1, tmp;
+
         _skeleton = [];
         _geneMap = _collectSeed(tree.seeds);
         _instance = _.cloneDeep(_geneMap);
@@ -406,12 +405,11 @@
     _timeout(function () {
       /** build tree initially */
       _build();
-
-      /** caculate the width of the tree */
+      /** calculate the width of the tree */
       _treeFrameWidth();
-
       /** trigger callback function when component renders completely */
       tree.init();
+      /** resolve promise */
       deferred.resolve('Completed');
     });
 
