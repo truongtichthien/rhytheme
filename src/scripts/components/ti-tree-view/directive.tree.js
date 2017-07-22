@@ -16,7 +16,8 @@
       scope: {
         seeds: '=',
         nodes: '=?',
-        tools: '=?'
+        tools: '=?',
+        init: '&?'
       },
       templateUrl: 'scripts/components/ti-tree-view/view.tree.html',
       link: function (scope, element) {
@@ -64,6 +65,8 @@
       _.isUndefined(tree.tools) && (tree.tools = {});
       _.isUndefined(tree.node) && (tree.node = {});
       _.isUndefined(tree.debug) && (tree.debug = {});
+      _.isUndefined(tree.debug) && (tree.debug = {});
+      _.isUndefined(tree.init) && (tree.init = ng.noop);
 
       /** be used in link function */
       tree.build = _build;
@@ -91,11 +94,20 @@
       tree.debug.getInstance = _getInstance;
       // tree.debug.frameWidth // re-define in link function
 
-      /** build tree initially */
-      _build();
-
       function _build() {
-        var rootLevel = -1;
+        var rootLevel = -1,
+          tmp;
+        _skeleton = [];
+        _geneMap = _collectSeed(tree.seeds);
+        _instance = _.cloneDeep(_geneMap);
+        /** mark necessary properties for nodes */
+        tmp = _.filter(_skeleton, function (o) {
+          /** display matched node */
+          (!_instance[o].root)
+          && (_instance[o].appeared = true)
+          && (_instance[o].matched = true);
+          return !_instance[o].root;
+        });
 
         // console.info('skeleton ', _skeleton);
         // console.info('gene map ', _geneMap);
@@ -103,18 +115,8 @@
 
         tree.nodes = [];
         $timeout(function () {
-          _skeleton = [];
-          /** bring the function _collectSeed here
-           * to make sure tree.seeds has been updated before */
-          _geneMap = _collectSeed(tree.seeds);
-          _instance = _.cloneDeep(_geneMap);
-          tree.nodes = _.filter(_skeleton, function (o) {
-            /** display matched node */
-            (!_instance[o].root)
-            && (_instance[o].appeared = true)
-            && (_instance[o].matched = true);
-            return !_instance[o].root;
-          });
+          /** re-assign tree.nodes to force ng-repeat renders nodes */
+          tree.nodes = tmp;
 
           (tree.nodes.length)
           && (_observer.canExpand = true)
@@ -342,6 +344,7 @@
         /** keep reference */
         selectedNode = _instance[target];
 
+        /** trigger onClick function if needed */
         (_.isBoolean(execute) && execute)
         && (_.isFunction(_instance[target].core.onClick))
         && (_instance[target].core.onClick());
@@ -396,13 +399,19 @@
   function treeViewLink(_timeout, _q, scope, element) {
     var tree = scope.tree;
     var deferred = _q.defer();
-    /** todo: consider to return a promise to know when the component rendered completely */
 
     tree.tools.build = _build;
     tree.debug.frameWidth = _treeFrameWidth;
-    /** todo: calculate frame's width once window triggers onResize */
+
     _timeout(function () {
+      /** build tree initially */
+      _build();
+
+      /** caculate the width of the tree */
       _treeFrameWidth();
+
+      /** trigger callback function when component renders completely */
+      tree.init();
       deferred.resolve('Completed');
     });
 
@@ -412,6 +421,7 @@
     }
 
     function _treeFrameWidth() {
+      /** todo: calculate frame's width once window triggers onResize */
       return element.find('.repeat-wrapper')[0].clientWidth;
     }
   }
