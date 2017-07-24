@@ -9,7 +9,7 @@
     pxRemRatio: 10
   };
 
-  function treeView($timeout, $q) {
+  function treeView($timeout) {
     var tree;
     tree = {
       restrict: 'EA',
@@ -21,7 +21,7 @@
       },
       templateUrl: 'scripts/components/ti-tree-view/view.tree.html',
       link: function (scope, element) {
-        treeViewLink($timeout, $q, scope, element);
+        treeViewLink($timeout, scope, element);
       },
       controller: 'treeViewCtrl',
       controllerAs: 'tree',
@@ -67,11 +67,11 @@
       _.isUndefined(tree.debug) && (tree.debug = {});
       _.isUndefined(tree.init) && (tree.init = ng.noop);
 
-      /** be used in link function */
-      tree.build = _build;
+      /** build tree initially */
+      _build();
 
       /** reachable functions from outside scope */
-      // tree.tools.build // re-define in link function
+      tree.tools.build = _build;
       tree.tools.expand = _expand;
       tree.tools.collapse = _collapse;
       tree.tools.search = _search;
@@ -212,8 +212,6 @@
         function _doSearch(key, sensitive) {
           /** clear nodes */
           tree.nodes = [];
-
-          // var found = [];
 
           /*todo separate searching function into 2 parts*/
 
@@ -395,28 +393,17 @@
     }
   }
 
-  function treeViewLink(_timeout, _q, scope, element) {
+  function treeViewLink(_timeout, scope, element) {
     var tree = scope.tree;
-    var deferred = _q.defer();
 
-    tree.tools.build = _build;
     tree.debug.frameWidth = _treeFrameWidth;
 
     _timeout(function () {
-      /** build tree initially */
-      _build();
       /** calculate the width of the tree */
       _treeFrameWidth();
       /** trigger callback function when component renders completely */
       tree.init();
-      /** resolve promise */
-      deferred.resolve('Completed');
     });
-
-    function _build() {
-      tree.build();
-      return deferred.promise;
-    }
 
     function _treeFrameWidth() {
       /** todo: calculate frame's width once window triggers onResize */
@@ -424,7 +411,7 @@
     }
   }
 
-  treeView.$inject = ['$timeout', '$q'];
+  treeView.$inject = ['$timeout'];
   treeViewCtrl.$inject = ['$timeout', '$sce'];
 
   ng.module('tiTreeViewModule', ['ngSanitize']);
