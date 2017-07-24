@@ -30,7 +30,7 @@
     return tree;
   }
 
-  function treeViewCtrl($timeout, $sce) {
+  function treeViewCtrl(_timeout, $sce) {
     var tree;
 
     /** execute constructor */
@@ -66,9 +66,6 @@
       _.isUndefined(tree.node) && (tree.node = {});
       _.isUndefined(tree.debug) && (tree.debug = {});
       _.isUndefined(tree.init) && (tree.init = ng.noop);
-
-      /** build tree initially */
-      _build();
 
       /** reachable functions from outside scope */
       tree.tools.build = _build;
@@ -113,7 +110,7 @@
         // console.info('instance ', _instance);
 
         tree.nodes = [];
-        $timeout(function () {
+        _timeout(function () {
           /** re-assign tree.nodes to force ng-repeat renders nodes */
           tree.nodes = tmp;
 
@@ -397,6 +394,8 @@
     var tree = scope.tree;
 
     tree.debug.frameWidth = _treeFrameWidth;
+    /** watch seeds to detect changing */
+    scope.$watchCollection('tree.seeds', tree.tools.build);
 
     _timeout(function () {
       /** calculate the width of the tree */
