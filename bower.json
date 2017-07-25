@@ -23,6 +23,7 @@
     "font-awesome": "fontawesome#^4.7.0",
     "bootstrap-select": "^1.12.2",
     "bootstrap-datetimepicker": "^0.0.11",
-    "angular-sanitize": "1.5.8"
+    "angular-sanitize": "1.5.8",
+    "angular-vs-repeat": "^1.1.7"
   }
 }

@@ -29,6 +29,7 @@
   ng.module('demoModule', [
     'ngRoute',
     'ngAnimate',
+    'vs-repeat',
     'tiComponentsModule'
   ])
     .config(demoConfig);

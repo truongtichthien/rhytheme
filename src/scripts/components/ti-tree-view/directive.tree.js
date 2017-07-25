@@ -30,8 +30,10 @@
     return tree;
   }
 
-  function treeViewCtrl(_timeout, $sce) {
-    var tree;
+  function treeViewCtrl(_timeout, _q, $sce) {
+    var tree,
+      deferred = _q.defer(),
+      _promise = deferred.promise;
 
     /** execute constructor */
     _constructor(this);
@@ -119,6 +121,8 @@
           && (_observer.canCollapse = true)
           && (_observer.canSearch = true)
           && (_observer.canPick = true);
+
+          deferred.resolve('Built Complete');
         });
 
         function _collectSeed(seeds) {
@@ -169,8 +173,6 @@
             })()
           });
         }
-
-        return true;
       }
 
       function _expand() {
@@ -210,8 +212,6 @@
           /** clear nodes */
           tree.nodes = [];
 
-          /*todo separate searching function into 2 parts*/
-
           _.forEach(_skeleton, function (o) {
             _instance[o].matched = false;
             _instance[o].childMatched = false;
@@ -239,7 +239,7 @@
           });
 
           function _highlight(string, regex) {
-            return $sce.trustAsHtml(
+            return $sce['trustAsHtml'](
               string
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;')
@@ -252,28 +252,34 @@
       }
 
       function _pick(target) {
-        (_.isString(target) && (target !== ''))
-        && (_instance[target])
-        && ((_instance[target].appeared) || (function () {
-          var root = target;
-          var roots = [];
+        /**  */
+        _promise
+          .then(function () {
+            (_.isString(target) && (target !== ''))
+            && (_instance[target])
+            && ((_instance[target].appeared) || (function () {
+              var root = target;
+              var roots = [];
 
-          while (root) {
-            (_instance[root].root)
-            && (roots.unshift(_instance[root].root));
-            root = _instance[root].root;
-          }
+              while (root) {
+                (_instance[root].root)
+                && (roots.unshift(_instance[root].root));
+                root = _instance[root].root;
+              }
 
-          (roots.length)
-          && (_.forEach(roots, function (o) {
-            (_instance[o].appeared)
-            && (_instance[o].branches)
-            && (_instance[o].branches.length)
-            && (_expandNode(o))
-          }));
-        })())
-        && (_selectNode(target))
-        || (console.log('Node not found!'));
+              (roots.length)
+              && (_.forEach(roots, function (o) {
+                (_instance[o].appeared)
+                && (_instance[o].branches)
+                && (_instance[o].branches.length)
+                && (_expandNode(o))
+              }));
+
+              return true;
+            })())
+            && (_selectNode(target))
+            || (console.log('Node not found!'));
+          });
       }
 
       function _toggleNode(target) {
@@ -381,11 +387,11 @@
       }
 
       function _getNodeState(id) {
-        return (id) && (_instance[id]);
+        return (_instance) && (id) && (_instance[id]);
       }
 
       function _setNodeState(id, key, value) {
-        (id) && (_instance[id][key] = value);
+        (_instance) && (id) && (_instance[id][key] = value);
       }
     }
   }
@@ -394,10 +400,10 @@
     var tree = scope.tree;
 
     tree.debug.frameWidth = _treeFrameWidth;
-    /** watch seeds to detect changing */
-    scope.$watchCollection('tree.seeds', tree.tools.build);
 
     _timeout(function () {
+      /** build tree after DOM rendered already */
+      tree.tools.build();
       /** calculate the width of the tree */
       _treeFrameWidth();
       /** trigger callback function when component renders completely */
@@ -411,7 +417,7 @@
   }
 
   treeView.$inject = ['$timeout'];
-  treeViewCtrl.$inject = ['$timeout', '$sce'];
+  treeViewCtrl.$inject = ['$timeout', '$q', '$sce'];
 
   ng.module('tiTreeViewModule', ['ngSanitize']);
 

@@ -33,17 +33,39 @@
     }
   }
 
-  function treeNodeLink(timeout, treeConst, scope, element, required) {
+  function treeNodeLink(_timeout, treeConst, scope, element, required) {
     var node = scope.node,
-      treeCtrl;
-
-    treeCtrl = node.treeCtrl = required;
+      treeCtrl = required;
 
     /** to ensure that element rendered completely */
-    timeout(_nodeCompiled);
+    _timeout(_nodeCompiled);
     scope.$on('$destroy', _nodeDestroy);
 
-    node.branches = function () {
+    function _nodeCompiled() {
+      node.branches = _branches;
+      node.toggle = _toggle;
+
+      var width = _nodeWidth(node.id);
+      treeCtrl.node.setState(node.id, 'realWidth', width);
+
+      treeCtrl.node.maxWidth();
+    }
+
+    function _nodeWidth(node) {
+      var padding, margin, content;
+
+      padding = parseInt(element.find('.node-frame').css('padding-left'));
+      margin = 20;
+      content = element.find('.node-content').width();
+
+      return content + padding + margin;
+    }
+
+    function _nodeDestroy() {
+      _timeout(treeCtrl.node.maxWidth);
+    }
+
+    function _branches() {
       var state = treeCtrl.node.getState(node.id),
         branches = (state.branches) && (state.branches.length || 0);
 
@@ -64,32 +86,12 @@
       }));
 
       return branches;
-    };
-    node.toggle = function (event, node) {
+    }
+
+    function _toggle(event, node) {
       event.stopPropagation();
       /** call binding toggleNode function */
       treeCtrl.node.toggle(node);
-    };
-
-    function _nodeCompiled() {
-      var width = _nodeWidth(node.id);
-      treeCtrl.node.setState(node.id, 'realWidth', width);
-
-      timeout(treeCtrl.node.maxWidth);
-    }
-
-    function _nodeWidth(node) {
-      var padding, margin, content;
-
-      padding = parseInt(element.find('.node-frame').css('padding-left'));
-      margin = 20;
-      content = element.find('.node-content').width();
-
-      return content + padding + margin;
-    }
-
-    function _nodeDestroy() {
-      timeout(treeCtrl.node.maxWidth);
     }
   }
 
