@@ -37,17 +37,19 @@
     var node = scope.node,
       treeCtrl = required;
 
+    /** define binding functions */
+    node.branches = _branches;
+    node.toggle = _toggle;
+
     /** to ensure that element rendered completely */
     _timeout(_nodeCompiled);
     scope.$on('$destroy', _nodeDestroy);
 
     function _nodeCompiled() {
-      node.branches = _branches;
-      node.toggle = _toggle;
-
       var width = _nodeWidth(node.id);
       treeCtrl.node.setState(node.id, 'realWidth', width);
 
+      /** determine the max value among nodes' width */
       treeCtrl.node.maxWidth();
     }
 
@@ -66,26 +68,29 @@
     }
 
     function _branches() {
-      var state = treeCtrl.node.getState(node.id),
-        branches = (state.branches) && (state.branches.length || 0);
+      var state = treeCtrl.node.getState(node.id);
+      (state) && (function () {
+        var branches = (state.branches) && (state.branches.length || 0);
 
-      node.title = state.core.title;
-      node.icon = state.core.icon;
-      node.level = state.level;
-      node.width = state.width;
-      node.matched = state.matched;
-      node.childMatched = state.childMatched;
-      node.highlighted = state.highlighted;
+        node.title = state.core.title;
+        node.icon = state.core.icon;
+        node.level = state.level;
+        node.width = state.width;
+        node.matched = state.matched;
+        node.childMatched = state.childMatched;
+        node.highlighted = state.highlighted;
 
-      (!!branches) && (_.forEach(state.branches, function (o) {
-        var s = treeCtrl.node.getState(o);
-        node.expanded = s.appeared;
-        if (node.expanded) {
-          return false;
-        }
-      }));
+        (!!branches) && (_.forEach(state.branches, function (o) {
+          var s = treeCtrl.node.getState(o);
+          node.expanded = s.appeared;
+          if (node.expanded) {
+            return false;
+          }
+        }));
 
-      return branches;
+        return branches;
+      })();
+      return [];
     }
 
     function _toggle(event, node) {
