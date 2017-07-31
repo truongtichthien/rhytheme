@@ -9,7 +9,7 @@
     pxRemRatio: 10
   };
 
-  function treeView($timeout) {
+  function treeView(_timeout) {
     var tree;
     tree = {
       restrict: 'EA',
@@ -21,7 +21,7 @@
       },
       templateUrl: 'scripts/components/ti-tree-view/view.tree.html',
       link: function (scope, element) {
-        treeViewLink($timeout, scope, element);
+        treeViewLink(_timeout, scope, element);
       },
       controller: 'treeViewCtrl',
       controllerAs: 'tree',
@@ -30,7 +30,7 @@
     return tree;
   }
 
-  function treeViewCtrl(_timeout, _q, $sce) {
+  function treeViewCtrl(_timeout, _q, _sce) {
     var tree,
       deferred = _q.defer(),
       _promise = deferred.promise;
@@ -239,7 +239,7 @@
           });
 
           function _highlight(string, regex) {
-            return $sce['trustAsHtml'](
+            return _sce['trustAsHtml'](
               string
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;')
@@ -391,7 +391,7 @@
       }
 
       function _setNodeState(id, key, value) {
-        (_instance) && (id) && (_instance[id][key] = value);
+        (value) && (_instance) && (id) && (_instance[id]) && (_instance[id][key] = value);
       }
     }
   }

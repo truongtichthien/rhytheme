@@ -5,7 +5,7 @@
 (function (ng, _) {
   'use strict';
 
-  function TiTreeViewDemoController($timeout) {
+  function TiTreeViewDemoController(_scope, _timeout) {
     var vm;
     /** execute constructor */
     _constructor(this);
@@ -61,8 +61,8 @@
         vm.tools.pick('parentOne');
       };
 
-      $timeout(function () {
-        vm.seeds.push({
+      _timeout(function () {
+        vm.seeds = [{
           id: 'parentTwo',
           title: 'Parent Two Parent Two Parent Two Parent Two Parent Two',
           icon: 'glyphicon glyphicon-globe',
@@ -74,18 +74,20 @@
               icon: 'glyphicon glyphicon-globe'
             }
           ]
-        });
+        }];
         // var promise = vm.tools.build();
         // (promise) && (promise.then(function (data) {
         //   console.log('Built', data);
-        vm.tools.build();
-        vm.tools.pick('parentZero');
+        _scope.$evalAsync(function () {
+          vm.tools.build();
+          vm.tools.pick('parentZero');
+        });
         // }));
       }, 2000);
     }
   }
 
-  TiTreeViewDemoController.$inject = ['$timeout'];
+  TiTreeViewDemoController.$inject = ['$scope', '$timeout'];
 
   ng.module('demoModule')
     .controller('TiTreeViewDemoController', TiTreeViewDemoController);
