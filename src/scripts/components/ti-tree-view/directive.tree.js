@@ -73,6 +73,7 @@
         tree.tools.collapse = _collapse;
         tree.tools.search = _search;
         tree.tools.pick = _pick;
+        tree.tools.enable = _enable;
         tree.tools.disable = _disable;
         tree.tools.getNode = _getNode;
         tree.tools.getSelected = _getSelected;
@@ -403,6 +404,13 @@
         && (_instance)
         && (_instance[id])
         && (_instance[id][key] = value);
+      }
+
+      /** an advanced function to enable node */
+      function _enable(id) {
+        _setNodeState(id, 'disabled', false);
+
+        return tree.tools;
       }
 
       /** an advanced function to disable node */

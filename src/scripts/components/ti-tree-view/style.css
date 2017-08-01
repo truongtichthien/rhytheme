@@ -9,6 +9,7 @@
 }
 .tree-main-frame .repeat-node:hover .node-wrapper {
   background: #ddd;
+  cursor: pointer;
 }
 .tree-main-frame .repeat-node:hover .node-wrapper.selected {
   background: #bfddfb;
@@ -27,6 +28,7 @@
 }
 .tree-main-frame .node-wrapper .node-frame .node-content.disabled {
   color: #999;
+  cursor: default;
 }
 .tree-main-frame .node-wrapper .node-frame .node-toggle {
   cursor: pointer;
