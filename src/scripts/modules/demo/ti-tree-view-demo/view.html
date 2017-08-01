@@ -1,7 +1,7 @@
 <div id="page-wrapper">
   <div class="form-group">
     <button class="btn btn-primary"
-            ng-click="ti.tools.build()"
+            ng-click="ti.tools.build(ti.seeds)"
             ng-disabled="!ti.tools.observer.canBuild">Build
     </button>
     <button class="btn btn-default"
@@ -48,6 +48,8 @@
     </div>
   </div>
 
-  <div tree-view seeds="ti.seeds" nodes="ti.nodes" tools="ti.tools" init="ti.init()"></div>
-
+  <!--<div tree-view seeds="ti.seeds" nodes="ti.nodes" tools="ti.tools" init="ti.init()"></div>-->
+  <div tree-view
+       ready="ti.onLoad(api)"
+       nodes="ti.nodes"></div>
 </div>

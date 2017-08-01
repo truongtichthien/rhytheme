@@ -5,7 +5,7 @@
 (function (ng, _) {
   'use strict';
 
-  function TiTreeViewDemoController(_scope, _timeout) {
+  function TiTreeViewDemoController(_timeout, _q) {
     var vm;
     /** execute constructor */
     _constructor(this);
@@ -18,14 +18,18 @@
     }
 
     function _initModel(vm) {
-      // vm.nodes = [];
-      // vm.tools = {};
+      /** vm.nodes = [];
+       * vm.tools = {}; */
       vm.search = {
         key: '',
         sensitive: true
       };
       vm.node = {
         id: ''
+      };
+      vm.onLoad = function (api) {
+        console.log(api);
+        vm.tools = api;
       };
       vm.seeds = [
         {
@@ -41,7 +45,7 @@
         },
         {
           id: 'parentOne',
-          title: 'Parent One',
+          title: 'Parent One Parent One Parent One Parent One Parent One Parent One',
           icon: 'glyphicon glyphicon-globe',
           children: [
             { id: 'charlie', title: 'Charlie' },
@@ -57,37 +61,49 @@
         }
       ];
 
-      vm.init = function () {
-        vm.tools.pick('parentOne');
-      };
+      vm.defer = _q.defer();
+      var promise = vm.defer.promise;
+
+      promise.then(function (msg) {
+        console.log('promise ', msg);
+        var seed = [
+          {
+            id: 'parentFour',
+            title: 'Parent Four',
+            onClick: function () {
+              console.log('Chay ne!');
+            },
+            children: [
+              { id: 'alpha', title: 'Alpha' },
+              { id: 'bravo', title: 'Bravo' }
+            ]
+          }
+        ];
+        vm.tools
+          .build(seed)
+          .pick('parentFour');
+      });
 
       _timeout(function () {
-        vm.seeds = [{
-          id: 'parentTwo',
-          title: 'Parent Two Parent Two Parent Two Parent Two Parent Two',
-          icon: 'glyphicon glyphicon-globe',
-          children: [
-            { id: 'echo', title: 'Echo Echo Echo Echo Echo Echo' },
-            {
-              id: 'foxtrot',
-              title: 'Foxtrot Foxtrot Foxtrot Foxtrot Foxtrot Foxtrot',
-              icon: 'glyphicon glyphicon-globe'
-            }
-          ]
-        }];
-        // var promise = vm.tools.build();
-        // (promise) && (promise.then(function (data) {
-        //   console.log('Built', data);
-        _scope.$evalAsync(function () {
-          vm.tools.build();
-          vm.tools.pick('parentZero');
-        });
-        // }));
+        (vm.tools)
+        && (vm.tools
+            .build(vm.seeds)
+            .pick('parentZero')
+            .expand()
+        );
       }, 2000);
+
+      _timeout(function () {
+        (vm.tools)
+        && (vm.tools
+            .disable('parentZero')
+            .pick('parentOne')
+        );
+      }, 5000);
     }
   }
 
-  TiTreeViewDemoController.$inject = ['$scope', '$timeout'];
+  TiTreeViewDemoController.$inject = ['$timeout', '$q'];
 
   ng.module('demoModule')
     .controller('TiTreeViewDemoController', TiTreeViewDemoController);

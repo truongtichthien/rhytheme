@@ -41,11 +41,9 @@
     node.branches = _branches;
     node.toggle = _toggle;
 
-    /** to ensure that element rendered completely */
-    _timeout(_nodeCompiled);
     scope.$on('$destroy', _nodeDestroy);
 
-    function _nodeCompiled() {
+    function _calcNodeWidth() {
       var width = _nodeWidth(node.id);
       treeCtrl.node.setState(node.id, 'realWidth', width);
 
@@ -63,34 +61,39 @@
       return content + padding + margin;
     }
 
+    function _decorateNode(state) {
+      node.title = state.core.title;
+      node.icon = state.core.icon;
+      node.level = state.level;
+      node.width = state.width;
+      node.matched = state.matched;
+      node.disabled = state.disabled;
+      node.childMatched = state.childMatched;
+      node.highlighted = state.highlighted;
+    }
+
     function _nodeDestroy() {
       _timeout(treeCtrl.node.maxWidth);
     }
 
     function _branches() {
-      var state = treeCtrl.node.getState(node.id);
-      (state) && (function () {
-        var branches = (state.branches) && (state.branches.length || 0);
+      var state = treeCtrl.node.getState(node.id), branches;
 
-        node.title = state.core.title;
-        node.icon = state.core.icon;
-        node.level = state.level;
-        node.width = state.width;
-        node.matched = state.matched;
-        node.childMatched = state.childMatched;
-        node.highlighted = state.highlighted;
+      (state)
+      && (function () {
+        branches = (state.branches) && (state.branches.length || 0);
+
+        _decorateNode(state);
 
         (!!branches) && (_.forEach(state.branches, function (o) {
           var s = treeCtrl.node.getState(o);
           node.expanded = s.appeared;
-          if (node.expanded) {
-            return false;
-          }
         }));
-
-        return branches;
       })();
-      return [];
+
+      _calcNodeWidth();
+
+      return !!branches;
     }
 
     function _toggle(event, node) {

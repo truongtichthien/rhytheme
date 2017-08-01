@@ -25,6 +25,9 @@
   margin-left: 10px;
   margin-right: 10px;
 }
+.tree-main-frame .node-wrapper .node-frame .node-content.disabled {
+  color: #999;
+}
 .tree-main-frame .node-wrapper .node-frame .node-toggle {
   cursor: pointer;
   position: relative;
