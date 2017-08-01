@@ -17,7 +17,7 @@
         /** 'nodes' contains the id of nodes which appear currently on tree */
         nodes: '=?',
         /** use the ready function to define all tools/apis
-         * that will be triggerred once directive renders completely */
+         * that will be triggered once directive renders completely */
         ready: '&?'
       },
       templateUrl: 'scripts/components/ti-tree-view/view.tree.html',
@@ -73,8 +73,8 @@
         tree.tools.collapse = _collapse;
         tree.tools.search = _search;
         tree.tools.pick = _pick;
-        tree.tools.disable = _disableNode;
-        tree.tools.getNode = _getNodeState;
+        tree.tools.disable = _disable;
+        tree.tools.getNode = _getNode;
         tree.tools.getSelected = _getSelected;
         tree.tools.observer = _observer;
 
@@ -82,7 +82,7 @@
         tree.node.toggle = _toggleNode;
         tree.node.select = _selectNode;
         tree.node.maxWidth = _maxWidthOfNodes;
-        tree.node.getState = _getNodeState;
+        tree.node.getState = _getNode;
         tree.node.setState = _setNodeState;
 
         /** external functions for debugging */
@@ -392,7 +392,7 @@
         return selectedNode;
       }
 
-      function _getNodeState(id) {
+      function _getNode(id) {
         return (_instance)
           && (id)
           && (_instance[id]);
@@ -406,7 +406,7 @@
       }
 
       /** an advanced function to disable node */
-      function _disableNode(id) {
+      function _disable(id) {
         _setNodeState(id, 'disabled', true);
         _setNodeState(id, 'selected', false);
 

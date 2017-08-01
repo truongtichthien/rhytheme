@@ -2,9 +2,12 @@
      ng-style="{'padding-left': node.level * 1.5 + 'rem'}">
   <span class="node-content"
         ng-class="{ 'disabled': node.disabled }">
-    <span class="node-toggle"
-          ng-if="node.branches() && node.childMatched" ng-click="node.toggle($event, node.id)">
-      <i class="toggle-icon" ng-class="{ expanded: node.expanded, collapsed: !node.expanded }"></i>
+    <span class="node-toggle">
+      <span class="icon-wrapper"
+            ng-if="node.branches() && node.childMatched" ng-click="node.toggle($event, node.id)">
+        <i class="node-caret"
+           ng-class="{ expanded: node.expanded, collapsed: !node.expanded }"></i>
+      </span>
     </span>
     <span class="node-icon" ng-class="node.icon"></span>
     <span class="node-title">

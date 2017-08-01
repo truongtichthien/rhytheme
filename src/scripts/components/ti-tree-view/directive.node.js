@@ -77,7 +77,8 @@
     }
 
     function _branches() {
-      var state = treeCtrl.node.getState(node.id), branches;
+      var state = treeCtrl.node.getState(node.id),
+        branches;
 
       (state)
       && (function () {

@@ -15,6 +15,7 @@ addUnit(num)
 
     .node-wrapper
       background #ddd
+      //cursor pointer
 
     .node-wrapper.selected
       background #bfddfb
@@ -39,8 +40,20 @@ addUnit(num)
         cursor pointer
         position relative
         top 1px
+        min-width 0.6rem
+        display inline-block
 
-      .toggle-icon
+      .icon-wrapper
+        padding 0.2rem 0
+
+        &:hover
+          .node-caret
+            border-left-color #3bafda !important
+
+            &::after
+              border-left-color #b2ebff !important
+
+      .node-caret
         position relative
         display inline-block
         height 0
@@ -69,8 +82,9 @@ addUnit(num)
           &::after
             border-left-color #282829
 
-        &.collapsed::after
-          border-left-color #fff
+        &.collapsed
+          &::after
+            border-left-color #fff
 
       .highlighted
         background-color #ffff00

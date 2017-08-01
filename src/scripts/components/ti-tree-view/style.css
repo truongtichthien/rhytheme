@@ -32,8 +32,19 @@
   cursor: pointer;
   position: relative;
   top: 1px;
+  min-width: 0.6rem;
+  display: inline-block;
 }
-.tree-main-frame .node-wrapper .node-frame .toggle-icon {
+.tree-main-frame .node-wrapper .node-frame .icon-wrapper {
+  padding: 0.2rem 0;
+}
+.tree-main-frame .node-wrapper .node-frame .icon-wrapper:hover .node-caret {
+  border-left-color: #3bafda !important;
+}
+.tree-main-frame .node-wrapper .node-frame .icon-wrapper:hover .node-caret::after {
+  border-left-color: #b2ebff !important;
+}
+.tree-main-frame .node-wrapper .node-frame .node-caret {
   position: relative;
   display: inline-block;
   height: 0;
@@ -43,7 +54,7 @@
   border-bottom: 6px transparent solid;
   border-left: 6px #8e8e8e solid;
 }
-.tree-main-frame .node-wrapper .node-frame .toggle-icon::after {
+.tree-main-frame .node-wrapper .node-frame .node-caret::after {
   content: '';
   position: absolute;
   left: -5px;
@@ -56,13 +67,13 @@
   border-bottom: 4px transparent solid;
   border-left: 4px solid;
 }
-.tree-main-frame .node-wrapper .node-frame .toggle-icon.expanded {
+.tree-main-frame .node-wrapper .node-frame .node-caret.expanded {
   transform: rotate(45deg);
 }
-.tree-main-frame .node-wrapper .node-frame .toggle-icon.expanded::after {
+.tree-main-frame .node-wrapper .node-frame .node-caret.expanded::after {
   border-left-color: #282829;
 }
-.tree-main-frame .node-wrapper .node-frame .toggle-icon.collapsed::after {
+.tree-main-frame .node-wrapper .node-frame .node-caret.collapsed::after {
   border-left-color: #fff;
 }
 .tree-main-frame .node-wrapper .node-frame .highlighted {
