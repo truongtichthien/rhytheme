@@ -43,6 +43,8 @@
 
     scope.$on('$destroy', _nodeDestroy);
 
+    _timeout(_calcNodeWidth);
+
     function _calcNodeWidth() {
       var width = _nodeWidth(node.id);
       treeCtrl.node.setState(node.id, 'realWidth', width);
@@ -91,8 +93,6 @@
           node.expanded = s.appeared;
         }));
       })();
-
-      _calcNodeWidth();
 
       return !!branches;
     }

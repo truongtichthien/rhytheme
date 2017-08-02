@@ -434,7 +434,8 @@
       /** use $timeout to ensure tree rendering completed */
       _timeout(function timeoutFn() {
         /** calculate the width of the tree */
-        _treeFrameWidth();
+        tree.debug.frameWidth();
+        tree.node.maxWidth();
         /** trigger callback function */
         /** ======HIGHLY IMPORTANT====== */
         tree.ready({ api: tree.tools });
