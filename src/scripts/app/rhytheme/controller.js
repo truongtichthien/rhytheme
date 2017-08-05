@@ -25,7 +25,7 @@
     /** function definition */
     function _initModel() {
       _.forEach(pages, function (p) {
-        template[p] = 'scripts/modules/rhytheme/view.' + p + '.html';
+        template[p] = 'scripts/app/rhytheme/view.' + p + '.html';
         view[p] = false;
       });
 

@@ -7,7 +7,7 @@
 
   function PortfolioDecorator() {
     var _vm,
-      IMG_PATH = 'scripts/modules/rhytheme/images/';
+      IMG_PATH = 'scripts/app/rhytheme/images/';
 
     function _decorate(vm) {
       _vm = vm;
@@ -33,7 +33,7 @@
             showButton: false,
             iconClass: 'custom-icon',
             headerTitle: 'ESG Infographic Template',
-            replacingTpl: 'scripts/modules/rhytheme/portfolios/esg.html'
+            replacingTpl: 'scripts/app/rhytheme/portfolios/esg.html'
           }
         },
         {
@@ -44,7 +44,7 @@
             showButton: false,
             iconClass: 'custom-icon',
             headerTitle: 'HTTK Template',
-            replacingTpl: '' //'scripts/modules/rhytheme/portfolios/httk.html'
+            replacingTpl: '' //'scripts/app/rhytheme/portfolios/httk.html'
           }
         },
         {
@@ -55,7 +55,7 @@
             showButton: false,
             iconClass: 'custom-icon',
             headerTitle: 'DNN Template',
-            replacingTpl: '' //'scripts/modules/rhytheme/portfolios/dnn.html'
+            replacingTpl: '' //'scripts/app/rhytheme/portfolios/dnn.html'
           }
         },
         {
@@ -66,7 +66,7 @@
             showButton: false,
             iconClass: 'custom-icon',
             headerTitle: 'Blisk Template',
-            replacingTpl: '' //'scripts/modules/rhytheme/portfolios/blisk.html'
+            replacingTpl: '' //'scripts/app/rhytheme/portfolios/blisk.html'
           }
         }
       ];

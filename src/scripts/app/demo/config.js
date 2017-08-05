@@ -8,16 +8,16 @@
   function demoConfig($route) {
     $route
       .when('/', {
-        templateUrl: 'scripts/modules/demo/view.home.html'
+        templateUrl: 'scripts/app/demo/view.home.html'
       })
       .when('/home', {
-        templateUrl: 'scripts/modules/demo/view.home.html'
+        templateUrl: 'scripts/app/demo/view.home.html'
       })
       .when('/full-screen', {
-        templateUrl: 'scripts/modules/demo/ti-full-screen-demo/view.html'
+        templateUrl: 'scripts/app/demo/ti-full-screen-demo/view.html'
       })
       .when('/tree-view', {
-        templateUrl: 'scripts/modules/demo/ti-tree-view-demo/view.html',
+        templateUrl: 'scripts/app/demo/ti-tree-view-demo/view.html',
         controller: 'TiTreeViewDemoController',
         controllerAs: 'ti'
       })
@@ -29,7 +29,6 @@
   ng.module('demoModule', [
     'ngRoute',
     'ngAnimate',
-    'vs-repeat',
     'tiComponentsModule'
   ])
     .config(demoConfig);

@@ -1,0 +1,25 @@
+<div id="main-wrapper" class="main-wrapper container">
+  <header id="appHeader" class="app-header">
+    <nav id="appNav" class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/demo#/">Project</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li ng-class="{ active: demo.menu === 'demo#/home' }">
+              <a href="/demo#/home" ng-click="demo.activateMenu($event)">Home</a>
+            </li>
+            <li ng-class="{ active: demo.menu === 'demo#/tree-view' }">
+              <a href="/demo#/tree-view" ng-click="demo.activateMenu($event)">OV Tree View</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <section ng-view></section>
+
+  <footer id="appFooter" class="app-footer"></footer>
+</div>

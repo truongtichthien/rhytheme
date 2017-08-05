@@ -5,30 +5,30 @@
 (function (ng) {
   'use strict';
 
-  function rhythemeAppDirective() {
+  function demoAppDirective() {
     var directive;
 
     directive = {
       restrict: 'EA',
       scope: {},
-      controller: 'RhythemeController',
-      controllerAs: 'rhytheme',
+      controller: 'DemoController',
+      controllerAs: 'demo',
       link: function (scope, element) {
         element.ready(function () {
           scope.$apply(function () {
-            console.log('module ready');
+            console.log('Demo is ready');
           });
         });
       },
-      templateUrl: 'scripts/modules/rhytheme/view.html'
+      templateUrl: 'scripts/app/demo/view.html'
     };
 
     return directive;
   }
 
-  rhythemeAppDirective.$inject = [];
+  demoAppDirective.$inject = [];
 
-  ng.module('rhythemeModule')
-    .directive('rhythemeApp', rhythemeAppDirective);
+  ng.module('demoModule')
+    .directive('demoApp', demoAppDirective);
 
 })(window.angular);

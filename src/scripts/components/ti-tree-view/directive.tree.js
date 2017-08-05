@@ -454,7 +454,10 @@
   treeView.$inject = ['$timeout'];
   treeViewCtrl.$inject = ['$sce'];
 
-  ng.module('tiTreeViewModule', ['ngSanitize']);
+  ng.module('tiTreeViewModule', [
+    'ngSanitize',
+    'vs-repeat'
+  ]);
 
   ng.module('tiTreeViewModule')
     .constant('treeViewConst', treeViewConst);
