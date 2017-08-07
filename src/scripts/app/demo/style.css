@@ -1,0 +1,120 @@
+html,
+body,
+.demo-app {
+  height: 100%;
+}
+body {
+  color: #383a3c;
+  font-family: 'Roboto Slab';
+}
+.demo-app {
+  padding-top: 70px;
+  padding-bottom: 56px;
+}
+.app-container {
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.dashed-line {
+  margin: 0;
+  border-top: 1px dashed rgba(0,0,0,0.25);
+  border-bottom: 1px dashed rgba(255,255,255,0.25);
+  position: absolute;
+  z-index: 9;
+  width: 100%;
+  height: 0;
+  background-color: transparent;
+}
+.top.dashed-line {
+  top: 10px;
+}
+.bottom.dashed-line {
+  bottom: 10px;
+}
+.app-main,
+.app-footer {
+  position: relative;
+  padding: 24px 0;
+}
+.app-header {
+  background: #e68966 url("images/grain.png");
+  height: 70px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 88;
+  -webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.25);
+  box-shadow: 0 1px 5px rgba(0,0,0,0.25);
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+}
+.app-header .app-navbar {
+  padding: 0;
+  padding-right: 120px;
+  margin: 0;
+  text-align: center;
+  list-style: none;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+}
+.app-header .app-navbar .app-logo {
+  float: left;
+  width: 120px;
+  height: 70px;
+  position: relative;
+  z-index: 89;
+}
+.app-header .app-navbar .app-logo .logo {
+  margin-top: -10px;
+  -webkit-transition: margin-top 0.2s ease;
+  -moz-transition: margin-top 0.2s ease;
+  -o-transition: margin-top 0.2s ease;
+  -ms-transition: margin-top 0.2s ease;
+  transition: margin-top 0.2s ease;
+}
+.app-header .app-navbar .app-logo .logo:hover {
+  margin-top: 0;
+}
+.app-header .app-navbar .menu-item {
+  float: left;
+  padding: 15px 0;
+  font-family: 'Bazar';
+  font-size: 27px;
+  text-transform: uppercase;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -o-box-flex: 1;
+  box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+.app-header .app-navbar .menu-item .link {
+  color: #f6edd8;
+  display: inline-block;
+  margin-top: 2px;
+  position: relative;
+  -webkit-transition: margin-top 0.2s ease;
+  -moz-transition: margin-top 0.2s ease;
+  -o-transition: margin-top 0.2s ease;
+  -ms-transition: margin-top 0.2s ease;
+  transition: margin-top 0.2s ease;
+  text-shadow: 0 3px 3px rgba(0,0,0,0.2);
+}
+.app-header .app-navbar .menu-item .link:hover {
+  margin-top: 0;
+  text-decoration: none;
+}
+.app-header .app-navbar .menu-item .link:focus {
+  text-decoration: none;
+}
+.app-header .app-navbar .menu-item .link.active:after {
+  content: '...';
+  position: absolute;
+}
+/*todo-add some movements to triple dots*/

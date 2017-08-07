@@ -6,6 +6,7 @@
   'use strict';
 
   function DemoController() {
+    /** variable definition */
     var vm = this;
     vm.test = 'abc';
   }

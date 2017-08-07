@@ -1,0 +1,111 @@
+@import '../../../../node_modules/nib'
+
+//variables & functions definition
+headerHeight = 70px
+footerHeight = 56px
+mainColor = #383a3c
+
+backgroundImg(hex)
+  background hex url('images/grain.png')
+
+html
+body
+.demo-app
+  height 100%
+
+body
+  color mainColor
+  font-family 'Roboto Slab'
+
+.demo-app
+  padding-top headerHeight
+  padding-bottom footerHeight
+
+.app-container
+  //max-width 960px
+  margin 0 auto
+  padding-left 16px
+  padding-right 16px
+
+.dashed-line
+  margin 0
+  border-top 1px dashed rgba(0, 0, 0, 0.25)
+  border-bottom 1px dashed rgba(255, 255, 255, 0.25)
+  position absolute
+  z-index 9
+  width 100%
+  height 0
+  background-color transparent
+
+.top.dashed-line
+  top 10px
+
+.bottom.dashed-line
+  bottom 10px
+
+.app-main
+.app-footer
+  position relative
+  padding 24px 0
+
+// specific used style
+.app-header
+  backgroundImg(#e68966)
+  height headerHeight
+  position fixed
+  top 0
+  left 0
+  right 0
+  z-index 88
+  box-shadow 0 1px 5px rgba(0, 0, 0, 0.25)
+  border-bottom 1px solid rgba(0, 0, 0, 0.15)
+
+  .app-navbar
+    padding 0
+    padding-right 120px
+    margin 0
+    text-align center
+    list-style none
+    display flex
+
+    .app-logo
+      float left
+      width 120px
+      height headerHeight
+      position relative
+      z-index 89
+
+      .logo
+        margin-top -10px
+        transition margin-top 0.2s ease
+        &:hover
+          margin-top 0
+
+    .menu-item
+      float left
+      padding 15px 0
+      font-family 'Bazar'
+      font-size 27px
+      text-transform uppercase
+      flex 1
+
+      .link
+        color #f6edd8
+        display inline-block
+        margin-top 2px
+        position relative
+        transition margin-top 0.2s ease
+        text-shadow 0 3px 3px rgba(0, 0, 0, 0.2)
+
+        &:hover
+          margin-top 0
+          text-decoration none
+
+        &:focus
+          text-decoration none
+
+        &.active:after
+          content '...'
+          position absolute
+
+/*todo-add some movements to triple dots*/
