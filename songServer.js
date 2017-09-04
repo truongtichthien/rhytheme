@@ -94,14 +94,14 @@
     function writeRes(deferred, i, timeout) {
       setTimeout(function () {
         console.log('write');
-        response.write(JSON.stringify(_createResponse(true, 'Song with ID ' + i + ' deleted successfully')) + ',');
+        response.write(JSON.stringify(_createResponse(true, 'Song with ID ' + i + ' deleted successfully')) + '\n');
         deferred.resolve();
       }, timeout * i);
     }
 
     for (var i = 0, len = 10; i < len; i++) {
       deferred = q.defer();
-      /** important thing 
+      /** important thing
        * https://stackoverflow.com/questions/19696240/proper-way-to-return-json-using-node-or-express */
       response.setHeader('Content-Type', 'application/json');
       promises.push((function (d, i, t) {
