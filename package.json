@@ -16,6 +16,7 @@
     "stylus": "^0.54.5"
   },
   "devDependencies": {
+    "fs": "0.0.1-security",
     "q": "^1.5.0"
   },
   "scripts": {

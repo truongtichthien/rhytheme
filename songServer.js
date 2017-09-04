@@ -1,13 +1,13 @@
-(function (req) {
+(function (_req) {
 
   /** DATABASE ====================== */
 
   var songDb, listDb, songListRelative;
-  songDb = [{
-    id: 1,
-    title: 'Radioactive 1',
-    artist: 'Imagine Dragon'
-  }];
+  // songDb = [{
+  //   id: 1,
+  //   title: 'Radioactive 1',
+  //   artist: 'Imagine Dragon'
+  // }];
 
   listDb = [{
     id: 1,
@@ -24,15 +24,24 @@
   /** CONFIGURATION ================= */
 
   /** define package */
-  var _ = req('lodash');
-  var express = req('express');
-  var bodyParser = req('body-parser');
-  var morgan = req('morgan');
-  var colors = req('colors/safe');
-  var q = req('q');
+  var _ = _req('lodash');
+  var _express = _req('express');
+  var _bodyParser = _req('body-parser');
+  var _morgan = _req('morgan');
+  var _colors = _req('colors/safe');
+  var _q = _req('q');
+  var _fs = _req('fs');
+
+  _fs.readFile('storage/songdb.json', 'utf8', function (err, data) {
+    if (err) {
+      return console.log('error ', err);
+    }
+    // console.log(data);
+    songDb = JSON.parse(data);
+  });
 
   /** config web server */
-  var server = express();
+  var server = _express();
   var PORT = 3030;
   var songApi = '/api/song',
     listApi = '/api/playlist',
@@ -44,23 +53,23 @@
   };
 
   //noinspection JSUnresolvedVariable
-  server.use(express.static(__dirname + '/app'));
-  server.use(bodyParser.json());
+  server.use(_express.static(__dirname + '/app'));
+  server.use(_bodyParser.json());
 
-  var morganConfig = morgan(function (tokens, request, response) {
-    var timeStamp = colors.grey('[' + _generateTimestamp() + ']'),
-      method = colors.green(tokens.method(request, response)),
+  var morganConfig = _morgan(function (tokens, request, response) {
+    var timeStamp = _colors.grey('[' + _generateTimestamp() + ']'),
+      method = _colors.green(tokens.method(request, response)),
       url = tokens.url(request, response),
 
       status = (function () {
         var status = tokens.status(request, response);
         switch (status[0]) {
           case '2':
-            return colors.blue(status);
+            return _colors.blue(status);
           case '3':
-            return colors.cyan(status);
+            return _colors.cyan(status);
           case '4':
-            return colors.yellow(status);
+            return _colors.yellow(status);
           case '5':
             return status;
           default:
@@ -100,7 +109,7 @@
     }
 
     for (var i = 0, len = 10; i < len; i++) {
-      deferred = q.defer();
+      deferred = _q.defer();
       /** important thing
        * https://stackoverflow.com/questions/19696240/proper-way-to-return-json-using-node-or-express */
       response.setHeader('Content-Type', 'application/json');
@@ -110,7 +119,7 @@
       })(deferred, i, 1000));
     }
 
-    q.all(promises)
+    _q.all(promises)
       .then(function () {
         console.log('end');
         response.end();
