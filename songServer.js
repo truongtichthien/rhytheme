@@ -101,6 +101,9 @@
 
     for (var i = 0, len = 10; i < len; i++) {
       deferred = q.defer();
+      /** important thing 
+       * https://stackoverflow.com/questions/19696240/proper-way-to-return-json-using-node-or-express */
+      response.setHeader('Content-Type', 'application/json');
       promises.push((function (d, i, t) {
         writeRes(d, i, t);
         return d.promise;
