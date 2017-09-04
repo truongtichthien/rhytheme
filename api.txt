@@ -63,7 +63,9 @@ response:
 api: /api/song
 method: DELETE
 request:
-	[1, 2]
+  {
+    id: [1, 2]
+  }
 response:
 	SUCCESS:
 	{
@@ -142,7 +144,9 @@ response:
 api: /api/playlist
 method: DELETE
 request:
-	[1, 2]
+  {
+    id: [1, 2]
+  }
 response:
 	SUCCESS:
 	{

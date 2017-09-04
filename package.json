@@ -15,7 +15,9 @@
     "path": "^0.12.7",
     "stylus": "^0.54.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "q": "^1.5.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

@@ -29,6 +29,7 @@
   var bodyParser = req('body-parser');
   var morgan = req('morgan');
   var colors = req('colors/safe');
+  var q = req('q');
 
   /** config web server */
   var server = express();
@@ -87,8 +88,32 @@
   /** GET SONG API DEFINITION */
   server.get(songApi, function (request, response) {
     // _newSession();
+    var deferred;
+    var promises = [];
 
-    response.send(songDb);
+    function writeRes(deferred, i, timeout) {
+      setTimeout(function () {
+        console.log('write');
+        response.write(JSON.stringify(_createResponse(true, 'Song with ID ' + i + ' deleted successfully')) + ',');
+        deferred.resolve();
+      }, timeout * i);
+    }
+
+    for (var i = 0, len = 10; i < len; i++) {
+      deferred = q.defer();
+      promises.push((function (d, i, t) {
+        writeRes(d, i, t);
+        return d.promise;
+      })(deferred, i, 1000));
+    }
+
+    q.all(promises)
+      .then(function () {
+        console.log('end');
+        response.end();
+      });
+
+    // response.send(songDb);
     // _printLog('Song retrieved: ' + statusCode.ok);
   });
 
@@ -164,10 +189,14 @@
     _newSession();
     _printLog('Request received');
 
-    var idArray = request.body,
-      responseArray = [];
+    var idArray = request.body.id,
+      responseArray = [],
+      responsePart = '';
 
     if (_.isArray(idArray)) {
+      response
+        .status(200);
+
       _.forEach(idArray, function (id) {
         var existingSong = _.find(songDb, function (song) {
           return song.id === id;
@@ -178,19 +207,23 @@
             return song.id === id;
           });
 
-          responseArray.push(_createResponse(true, 'Song with ID ' + id + ' deleted successfully'));
+          // responseArray.push(_createResponse(true, 'Song with ID ' + id + ' deleted successfully'));
+          responsePart = 'Song with ID ' + id + ' deleted successfully';
 
           _printLog('Song ' + id + ' deleted: SUCCESS');
         } else {
-          responseArray.push(_createResponse(false, 'Song with ID ' + id + ' could not found'));
+          // responseArray.push(_createResponse(false, 'Song with ID ' + id + ' could not found'));
+          responsePart = 'Song with ID ' + id + ' could not found';
 
           _printLog('Song ' + id + ' deleted: ERROR - Song could not found');
         }
+
+        response
+          .write(responsePart);
       });
 
       response
-        .status(200)
-        .send(responseArray);
+        .end();
 
       _printLog('Song deleted: ' + statusCode.ok);
     } else {
@@ -293,7 +326,7 @@
     _newSession();
     _printLog('Request received');
 
-    var idArray = request.body,
+    var idArray = request.body.id,
       responseArray = [];
 
     if (_.isArray(idArray)) {
