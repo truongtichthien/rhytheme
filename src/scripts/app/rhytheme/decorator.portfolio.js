@@ -5,7 +5,7 @@
 (function (ng) {
   'use strict';
 
-  function PortfolioDecorator() {
+  function PortfolioDecorator($timeout) {
     var _vm,
       IMG_PATH = 'scripts/app/rhytheme/images/';
 
@@ -70,6 +70,12 @@
           }
         }
       ];
+
+      _vm.portfolio.onLoadFunction = function () {
+        $timeout(function () {
+          console.log('feck');
+        })
+      };
     }
 
     return {
@@ -77,7 +83,7 @@
     }
   }
 
-  PortfolioDecorator.$inject = [];
+  PortfolioDecorator.$inject = ['$timeout'];
 
   ng.module('rhythemeModule')
     .factory('portfolioDecorator', PortfolioDecorator);

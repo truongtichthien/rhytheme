@@ -31,7 +31,7 @@
 
   // set the static files location /public/img will be /img for users
 
-  server.use(express.static(path.join(__dirname + '/src'), { index: false }));
+  server.use(express.static(path.join(__dirname, '/src'), { index: false }));
 
   // log every request to the console
   server.use(morgan('dev'));
@@ -53,6 +53,7 @@
   // });
 
   server.get('/rhytheme', function (req, res) {
+    _printConsole(__dirname);
     res.sendFile('index.html', { root: __dirname + '/src' });
   });
 
@@ -61,7 +62,7 @@
   });
 
   server.get('/esg', function (req, res) {
-    res.sendFile('index.html', { root: __dirname + '/src/scripts/modules/esg' });
+    res.sendFile('index.html', { root: __dirname + '/src/scripts/app/esg' });
   });
 
   server.get('/httk', function (req, res) {

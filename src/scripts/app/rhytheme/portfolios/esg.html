@@ -1,4 +1,4 @@
-<div ti-loading="">Loading</div>
+<div ti-loading="" ng-show="loading">Loading</div>
 <iframe class="portfolio-iframe ti-full-screen-iframe"
         src="../../esg"
-        ng-init="loading = false"></iframe>
+        ng-init="rhytheme.portfolio.onLoadFunction()"></iframe>
