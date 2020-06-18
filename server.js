@@ -4,7 +4,7 @@
 
     // create onw server express
   var express = _req('express'),
-    PORT = process.env.PORT || 3000,
+    PORT = process.env.PORT ||3000,
     server = express();
 
   var path = _req('path');
@@ -76,8 +76,8 @@
 
   server.get('*', function (req, res) {
     console.log('not found');
-    // res.redirect('/rhytheme');
-    res.redirect('/demo');
+    res.redirect('/rhytheme');
+//    res.redirect('/demo');
   });
 
   server.get('/api/get', function (req, res) {
