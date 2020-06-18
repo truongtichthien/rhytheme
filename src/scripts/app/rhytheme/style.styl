@@ -66,15 +66,9 @@ body
 .bottom.dashed-line
   bottom 10px
 
-.app-main
-.app-footer
-  position relative
-  padding 24px 0
-
 // specific used style
 .app-header
-  backgroundImg(#e68966)
-  height headerHeight
+  backgroundImg(#e49679)
   position fixed
   top 0
   left 0
@@ -82,6 +76,10 @@ body
   z-index 88
   box-shadow 0 1px 5px rgba(0, 0, 0, 0.25)
   border-bottom 1px solid rgba(0, 0, 0, 0.15)
+
+  .app-container
+    height headerHeight
+    backgroundImg(#e68966)
 
   .app-navbar
     padding 0
@@ -114,9 +112,15 @@ body
         &:focus
           text-decoration none
 
+        &.active:before,
         &.active:after
-          content '...'
+          content '.'
           position absolute
+          top -15px
+        &.active:before
+          left -10px
+        &.active:after
+          right -10px
     /*todo-add some movements to triple dots*/
 
     .app-logo
@@ -133,15 +137,20 @@ body
           margin-top 0
 
 .app-main
+  position relative
   min-height 100%
-  backgroundImg(#e6e1d0)
+  backgroundImg(#f7f3e5)
+
+  .app-container
+    backgroundImg(#e6e1d0)
 
 .app-footer
   backgroundImg(#4c5057)
   color #f6edd8
   z-index 2
   text-align center
-  padding-bottom 12px
+  position relative
+  padding 24px 0
 
   .link
     color #f6edd8
@@ -159,7 +168,8 @@ body
     text-align center
     text-transform uppercase
     text-shadow 1px 2px #fcfaf7, 3px 4px #484a4d
-    margin-top 16px
+    padding-top 16px
+    margin-top 0
     margin-bottom 6px
 
   .section-subtitle
@@ -327,7 +337,7 @@ body
 
   .portfolio-discovery
     text-align center
-    margin-bottom 26px
+    padding-bottom 26px
 
     .discovery-btn
       background transparent
