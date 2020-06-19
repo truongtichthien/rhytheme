@@ -20,9 +20,9 @@
             <image width="120" height="120"
                    class="logo-img" clip-path="url(#imgLogo)"
                    href="../../../images/about.jpg"></image>
+            <circle cx="60" cy="60" r="57" fill="none"
+                    stroke="#ffffffaa" stroke-dasharray="3,5" stroke-width="1"></circle>
             <circle cx="60" cy="60" r="56" fill="none"
-                    stroke="#ffffff40" stroke-dasharray="3,5" stroke-width="1"></circle>
-            <circle cx="60" cy="60" r="55" fill="none"
                     stroke="#547171" stroke-dasharray="3,5" stroke-width="1"></circle>
           </svg>
         </a>
@@ -40,15 +40,17 @@
 
 <!--app main-->
 <main role="main" id="appMain" class="app-main">
-  <!--top dashed line-->
-  <hr class="top dashed-line">
-  <!--main view-->
-  <div class="app-container"
-       ng-include="rhytheme.currentTemplate">
-    <!--main content-->
+  <div class="main-wrapper">
+    <!--top dashed line-->
+    <hr class="top dashed-line">
+    <!--main view-->
+    <div class="app-container"
+         ng-include="rhytheme.currentTemplate">
+      <!--main content-->
+    </div>
+    <!--bottom dashed line-->
+    <hr class="bottom dashed-line">
   </div>
-  <!--bottom dashed line-->
-  <hr class="bottom dashed-line">
 </main><!--end app main-->
 
 <!--app footer-->

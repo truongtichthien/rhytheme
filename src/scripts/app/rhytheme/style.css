@@ -18,18 +18,13 @@
   font-family: 'Oswald Bold';
   src: /* Super Modern Browsers */ url("fonts/Oswald-Latin-Bold.woff2") format('woff2');
 }
-html,
-body,
-.rhytheme-app {
-  height: 100%;
-}
+/*html*/
+/*body*/
+/*.rhytheme-app*/
+/*height 100%*/
 body {
   color: #383a3c;
   font-family: 'Roboto Slab';
-}
-.rhytheme-app {
-  padding-top: 100px;
-  padding-bottom: 56px;
 }
 .app-container {
   max-width: 960px;
@@ -152,9 +147,32 @@ body {
   margin-top: 0;
 }
 .app-main {
-  position: relative;
-  min-height: 100%;
+  min-height: 100vh;
+  padding-top: 100px;
+  padding-bottom: 68px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
   background: #f7f3e5 url("images/grain.png");
+}
+.app-main .main-wrapper {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -o-box-flex: 1;
+  box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
 }
 .app-main .app-container {
   background: #e6e1d0 url("images/grain.png");
@@ -166,6 +184,7 @@ body {
   text-align: center;
   position: relative;
   padding: 24px 0;
+  margin-top: -68px;
 }
 .app-footer .link {
   color: #f6edd8;
@@ -413,8 +432,11 @@ body {
   -ms-transform: scaleX(1);
   transform: scaleX(1);
 }
+.section-about {
+  padding-bottom: 16px;
+}
 .section-about .about-content {
-  margin: 24px -10px 16px;
+  margin: 24px -10px 0;
 }
 .section-about .about-content .about-row {
   display: -webkit-box;
