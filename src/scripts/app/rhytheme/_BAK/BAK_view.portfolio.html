@@ -1,0 +1,54 @@
+<div id="sectionPortfolio" class="section-portfolio">
+  <div class="section-heading">
+    <h2 class="section-title">{{ rhytheme.portfolio.title }}</h2>
+
+    <div class="section-separator">
+      <span class="solid-line">×××</span>
+    </div>
+    <div class="section-subtitle">
+      {{ rhytheme.portfolio.subtitle }}
+    </div>
+  </div>
+  <div class="portfolio-filter">
+    <span class="filter-label">
+      Filter by</span>
+    <ul class="filter-tag-container">
+      <li class="filter-tag"
+          ng-repeat="tag in rhytheme.portfolio.filterTag"
+          ng-click="">
+        <span>{{ tag }}</span>
+      </li>
+    </ul>
+  </div>
+  <div class="portfolio-list clearfix"> <!--todo replace col- class-->
+    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-4 portfolio-item"
+         ng-repeat="item in rhytheme.portfolio.list">
+      <div class="full-screen-wrapper">
+        <!--portfolio item-->
+        <a class="item-content" href
+           ng-click="item.tiFullScreen.api.enterFullScreen()">
+          <!--thumbnail image-->
+          <div class="ti-full-screen-anchor">
+            <!--alternative content on full-screen mode-->
+            <!--todo implement directly ti-full-screen-replacing-template in directive-->
+            <div class="ti-full-screen-replacing-template"
+                 ng-if="item.tiFullScreen.api.stateOfFullScreen()"
+                 ng-include="item.tiFullScreen.replacingTpl"></div>
+            <div class="" style="height: 150px; overflow: hidden;">
+              <img class="item-img ti-full-screen-replaced-element" ng-src="{{ ::item.img }}" src="">
+            </div>
+            <!--deprecated: ti-full-screen directive-->
+            <span ti-full-screen="item.tiFullScreen">Fullscreen</span>
+          </div>
+          <i class="item-icon" ng-class="item.icon"></i>
+          <h5 class="item-caption">{{ ::item.name }}</h5>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="portfolio-discovery">
+    <button class="discovery-btn"
+            ng-click="">{{ rhytheme.portfolio.browseBtn }}
+    </button>
+  </div>
+</div>

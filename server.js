@@ -4,7 +4,7 @@
 
     // create onw server express
   var express = _req('express'),
-    PORT = process.env.PORT ||3000,
+    PORT = process.env.PORT || 3000,
     server = express();
 
   var path = _req('path');

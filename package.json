@@ -4,13 +4,13 @@
   "description": "NodeJS Server",
   "main": "server.js",
   "dependencies": {
-    "body-parser": "^1.16.1",
-    "bower": "^1.8.0",
+    "body-parser": "^1.19.0",
+    "bower": "^1.8.8",
     "colors": "^1.1.2",
-    "express": "^4.14.1",
-    "method-override": "^2.3.7",
+    "express": "^4.17.1",
+    "method-override": "^2.3.10",
     "mongoose": "^4.9.6",
-    "morgan": "^1.8.1",
+    "morgan": "^1.10.0",
     "nib": "^1.1.2",
     "path": "^0.12.7",
     "stylus": "^0.54.5"

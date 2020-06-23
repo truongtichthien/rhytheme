@@ -1,0 +1,449 @@
+@import '../../../../node_modules/nib'
+
+//variables & functions definition
+headerHeight = 100px
+footerHeight = 68px
+mainColor = #383a3c
+offset1 = 8.33333333%
+offset2 = 16.66666667%
+
+backgroundImg(hex)
+  background hex url('../rhytheme/images/grain.png')
+
+@font-face
+  font-family 'Bazar'
+  src url('../rhytheme/fonts/Bazar.woff') format('woff')
+
+@font-face
+  font-family 'Roboto Slab'
+  src /* IE9 Compat Modes */ url('../rhytheme/fonts/Roboto-Slab.eot') , /* IE6-IE8 */ url('../rhytheme/fonts/Roboto-Slab.eot?#iefix') format('embedded-opentype'), /* Safari, Android, iOS */ url('../rhytheme/fonts/Roboto-Slab.ttf') format('truetype'), /* Legacy iOS */ url('../rhytheme/fonts/Roboto-Slab.svg#roboto_slabregular') format('svg'), /* Modern Browsers */ url('../rhytheme/fonts/Roboto-Slab.woff') format('woff')
+
+@font-face
+  font-family 'Roboto Slab Bold'
+  src /* IE9 Compat Modes */ url('../rhytheme/fonts/Roboto-Slab-Bold.eot') , /* IE6-IE8 */ url('../rhytheme/fonts/Roboto-Slab-Bold.eot?#iefix') format('embedded-opentype'), /* Safari, Android, iOS */ url('../rhytheme/fonts/Roboto-Slab-Bold.ttf') format('truetype'), /* Legacy iOS */ url('../rhytheme/fonts/Roboto-Slab-Bold.svg#roboto_slabbold') format('svg'), /* Modern Browsers */ url('../rhytheme/fonts/Roboto-Slab-Bold.woff') format('woff')
+
+@font-face
+  font-family 'Oswald'
+  src /* IE9 Compat Modes */ url('../rhytheme/fonts/Oswald-Latin.eot') , /* IE6-IE8 */ url('../rhytheme/fonts/Oswald-Latin.eot?#iefix') format('embedded-opentype'), /* Safari, Android, iOS */ url('../rhytheme/fonts/Oswald-Latin.ttf') format('truetype'), /* Legacy iOS */ url('../rhytheme/fonts/Oswald-Latin.svg#Oswald') format('svg'), /* Modern Browsers */ url('../rhytheme/fonts/Oswald-Latin.woff') format('woff'), /* Super Modern Browsers */ url('../rhytheme/fonts/Oswald-Latin.woff2') format('woff2')
+
+@font-face
+  font-family 'Oswald Bold'
+  src /* Super Modern Browsers */ url('../rhytheme/fonts/Oswald-Latin-Bold.woff2') format('woff2')
+
+// common used style
+/*html*/
+/*body*/
+/*.rhytheme-app*/
+  /*height 100%*/
+
+body
+  color mainColor
+  font-family 'Roboto Slab'
+
+.app-container
+  max-width 960px
+  margin 0 auto
+  padding-left 16px
+  padding-right 16px
+
+.dashed-line
+  margin 0
+  border-top 1px dashed rgba(0, 0, 0, 0.25)
+  border-bottom 1px dashed rgba(255, 255, 255, 0.25)
+  position absolute
+  z-index 9
+  width 100%
+  height 0
+  background-color transparent
+
+.top.dashed-line
+  top 10px
+
+.bottom.dashed-line
+  bottom 10px
+
+// specific used style
+.app-header
+  backgroundImg(#e49679)
+  position fixed
+  top 0
+  left 0
+  right 0
+  z-index 88
+  box-shadow 0 1px 5px rgba(0, 0, 0, 0.25)
+  border-bottom 1px solid rgba(0, 0, 0, 0.15)
+
+  .app-container
+    height headerHeight
+    backgroundImg(#e68966)
+
+  .app-navbar
+    padding 0
+    margin 0
+    text-align center
+    list-style none
+    display flex
+
+    .menu-item
+      float left
+      width 20%
+      padding 30px 0
+      font-family 'Bazar'
+      font-size 27px
+      text-transform uppercase
+      flex 2
+
+      .link
+        color #f6edd8
+        display inline-block
+        position relative
+        transition margin-top 0.2s ease
+        text-shadow 0 3px 3px rgba(0, 0, 0, 0.2)
+
+        &:hover
+          color #ffefca
+          text-decoration none
+        &:focus
+          text-decoration none
+        &.active:before,
+        &.active:after
+          content '..'
+          position absolute
+          top -15px
+        &.active:before
+          left -15px
+        &.active:after
+          right -15px
+    /*todo-add some movements to triple dots*/
+
+    .app-logo
+      float left
+      flex 1
+      height headerHeight
+      position relative
+      z-index 89
+
+      .logo
+        margin-top -20px
+        transition margin-top 0.2s ease
+        &:hover
+          margin-top 0
+
+.app-main
+  min-height 100vh
+  padding-top headerHeight
+  padding-bottom footerHeight
+  display flex
+  backgroundImg(#f7f3e5)
+
+  .main-wrapper
+    display flex
+    flex 1
+    position relative
+
+  .app-container
+    backgroundImg(#e6e1d0)
+
+.app-footer
+  backgroundImg(#4c5057)
+  color #f6edd8
+  z-index 2
+  text-align center
+  position relative
+  padding 24px 0
+  margin-top (- footerHeight)
+
+  .link
+    color #f6edd8
+
+    &:hover
+      text-decoration underline dotted
+
+// style for each specific sections
+.section-heading
+  padding-bottom 16px
+
+  .section-title
+    font-size 75px
+    font-family 'Bazar'
+    text-align center
+    text-transform uppercase
+    text-shadow 1px 2px #fcfaf7, 3px 4px #484a4d
+    padding-top 16px
+    margin-top 0
+    margin-bottom 6px
+
+  .section-subtitle
+    text-align center
+    font-family Oswald
+    text-transform uppercase
+    font-size 16px
+
+  .section-separator
+    text-align center
+    font-size 24px
+    line-height 24px
+
+    .solid-line
+      position relative
+      display inline-block
+      width 45px
+
+      &:before
+      &:after
+        content ''
+        width 45px
+        position absolute
+        top 11px
+        border-bottom 2px mainColor solid
+
+      &:before
+        right 100%
+        margin-right 5px
+
+      &:after
+        left 100%
+        margin-left 5px
+
+.section-portfolio
+  .portfolio-filter
+    display flex
+    margin-top 24px
+    margin-bottom 6px
+
+    .filter-label
+      margin-right 8px
+      font-size 16px
+
+    .filter-tag-container
+      flex 1
+      padding 0
+      list-style none
+
+      .filter-tag
+        display inline-block
+        position relative
+        color mainColor
+        cursor pointer
+        font-family 'Roboto Slab Bold'
+        font-size 12px
+        line-height 16px
+        background #fcfaf7
+        padding 4px 8px
+        margin-left 12px
+        margin-right 9px
+        border-top-right-radius 3px
+        border-bottom-right-radius 3px
+        box-shadow 1px 1px 1px rgba(0, 0, 0, 0.2)
+
+        &:before
+        &:after
+          content ''
+
+        &:before
+          position absolute
+          top 0
+          right 100%
+          border-color transparent #fcfaf7 transparent transparent
+          border-width 12px 12px 12px 0
+          border-style solid
+
+        &:after
+          position absolute
+          width 4px
+          height 4px
+          top 10px
+          left 0
+          border-radius 50%
+          background #959ca3
+
+  .portfolio-list
+    margin 0 -10px 16px
+
+    .portfolio-item
+      padding 0 10px
+      margin-bottom 20px
+
+      .full-screen-wrapper
+        z-index 1
+
+      .portfolio-iframe
+        width 100%
+        height 100%
+        border 0
+
+      .item-content
+        z-index initial
+        display block
+        position relative
+        background #fcfaf7
+        color mainColor
+        border 4px transparent solid
+        border-radius 3px
+        box-shadow 0 1px 1px rgba(0, 0, 0, 0.25)
+
+        &:before
+        &:after
+          content ''
+          position absolute
+          z-index -1
+          bottom 12px
+          width 50%
+          height 15px
+          border-radius 4px
+          box-shadow 0 15px 5px rgba(0, 0, 0, 0.25)
+
+        &:before
+          left 0
+          transform: rotate(-4deg);
+
+        &:after
+          right 0
+          transform: rotate(4deg);
+
+        &:hover
+          text-decoration none
+
+          .item-icon
+            top -18px
+
+        .item-img
+          width 100%
+          min-height 159px
+
+        .item-icon
+          display block
+          position relative
+          top -12px
+          margin 0 auto
+          background #fcfaf7
+          color #828c8e
+          width 44px
+          height 44px
+          border-radius 50%
+          transition top 0.2s ease
+
+          &:before
+            position absolute
+            top 12px
+            left 12px
+            font-size 20px
+
+        .item-caption
+          text-align center
+          font-size 12px
+          font-weight bold
+          text-transform uppercase
+          margin -12px 0 10px
+
+  .portfolio-discovery
+    text-align center
+    padding-bottom 26px
+
+    .discovery-btn
+      background transparent
+      border 0
+      outline 0
+      text-transform uppercase
+      font-family 'Oswald Bold'
+      padding 6px 0 0
+      position relative
+
+      &:before
+        content ''
+        position absolute
+        top 0
+        left 0
+        right 0
+        height 2px
+        background mainColor
+        transform scaleX(0.6)
+        transition transform 0.3s ease
+
+      &:hover:before
+        transform scaleX(1)
+
+.section-about
+  padding-bottom 16px
+  .about-content
+    margin 24px -10px 0
+
+    .about-row
+      display flex
+      padding 0 10px
+
+      .about-block
+        flex 1
+        position relative
+        padding 0 20px
+        margin-bottom 20px
+
+        &.left-border
+          border-left 2px mainColor solid
+
+          &:before
+            content ''
+            position absolute
+            top 0
+            bottom 0
+            left -6px
+            width 2px
+            background mainColor
+
+        &.justify
+          text-align justify
+
+        &:nth-child(even)
+          margin-left 8.33333333%
+
+        .block-title
+          margin-top 5px
+          font-size 16px
+          font-family 'Bazar'
+          text-transform uppercase
+
+          .highlighted
+            color #ad4d32
+            font-size 24px
+
+        .paragraph
+          &.with-icon
+            display flex
+            align-items center
+          &.quote
+            font-family 'Oswald'
+            font-size 16px
+            font-style italic
+
+          &:first-child
+            margin-top 7px
+
+          .icon
+            min-width 32px
+            max-height 28px
+            font-size 24px
+
+            &.fa-skype
+              font-size 32px
+
+          .text
+            flex 1
+            margin-left 6px
+
+            .link
+              color mainColor
+
+              &:hover
+                text-decoration underline dotted
+
+      .bolder
+        font-family 'Oswald Bold'
+
+@media (max-width 768px)
+  .section-about
+    .about-content
+      .about-row
+        display block
+
+        .about-block
+          margin 0 8.33333333%

@@ -8,7 +8,7 @@ offset1 = 8.33333333%
 offset2 = 16.66666667%
 
 backgroundImg(hex)
-  background hex url('images/grain.png')
+  background hex url('../../../images/grain.png')
 
 @font-face
   font-family 'Bazar'
@@ -34,7 +34,7 @@ backgroundImg(hex)
 /*html*/
 /*body*/
 /*.rhytheme-app*/
-  /*height 100%*/
+/*height 100%*/
 
 body
   color mainColor
@@ -96,25 +96,24 @@ body
       .link
         color #f6edd8
         display inline-block
-        margin-top 2px
         position relative
         transition margin-top 0.2s ease
         text-shadow 0 3px 3px rgba(0, 0, 0, 0.2)
 
         &:hover
-          margin-top 0
+          color #ffefca
           text-decoration none
         &:focus
           text-decoration none
         &.active:before,
         &.active:after
-          content '.'
+          content '..'
           position absolute
-          top -15px
+          top - 15px
         &.active:before
-          left -10px
+          left - 15px
         &.active:after
-          right -10px
+          right - 15px
     /*todo-add some movements to triple dots*/
 
     .app-logo
@@ -125,10 +124,10 @@ body
       z-index 89
 
       .logo
-        margin-top -20px
+        margin-top - 20px
         transition margin-top 0.2s ease
         &:hover
-          margin-top 0
+          margin-top - 10px
 
 .app-main
   min-height 100vh
@@ -165,7 +164,7 @@ body
   padding-bottom 16px
 
   .section-title
-    font-size 90px
+    font-size 75px
     font-family 'Bazar'
     text-align center
     text-transform uppercase
@@ -215,6 +214,8 @@ body
     .filter-label
       margin-right 8px
       font-size 16px
+      text-align center
+      font-family Oswald
 
     .filter-tag-container
       flex 1
@@ -259,8 +260,6 @@ body
           background #959ca3
 
   .portfolio-list
-    margin 0 -10px 16px
-
     .portfolio-item
       padding 0 10px
       margin-bottom 20px
@@ -277,36 +276,17 @@ body
         z-index initial
         display block
         position relative
-        background #fcfaf7
+        backgroundImg(#fff)
         color mainColor
         border 4px transparent solid
         border-radius 3px
-        box-shadow 0 1px 1px rgba(0, 0, 0, 0.25)
-
-        &:before
-        &:after
-          content ''
-          position absolute
-          z-index -1
-          bottom 12px
-          width 50%
-          height 15px
-          border-radius 4px
-          box-shadow 0 15px 5px rgba(0, 0, 0, 0.25)
-
-        &:before
-          left 0
-          transform: rotate(-4deg);
-
-        &:after
-          right 0
-          transform: rotate(4deg);
+        box-shadow 0 2px 1px rgba(0, 0, 0, 0.15)
 
         &:hover
           text-decoration none
 
           .item-icon
-            top -18px
+            top - 18px
 
         .item-img
           width 100%
@@ -315,27 +295,26 @@ body
         .item-icon
           display block
           position relative
-          top -12px
+          top (-12px)
           margin 0 auto
           background #fcfaf7
           color #828c8e
           width 44px
           height 44px
+          text-align center
           border-radius 50%
           transition top 0.2s ease
-
-          &:before
-            position absolute
-            top 12px
-            left 12px
-            font-size 20px
+          box-shadow 0 1px 1px rgba(0, 0, 0, 0.2)
+          .icon-img
+            width 24px
+            margin-top 10px
 
         .item-caption
           text-align center
           font-size 12px
           font-weight bold
           text-transform uppercase
-          margin -12px 0 10px
+          margin-top 0
 
   .portfolio-discovery
     text-align center
@@ -367,7 +346,7 @@ body
 .section-about
   padding-bottom 16px
   .about-content
-    margin 24px -10px 0
+    margin 24px - 10px 0
 
     .about-row
       display flex
@@ -387,7 +366,7 @@ body
             position absolute
             top 0
             bottom 0
-            left -6px
+            left - 6px
             width 2px
             background mainColor
 

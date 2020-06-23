@@ -7,7 +7,7 @@
 
   function PortfolioDecorator($timeout) {
     var _vm,
-      IMG_PATH = 'scripts/app/rhytheme/images/';
+      IMG_PATH = 'images/portfolio/';
 
     function _decorate(vm) {
       _vm = vm;
@@ -27,7 +27,7 @@
       _vm.portfolio.list = [
         {
           name: 'esg',
-          icon: 'fa fa-newspaper-o',
+          icon: IMG_PATH + 'html.png',
           img: IMG_PATH + 'esg-thumb.jpg',
           tiFullScreen: {
             showButton: false,
@@ -38,7 +38,7 @@
         },
         {
           name: 'blisk',
-          icon: 'glyphicon glyphicon-picture',
+          icon: IMG_PATH + 'angular.png',
           img: IMG_PATH + 'graphic-04-thumb11-480x360.jpg',
           tiFullScreen: {
             showButton: false,
@@ -49,7 +49,7 @@
         },
         {
           name: 'dnn',
-          icon: 'glyphicon glyphicon-ok',
+          icon: IMG_PATH + 'react.png',
           img: IMG_PATH + 'graphic-06-thumb11-480x360.jpg',
           tiFullScreen: {
             showButton: false,
