@@ -7,7 +7,7 @@
 
   function PortfolioDecorator($timeout) {
     var _vm,
-      IMG_PATH = 'images/portfolio/';
+        IMG_PATH = 'images/portfolio/';
 
     function _decorate(vm) {
       _vm = vm;
@@ -22,54 +22,23 @@
       _vm.portfolio.title = 'Rhytheme';
       _vm.portfolio.subtitle = 'Do small things with great love';
       _vm.portfolio.browseBtn = 'Browse All';
-      _vm.portfolio.filterTag = ['all', 'angularJs', 'html & css'];
+      _vm.portfolio.filterTag = ['all', 'html & css', 'angular', 'react'];
       //todo refactor portfolio list
-      _vm.portfolio.list = [
-        {
-          name: 'esg',
-          icon: IMG_PATH + 'html.png',
-          img: IMG_PATH + 'esg-thumb.jpg',
-          tiFullScreen: {
-            showButton: false,
-            iconClass: 'custom-icon',
-            headerTitle: 'ESG Infographic Template',
-            replacingTpl: 'scripts/app/rhytheme/portfolios/esg.html'
-          }
-        },
-        {
-          name: 'blisk',
-          icon: IMG_PATH + 'angular.png',
-          img: IMG_PATH + 'graphic-04-thumb11-480x360.jpg',
-          tiFullScreen: {
-            showButton: false,
-            iconClass: 'custom-icon',
-            headerTitle: 'HTTK Template',
-            replacingTpl: '' //'scripts/app/rhytheme/portfolios/httk.html'
-          }
-        },
-        {
-          name: 'dnn',
-          icon: IMG_PATH + 'react.png',
-          img: IMG_PATH + 'graphic-06-thumb11-480x360.jpg',
-          tiFullScreen: {
-            showButton: false,
-            iconClass: 'custom-icon',
-            headerTitle: 'DNN Template',
-            replacingTpl: '' //'scripts/app/rhytheme/portfolios/dnn.html'
-          }
-        },
-        {
-          name: 'pics',
-          icon: 'glyphicon glyphicon-picture',
-          img: IMG_PATH + 'graphic-04-thumb11-480x360.jpg',
-          tiFullScreen: {
-            showButton: false,
-            iconClass: 'custom-icon',
-            headerTitle: 'Blisk Template',
-            replacingTpl: '' //'scripts/app/rhytheme/portfolios/blisk.html'
-          }
-        }
+
+      var portfolioItem = [
+        { name: 'supper', tag: 'angular' },
+        { name: 'heartbeat', tag: 'angular' },
+        { name: 'blisk', tag: 'html' },
+        { name: 'esg', tag: 'html' },
+        { name: 'httk', tag: 'html' }
       ];
+
+      _vm.portfolio.list = _.each(portfolioItem, function (p) {
+        p.thumbnail = IMG_PATH + p.name + '-thumb.jpg';
+        p.icon = IMG_PATH + p.tag + '.png';
+        p.demo = 'https://rhytheme-' + p.name + '.herokuapp.com/';
+        return p;
+      });
 
       _vm.portfolio.onLoadFunction = function () {
         $timeout(function () {
@@ -86,6 +55,6 @@
   PortfolioDecorator.$inject = ['$timeout'];
 
   ng.module('rhythemeModule')
-    .factory('portfolioDecorator', PortfolioDecorator);
+      .factory('portfolioDecorator', PortfolioDecorator);
 
 })(window.angular);

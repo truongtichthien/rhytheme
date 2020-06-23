@@ -330,7 +330,11 @@ body {
 .section-portfolio .portfolio-list .portfolio-item .item-content:hover .item-icon {
   top: -18px;
 }
-.section-portfolio .portfolio-list .portfolio-item .item-content .item-img {
+.section-portfolio .portfolio-list .portfolio-item .item-content .item-thumbnail {
+  height: 150px;
+  overflow: hidden;
+}
+.section-portfolio .portfolio-list .portfolio-item .item-content .item-thumbnail .item-img {
   width: 100%;
   min-height: 159px;
 }
