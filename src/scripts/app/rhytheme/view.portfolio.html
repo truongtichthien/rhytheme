@@ -20,26 +20,35 @@
     </ul>
   </div>
   <div class="portfolio-list clearfix">
-    <div class="col-xs-6 col-md-4 portfolio-item"
+    <div class="col-xs-6 col-sm-4 portfolio-item"
          ng-repeat="item in rhytheme.portfolio.list">
-      <div class="full-screen-wrapper">
+      <div class="item-wrapper" ng-class="{ 'detailed': item.showDetail }">
         <!--portfolio item-->
-        <a class="item-content" target="_blank" ng-href="{{ ::item.demo }}">
+        <!--<a class="item-content" target="_blank" ng-href="{{ ::item.demo }}">-->
+        <a class="item-content" href ng-click="item.showDetail = !item.showDetail">
           <!--thumbnail image-->
-          <div class="item-thumbnail">
-            <img class="item-img" ng-src="{{ ::item.thumbnail }}" src="">
+          <div class="sliding-content">
+            <div class="item-thumbnail">
+              <img class="item-img" ng-src="{{ ::item.thumbnail }}" src="">
+            </div>
+            <div class="item-icon">
+              <img class="icon-img" ng-src="{{ ::item.icon }}" src="">
+            </div>
           </div>
-          <div class="item-icon">
-            <img class="icon-img" ng-src="{{ ::item.icon }}" src="">
+          <div class="item-detail" style="padding-top: 20px;">
+            <ul>
+              <li><label style="font-size: 20px;">NodeJS</label>: Express</li>
+              <li>NodeJS</li>
+            </ul>
           </div>
           <h5 class="item-caption">{{ ::item.name }}</h5>
         </a>
       </div>
     </div>
   </div>
-  <div class="portfolio-discovery">
-    <button class="discovery-btn"
-            ng-click="">{{ rhytheme.portfolio.browseBtn }}
-    </button>
-  </div>
+  <!--<div class="portfolio-discovery">-->
+  <!--<button class="discovery-btn"-->
+  <!--ng-click="">{{ rhytheme.portfolio.browseBtn }}-->
+  <!--</button>-->
+  <!--</div>-->
 </div>
