@@ -1,0 +1,14 @@
+.app-footer {
+  background: #4c5057 url("../../../../images/grain.png");
+  color: #f6edd8;
+  z-index: 2;
+  text-align: center;
+  padding: 24px 0;
+  margin-top: -68px;
+}
+.app-footer .link {
+  color: #f6edd8;
+}
+.app-footer .link:hover {
+  text-decoration: underline dotted;
+}

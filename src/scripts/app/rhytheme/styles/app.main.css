@@ -1,0 +1,31 @@
+.app-main {
+  min-height: 100vh;
+  padding-top: 100px;
+  padding-bottom: 68px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  background: #f7f3e5 url("../../../../images/grain.png");
+}
+.app-main .main-wrapper {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -o-box-flex: 1;
+  box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+}
+.app-main .app-container {
+  background: #e6e1d0 url("../../../../images/grain.png");
+}

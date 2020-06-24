@@ -1,0 +1,86 @@
+@import '../../../../../node_modules/nib'
+
+$headerHeight = 100px
+$footerHeight = 68px
+$mainColor = #383a3c
+$offset1 = (100 / 12) %
+$offset2 = (100 / 6) %
+
+backgroundImg(hex)
+  background hex url('../../../../images/grain.png')
+
+.section-about
+  padding-bottom 16px
+  .about-content
+    margin 24px - 10px 0
+
+    .about-row
+      display flex
+      padding 0 10px
+
+      .about-block
+        flex 1
+        position relative
+        padding 0 20px
+        margin-bottom 20px
+
+        &.left-border
+          border-left 2px $mainColor solid
+
+          &:before
+            content ''
+            position absolute
+            top 0
+            bottom 0
+            left - 6px
+            width 2px
+            background $mainColor
+
+        &.justify
+          text-align justify
+
+        &:nth-child(even)
+          margin-left 8.33333333%
+
+        .block-title
+          margin-top 5px
+          font-size 16px
+          font-family 'Bazar'
+          text-transform uppercase
+
+          .highlighted
+            color #ad4d32
+            font-size 24px
+
+        .paragraph
+          &.with-icon
+            display flex
+            align-items center
+          &.quote
+            font-family 'Oswald'
+            font-size 16px
+            font-style italic
+
+          &:first-child
+            margin-top 7px
+
+          .icon
+            min-width 32px
+            max-height 28px
+            font-size 24px
+
+            &.fa-skype
+              font-size 32px
+
+          .text
+            flex 1
+            margin-left 6px
+
+            .link
+              color $mainColor
+
+              &:hover
+                text-decoration underline dotted
+
+      .bolder
+        font-family 'Oswald Bold'

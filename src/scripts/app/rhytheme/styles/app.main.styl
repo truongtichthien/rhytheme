@@ -1,0 +1,25 @@
+@import '../../../../../node_modules/nib'
+
+$headerHeight = 100px
+$footerHeight = 68px
+$mainColor = #383a3c
+$offset1 = (100 / 12) %
+$offset2 = (100 / 6) %
+
+backgroundImg(hex)
+  background hex url('../../../../images/grain.png')
+
+.app-main
+  min-height 100vh
+  padding-top $headerHeight
+  padding-bottom $footerHeight
+  display flex
+  backgroundImg(#f7f3e5)
+
+  .main-wrapper
+    display flex
+    flex 1
+    position relative
+
+  .app-container
+    backgroundImg(#e6e1d0)

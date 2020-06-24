@@ -1,0 +1,51 @@
+@import '../../../../../node_modules/nib'
+
+$headerHeight = 100px
+$footerHeight = 68px
+$mainColor = #383a3c
+$offset1 = (100 / 12) %
+$offset2 = (100 / 6) %
+
+backgroundImg(hex)
+  background hex url('../../../../images/grain.png')
+
+.section-heading
+  padding-bottom 16px
+
+  .section-title
+    font-size 75px
+    font-family 'Bazar'
+    text-align center
+    text-transform uppercase
+    text-shadow 1px 2px #fcfaf7, 3px 4px #484a4d
+    padding-top 16px
+    margin-top 32px
+    margin-bottom 6px
+
+  .section-subtitle
+    text-align center
+    font-family Oswald
+    text-transform uppercase
+    font-size 16px
+
+  .section-separator
+    text-align center
+    font-size 20px
+    line-height 22px
+    color rgba(56, 58, 60, 0.75)
+
+    .solid-line
+      position relative
+      display inline-block
+      width 45px
+      &:before
+      &:after
+        content ''
+        width 45px
+        position absolute
+        top 11px
+        border-bottom 1px rgba(56, 58, 60, 0.75) solid
+      &:before
+        right 100%
+      &:after
+        left 100%

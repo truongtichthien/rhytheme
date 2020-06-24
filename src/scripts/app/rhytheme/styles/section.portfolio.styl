@@ -1,0 +1,165 @@
+@import '../../../../../node_modules/nib'
+
+$headerHeight = 100px
+$footerHeight = 68px
+$mainColor = #383a3c
+$offset1 = (100 / 12) %
+$offset2 = (100 / 6) %
+
+backgroundImg(hex)
+  background hex url('../../../../images/grain.png')
+
+.section-portfolio
+  .portfolio-filter
+    display flex
+    margin-top 24px
+    margin-bottom 6px
+
+    .filter-label
+      margin-right 8px
+      font-size 16px
+      text-align center
+      font-family Oswald
+
+    .filter-tag-container
+      flex 1
+      padding 0
+      list-style none
+
+      .filter-tag
+        display inline-block
+        position relative
+        color $mainColor
+        cursor pointer
+        font-family 'Roboto Slab Bold'
+        font-size 12px
+        line-height 16px
+        background #fcfaf7
+        padding 4px 8px
+        margin-left 12px
+        margin-right 9px
+        border-top-right-radius 3px
+        border-bottom-right-radius 3px
+        box-shadow 1px 1px 1px rgba(0, 0, 0, 0.2)
+
+        &:before
+        &:after
+          content ''
+
+        &:before
+          position absolute
+          top 0
+          right 100%
+          border-color transparent #fcfaf7 transparent transparent
+          border-width 12px 12px 12px 0
+          border-style solid
+
+        &:after
+          position absolute
+          width 4px
+          height 4px
+          top 10px
+          left 0
+          border-radius 50%
+          background #959ca3
+
+  .portfolio-list
+    margin-bottom 24px
+
+    .portfolio-item
+      padding 0 10px
+      margin-bottom 20px
+
+      .item-wrapper
+        position relative
+        border-radius 3px
+        box-shadow 0 2px 1px rgba(0, 0, 0, 0.15)
+        backgroundImg(#fff)
+        overflow hidden
+        &.detailed
+          .sliding-content
+            top (-120px)
+
+        .item-detail
+          position absolute
+          top 30px
+          right 0
+          bottom 55px
+          left 0
+          backgroundImg(#f7f3e5)
+          z-index 1
+          overflow hidden
+          box-shadow inset 0 0 4px rgba(0, 0, 0, 0.1)
+
+      .item-content
+        z-index initial
+        display block
+        position relative
+        color $mainColor
+        margin 4px
+        overflow hidden
+        &:focus
+          text-decoration none
+        &:hover
+          text-decoration underline dotted
+
+        .sliding-content
+          position relative
+          top 0
+          z-index 2
+          transition top 0.25s ease
+
+        .item-thumbnail
+          height 150px
+          overflow hidden
+          .item-img
+            width 100%
+
+        .item-icon
+          display block
+          position relative
+          margin (-22px) auto 0
+          background #fcfaf7
+          color #828c8e
+          width 44px
+          height 44px
+          text-align center
+          border-radius 50%
+          box-shadow 0 1px 1px rgba(0, 0, 0, 0.2)
+          z-index 2
+          .icon-img
+            width 24px
+            margin-top 10px
+
+        .item-caption
+          text-align center
+          font-size 12px
+          font-weight bold
+          text-transform uppercase
+
+  .portfolio-discovery
+    text-align center
+    padding-bottom 24px
+
+    .discovery-btn
+      background transparent
+      border 0
+      outline 0
+      text-transform uppercase
+      font-family 'Oswald Bold'
+      padding 6px 0 0
+      position relative
+
+      &:before
+        content ''
+        position absolute
+        top 0
+        left 0
+        right 0
+        height 2px
+        background $mainColor
+        transform scaleX(0.6)
+        transition transform 0.3s ease
+
+      &:hover:before
+        transform scaleX(1)
