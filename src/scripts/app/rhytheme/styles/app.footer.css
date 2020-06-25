@@ -3,8 +3,9 @@
   color: #f6edd8;
   z-index: 2;
   text-align: center;
-  padding: 24px 0;
-  margin-top: -68px;
+  padding: 2.4rem 0;
+  position: relative;
+  margin-top: -6.8rem;
 }
 .app-footer .link {
   color: #f6edd8;

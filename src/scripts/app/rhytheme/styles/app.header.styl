@@ -1,7 +1,7 @@
 @import '../../../../../node_modules/nib'
 
-$headerHeight = 100px
-$footerHeight = 68px
+$headerHeight = 10rem
+$footerHeight = 6.8rem
 $mainColor = #383a3c
 $offset1 = (100 / 12) %
 $offset2 = (100 / 6) %
@@ -16,8 +16,8 @@ backgroundImg(hex)
   left 0
   right 0
   z-index 88
-  box-shadow 0 1px 5px rgba(0, 0, 0, 0.25)
-  border-bottom 1px solid rgba(0, 0, 0, 0.15)
+  box-shadow 0 0.1rem 0.5rem rgba(0, 0, 0, 0.25)
+  border-bottom 0.1rem solid rgba(0, 0, 0, 0.15)
 
   .app-container
     height $headerHeight
@@ -33,9 +33,9 @@ backgroundImg(hex)
     .menu-item
       float left
       width 20%
-      padding 30px 0
+      padding 3rem 0
       font-family 'Bazar'
-      font-size 27px
+      font-size 2.7rem
       text-transform uppercase
       flex 2
 
@@ -44,7 +44,7 @@ backgroundImg(hex)
         display inline-block
         position relative
         transition margin-top 0.2s ease
-        text-shadow 0 3px 3px rgba(0, 0, 0, 0.2)
+        text-shadow 0 0.3rem 0.3rem rgba(0, 0, 0, 0.2)
 
         &:hover
           color #ffefca
@@ -55,11 +55,11 @@ backgroundImg(hex)
         &.active:after
           content '..'
           position absolute
-          top - 15px
+          top (-1.5rem)
         &.active:before
-          left - 15px
+          left (-1.5rem)
         &.active:after
-          right - 15px
+          right (-1.5rem)
 
     .app-logo
       float left
@@ -69,7 +69,28 @@ backgroundImg(hex)
       z-index 89
 
       .logo
-        margin-top - 20px
+        height 12.2rem
+        width 12.2rem
+        margin-top (-2rem)
         transition margin-top 0.2s ease
         &:hover
-          margin-top - 10px
+          margin-top (-1rem)
+
+        .logo-img
+          width 12rem
+          height 12rem
+
+        .logo-circle
+          cx 6rem
+          cy 6rem
+          &.avatar
+            r 6rem
+          &.background
+            r 6.1rem
+          &.border
+            stroke-dasharray 3.5
+            stroke-width 1
+            .dark
+              r 57
+            .light
+              r 56

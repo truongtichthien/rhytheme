@@ -5,8 +5,9 @@
 (function (ng) {
   'use strict';
 
-  function PortfolioDecorator($timeout) {
+  function PortfolioDecorator($timeout, $interval) {
     var _vm,
+        TIME_OUT = 5,
         IMG_PATH = 'images/portfolio/';
 
     function _decorate(vm) {
@@ -17,19 +18,35 @@
       };
     }
 
+    function onMouseEnter(item, evt) {
+      item.counter = 0;
+      $interval.cancel(item.stopCounting);
+    }
+
+    function onMouseLeave(item, evt) {
+      if (item.showDetail) {
+        item.stopCounting = $interval(function () {
+          if (++item.counter === TIME_OUT) {
+            item.showDetail = false;
+            onMouseEnter(item, evt);
+          }
+        }, 1000);
+      }
+    }
+
     function _initModel() {
       _vm.portfolio = {};
       _vm.portfolio.title = 'Rhytheme';
       _vm.portfolio.subtitle = 'Do small things with great love';
       _vm.portfolio.browseBtn = 'Browse All';
       _vm.portfolio.filterTag = ['all', 'html & css', 'angular', 'react'];
-      //todo refactor portfolio list
 
       var portfolioItem = [
         { name: 'supper', tag: 'angular' },
         { name: 'heartbeat', tag: 'angular' },
         { name: 'blisk', tag: 'html' },
         { name: 'esg', tag: 'html' },
+        { name: 'dnn', tag: 'html' },
         { name: 'httk', tag: 'html' }
       ];
 
@@ -42,9 +59,12 @@
 
       _vm.portfolio.onLoadFunction = function () {
         $timeout(function () {
-          console.log('feck');
+          // console.log('feck');
         })
       };
+
+      _vm.portfolio.onMouseEnter = onMouseEnter;
+      _vm.portfolio.onMouseLeave = onMouseLeave;
     }
 
     return {
@@ -52,7 +72,7 @@
     }
   }
 
-  PortfolioDecorator.$inject = ['$timeout'];
+  PortfolioDecorator.$inject = ['$timeout', '$interval'];
 
   ng.module('rhythemeModule')
       .factory('portfolioDecorator', PortfolioDecorator);

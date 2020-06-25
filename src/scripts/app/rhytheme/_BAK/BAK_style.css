@@ -29,13 +29,13 @@ body {
 .app-container {
   max-width: 960px;
   margin: 0 auto;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: 1.6rem;
+  padding-right: 1.6rem;
 }
 .dashed-line {
   margin: 0;
-  border-top: 1px dashed rgba(0,0,0,0.25);
-  border-bottom: 1px dashed rgba(255,255,255,0.25);
+  border-top: 0.1rem dashed rgba(0,0,0,0.25);
+  border-bottom: 0.1rem dashed rgba(255,255,255,0.25);
   position: absolute;
   z-index: 9;
   width: 100%;
@@ -55,9 +55,9 @@ body {
   left: 0;
   right: 0;
   z-index: 88;
-  -webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.25);
-  box-shadow: 0 1px 5px rgba(0,0,0,0.25);
-  border-bottom: 1px solid rgba(0,0,0,0.15);
+  -webkit-box-shadow: 0 0.1rem 0.5rem rgba(0,0,0,0.25);
+  box-shadow: 0 0.1rem 0.5rem rgba(0,0,0,0.25);
+  border-bottom: 0.1rem solid rgba(0,0,0,0.15);
 }
 .app-header .app-container {
   height: 100px;
@@ -81,7 +81,7 @@ body {
   width: 20%;
   padding: 30px 0;
   font-family: 'Bazar';
-  font-size: 27px;
+  font-size: 2.7rem;
   text-transform: uppercase;
   -webkit-box-flex: 2;
   -moz-box-flex: 2;
@@ -100,7 +100,7 @@ body {
   -o-transition: margin-top 0.2s ease;
   -ms-transition: margin-top 0.2s ease;
   transition: margin-top 0.2s ease;
-  text-shadow: 0 3px 3px rgba(0,0,0,0.2);
+  text-shadow: 0 0.3rem 0.3rem rgba(0,0,0,0.2);
 }
 .app-header .app-navbar .menu-item .link:hover {
   color: #ffefca;
@@ -113,13 +113,13 @@ body {
 .app-header .app-navbar .menu-item .link.active:after {
   content: '..';
   position: absolute;
-  top: -15px;
+  top: -1.5rem;
 }
 .app-header .app-navbar .menu-item .link.active:before {
-  left: -15px;
+  left: -1.5rem;
 }
 .app-header .app-navbar .menu-item .link.active:after {
-  right: -15px;
+  right: -1.5rem;
 }
 .app-header .app-navbar .app-logo {
   float: left;
@@ -148,7 +148,7 @@ body {
 .app-main {
   min-height: 100vh;
   padding-top: 100px;
-  padding-bottom: 68px;
+  padding-bottom: 6.8rem;
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -182,8 +182,8 @@ body {
   z-index: 2;
   text-align: center;
   position: relative;
-  padding: 24px 0;
-  margin-top: -68px;
+  padding: 2.4rem 0;
+  margin-top: -6.8rem;
 }
 .app-footer .link {
   color: #f6edd8;
@@ -192,49 +192,49 @@ body {
   text-decoration: underline dotted;
 }
 .section-heading {
-  padding-bottom: 16px;
+  padding-bottom: 1.6rem;
 }
 .section-heading .section-title {
-  font-size: 75px;
+  font-size: 7.5rem;
   font-family: 'Bazar';
   text-align: center;
   text-transform: uppercase;
-  text-shadow: 1px 2px #fcfaf7, 3px 4px #484a4d;
-  padding-top: 16px;
+  text-shadow: 0.1rem 0.2rem #fcfaf7, 0.3rem 0.4rem #484a4d;
+  padding-top: 1.6rem;
   margin-top: 0;
-  margin-bottom: 6px;
+  margin-bottom: 0.6rem;
 }
 .section-heading .section-subtitle {
   text-align: center;
   font-family: Oswald;
   text-transform: uppercase;
-  font-size: 16px;
+  font-size: 1.6rem;
 }
 .section-heading .section-separator {
   text-align: center;
-  font-size: 24px;
-  line-height: 24px;
+  font-size: 2.4rem;
+  line-height: 2.4rem;
 }
 .section-heading .section-separator .solid-line {
   position: relative;
   display: inline-block;
-  width: 45px;
+  width: 4.5rem;
 }
 .section-heading .section-separator .solid-line:before,
 .section-heading .section-separator .solid-line:after {
   content: '';
-  width: 45px;
+  width: 4.5rem;
   position: absolute;
-  top: 11px;
-  border-bottom: 2px #383a3c solid;
+  top: 1.1rem;
+  border-bottom: 0.2rem #383a3c solid;
 }
 .section-heading .section-separator .solid-line:before {
   right: 100%;
-  margin-right: 5px;
+  margin-right: 0.5rem;
 }
 .section-heading .section-separator .solid-line:after {
   left: 100%;
-  margin-left: 5px;
+  margin-left: 0.5rem;
 }
 .section-portfolio .portfolio-filter {
   display: -webkit-box;
@@ -243,12 +243,12 @@ body {
   display: -ms-flexbox;
   display: box;
   display: flex;
-  margin-top: 24px;
-  margin-bottom: 6px;
+  margin-top: 2.4rem;
+  margin-bottom: 0.6rem;
 }
 .section-portfolio .portfolio-filter .filter-label {
-  margin-right: 8px;
-  font-size: 16px;
+  margin-right: 0.8rem;
+  font-size: 1.6rem;
 }
 .section-portfolio .portfolio-filter .filter-tag-container {
   -webkit-box-flex: 1;
@@ -267,16 +267,16 @@ body {
   color: #383a3c;
   cursor: pointer;
   font-family: 'Roboto Slab Bold';
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
   background: #fcfaf7;
-  padding: 4px 8px;
-  margin-left: 12px;
-  margin-right: 9px;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-  -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
-  box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+  padding: 0.4rem 0.8rem;
+  margin-left: 1.2rem;
+  margin-right: 0.9rem;
+  border-top-right-radius: 0.3rem;
+  border-bottom-right-radius: 0.3rem;
+  -webkit-box-shadow: 0.1rem 0.1rem 0.1rem rgba(0,0,0,0.2);
+  box-shadow: 0.1rem 0.1rem 0.1rem rgba(0,0,0,0.2);
 }
 .section-portfolio .portfolio-filter .filter-tag-container .filter-tag:before,
 .section-portfolio .portfolio-filter .filter-tag-container .filter-tag:after {
@@ -287,20 +287,20 @@ body {
   top: 0;
   right: 100%;
   border-color: transparent #fcfaf7 transparent transparent;
-  border-width: 12px 12px 12px 0;
+  border-width: 1.2rem 1.2rem 1.2rem 0;
   border-style: solid;
 }
 .section-portfolio .portfolio-filter .filter-tag-container .filter-tag:after {
   position: absolute;
-  width: 4px;
-  height: 4px;
+  width: 0.4rem;
+  height: 0.4rem;
   top: 10px;
   left: 0;
   border-radius: 50%;
   background: #959ca3;
 }
 .section-portfolio .portfolio-list {
-  margin: 0 -10px 16px;
+  margin: 0 -10px 1.6rem;
 }
 .section-portfolio .portfolio-list .portfolio-item {
   padding: 0 10px;
@@ -320,22 +320,22 @@ body {
   position: relative;
   background: #fcfaf7;
   color: #383a3c;
-  border: 4px transparent solid;
-  border-radius: 3px;
-  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.25);
-  box-shadow: 0 1px 1px rgba(0,0,0,0.25);
+  border: 0.4rem transparent solid;
+  border-radius: 0.3rem;
+  -webkit-box-shadow: 0 0.1rem 0.1rem rgba(0,0,0,0.25);
+  box-shadow: 0 0.1rem 0.1rem rgba(0,0,0,0.25);
 }
 .section-portfolio .portfolio-list .portfolio-item .item-content:before,
 .section-portfolio .portfolio-list .portfolio-item .item-content:after {
   content: '';
   position: absolute;
   z-index: -1;
-  bottom: 12px;
+  bottom: 1.2rem;
   width: 50%;
-  height: 15px;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 15px 5px rgba(0,0,0,0.25);
-  box-shadow: 0 15px 5px rgba(0,0,0,0.25);
+  height: 1.5rem;
+  border-radius: 0.4rem;
+  -webkit-box-shadow: 0 1.5rem 0.5rem rgba(0,0,0,0.25);
+  box-shadow: 0 1.5rem 0.5rem rgba(0,0,0,0.25);
 }
 .section-portfolio .portfolio-list .portfolio-item .item-content:before {
   left: 0;
@@ -357,21 +357,21 @@ body {
   text-decoration: none;
 }
 .section-portfolio .portfolio-list .portfolio-item .item-content:hover .item-icon {
-  top: -18px;
+  top: -1.8rem;
 }
 .section-portfolio .portfolio-list .portfolio-item .item-content .item-img {
   width: 100%;
-  min-height: 159px;
+  min-height: 15.9rem;
 }
 .section-portfolio .portfolio-list .portfolio-item .item-content .item-icon {
   display: block;
   position: relative;
-  top: -12px;
+  top: -1.2rem;
   margin: 0 auto;
   background: #fcfaf7;
   color: #828c8e;
-  width: 44px;
-  height: 44px;
+  width: 4.4rem;
+  height: 4.4rem;
   border-radius: 50%;
   -webkit-transition: top 0.2s ease;
   -moz-transition: top 0.2s ease;
@@ -381,20 +381,20 @@ body {
 }
 .section-portfolio .portfolio-list .portfolio-item .item-content .item-icon:before {
   position: absolute;
-  top: 12px;
-  left: 12px;
+  top: 1.2rem;
+  left: 1.2rem;
   font-size: 20px;
 }
 .section-portfolio .portfolio-list .portfolio-item .item-content .item-caption {
   text-align: center;
-  font-size: 12px;
+  font-size: 1.2rem;
   font-weight: bold;
   text-transform: uppercase;
-  margin: -12px 0 10px;
+  margin: -1.2rem 0 10px;
 }
 .section-portfolio .portfolio-discovery {
   text-align: center;
-  padding-bottom: 26px;
+  padding-bottom: 2.6rem;
 }
 .section-portfolio .portfolio-discovery .discovery-btn {
   background: transparent;
@@ -402,7 +402,7 @@ body {
   outline: 0;
   text-transform: uppercase;
   font-family: 'Oswald Bold';
-  padding: 6px 0 0;
+  padding: 0.6rem 0 0;
   position: relative;
 }
 .section-portfolio .portfolio-discovery .discovery-btn:before {
@@ -411,7 +411,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
+  height: 0.2rem;
   background: #383a3c;
   -webkit-transform: scaleX(0.6);
   -moz-transform: scaleX(0.6);
@@ -432,10 +432,10 @@ body {
   transform: scaleX(1);
 }
 .section-about {
-  padding-bottom: 16px;
+  padding-bottom: 1.6rem;
 }
 .section-about .about-content {
-  margin: 24px -10px 0;
+  margin: 2.4rem -10px 0;
 }
 .section-about .about-content .about-row {
   display: -webkit-box;
@@ -459,15 +459,15 @@ body {
   margin-bottom: 20px;
 }
 .section-about .about-content .about-row .about-block.left-border {
-  border-left: 2px #383a3c solid;
+  border-left: 0.2rem #383a3c solid;
 }
 .section-about .about-content .about-row .about-block.left-border:before {
   content: '';
   position: absolute;
   top: 0;
   bottom: 0;
-  left: -6px;
-  width: 2px;
+  left: -0.6rem;
+  width: 0.2rem;
   background: #383a3c;
 }
 .section-about .about-content .about-row .about-block.justify {
@@ -477,14 +477,14 @@ body {
   margin-left: 8.33333333%;
 }
 .section-about .about-content .about-row .about-block .block-title {
-  margin-top: 5px;
-  font-size: 16px;
+  margin-top: 0.5rem;
+  font-size: 1.6rem;
   font-family: 'Bazar';
   text-transform: uppercase;
 }
 .section-about .about-content .about-row .about-block .block-title .highlighted {
   color: #ad4d32;
-  font-size: 24px;
+  font-size: 2.4rem;
 }
 .section-about .about-content .about-row .about-block .paragraph.with-icon {
   display: -webkit-box;
@@ -502,19 +502,19 @@ body {
 }
 .section-about .about-content .about-row .about-block .paragraph.quote {
   font-family: 'Oswald';
-  font-size: 16px;
+  font-size: 1.6rem;
   font-style: italic;
 }
 .section-about .about-content .about-row .about-block .paragraph:first-child {
-  margin-top: 7px;
+  margin-top: 0.7rem;
 }
 .section-about .about-content .about-row .about-block .paragraph .icon {
-  min-width: 32px;
-  max-height: 28px;
-  font-size: 24px;
+  min-width: 3.2rem;
+  max-height: 2.8rem;
+  font-size: 2.4rem;
 }
 .section-about .about-content .about-row .about-block .paragraph .icon.fa-skype {
-  font-size: 32px;
+  font-size: 3.2rem;
 }
 .section-about .about-content .about-row .about-block .paragraph .text {
   -webkit-box-flex: 1;
@@ -524,7 +524,7 @@ body {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  margin-left: 6px;
+  margin-left: 0.6rem;
 }
 .section-about .about-content .about-row .about-block .paragraph .text .link {
   color: #383a3c;
@@ -535,7 +535,7 @@ body {
 .section-about .about-content .about-row .bolder {
   font-family: 'Oswald Bold';
 }
-@media (max-width: 768px) {
+@media (max-width: 76.8rem) {
   .section-about .about-content .about-row {
     display: block;
   }

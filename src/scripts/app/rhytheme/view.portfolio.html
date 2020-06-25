@@ -22,10 +22,12 @@
   <div class="portfolio-list clearfix">
     <div class="col-xs-6 col-sm-4 portfolio-item"
          ng-repeat="item in rhytheme.portfolio.list">
-      <div class="item-wrapper" ng-class="{ 'detailed': item.showDetail }">
+      <div class="item-wrapper"
+           ng-class="{ 'detailed': item.showDetail }"
+           ng-mouseleave="rhytheme.portfolio.onMouseLeave(item, $event)"
+           ng-mouseenter="rhytheme.portfolio.onMouseEnter(item, $event)">
         <!--portfolio item-->
-        <!--<a class="item-content" target="_blank" ng-href="{{ ::item.demo }}">-->
-        <a class="item-content" href ng-click="item.showDetail = !item.showDetail">
+        <div class="item-content" ng-click="item.showDetail = !item.showDetail">
           <!--thumbnail image-->
           <div class="sliding-content">
             <div class="item-thumbnail">
@@ -35,14 +37,29 @@
               <img class="icon-img" ng-src="{{ ::item.icon }}" src="">
             </div>
           </div>
-          <div class="item-detail" style="padding-top: 20px;">
-            <ul>
-              <li><label style="font-size: 20px;">NodeJS</label>: Express</li>
-              <li>NodeJS</li>
+          <div class="item-detail">
+            <ul class="list-detail">
+              <li>AngularJS</li>
+              <li>NodeJS | Express | Heroku</li>
+              <li>MongoDB | mLab</li>
+              <li>Live-update | Server-Sent Events</li>
+              <li>Responsive
+                <i class="fa fa-check"></i>
+                <i class="fa fa-times"></i>
+              </li>
             </ul>
           </div>
-          <h5 class="item-caption">{{ ::item.name }}</h5>
-        </a>
+          <h5 class="item-caption">
+            <span class="caption-span left capitalized">
+              <span class="span-content">{{ ::item.name }}</span>
+            </span>
+            <span class="separator">&nbsp;</span>
+            <span class="caption-span right action">
+              <a class="span-content" href target="_blank"
+                 ng-href="{{ ::item.demo }}" ng-click="$event.stopPropagation();">Live Demo</a>
+            </span>
+          </h5>
+        </div>
       </div>
     </div>
   </div>

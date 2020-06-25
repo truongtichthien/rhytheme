@@ -27,7 +27,7 @@
 .tree-main-frame .node-wrapper .node-content .node-toggle {
   cursor: pointer;
   position: relative;
-  top: 1px;
+  top: 0.1rem;
 }
 .tree-main-frame .node-wrapper .node-content .node-toggle .toggle-icon {
   position: relative;
