@@ -44,9 +44,11 @@
     <!--top dashed line-->
     <hr class="top dashed-line">
     <!--main view-->
-    <div class="app-container"
-         ng-include="rhytheme.currentTemplate">
+    <!--<div class="app-container" ng-include="rhytheme.currentTemplate">-->
+    <div class="app-container">
       <!--main content-->
+      <div ng-show="rhytheme.view.portfolio" ng-include="'scripts/app/rhytheme/view.portfolio.html'"></div>
+      <div ng-show="rhytheme.view.about" ng-include="'scripts/app/rhytheme/view.about.html'"></div>
     </div>
     <!--bottom dashed line-->
     <hr class="bottom dashed-line">
@@ -59,7 +61,7 @@
   <hr class="top dashed-line">
   <!--footer view-->
   <div class="app-container">
-    &copy; 2020 Inspired by
+    &copy; 2022 Inspired by
     <a class="link" target="_blank" href="http://themes.opendept.net/retro-portfolio-4/">Retro Portfolio</a>
   </div>
 </footer><!--end app footer-->

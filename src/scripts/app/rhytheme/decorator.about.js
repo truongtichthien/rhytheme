@@ -24,7 +24,7 @@
 
     return {
       decorate: _decorate
-    }
+    };
   }
 
   AboutDecorator.$inject = [];

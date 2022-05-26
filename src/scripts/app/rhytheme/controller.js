@@ -5,22 +5,12 @@
 (function (ng, _) {
   'use strict';
 
-  function RhythemeController(portfolio, about) {
+  function RhythemeController(portfolio, about, _root) {
     /** variable definition */
     var vm = this,
       pages = ['portfolio', 'about'],
       template = {},
       view = {};
-
-    /** variable binding */
-    vm.currentTemplate = '';
-    vm.view = view;
-    vm.toPortfolio = _toPortfolio;
-    vm.toAbout = _toAbout;
-
-    /** function execution */
-    _initModel();
-    _toPortfolio();
 
     /** function definition */
     function _initModel() {
@@ -48,9 +38,27 @@
     function _toAbout() {
       vm.currentTemplate = _switchView(pages[1]);
     }
+
+    /** variable binding */
+    vm.currentTemplate = '';
+    vm.view = view;
+    vm.toPortfolio = _toPortfolio;
+    vm.toAbout = _toAbout;
+
+    /** function execution */
+    _initModel();
+    _toPortfolio();
+
+    _root.$on('$includeContentRequested', function(event, templateName){
+      // console.log(event, templateName);
+    });
+
+    _root.$on('$includeContentLoaded', function(event, templateName){
+      // console.log(event, templateName);
+    });
   }
 
-  RhythemeController.$inject = ['portfolioDecorator', 'aboutDecorator'];
+  RhythemeController.$inject = ['portfolioDecorator', 'aboutDecorator', '$rootScope'];
 
   ng.module('rhythemeModule')
     .controller('RhythemeController', RhythemeController);
