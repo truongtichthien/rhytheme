@@ -49,14 +49,17 @@
   -o-transition: margin-top 0.2s ease;
   -ms-transition: margin-top 0.2s ease;
   transition: margin-top 0.2s ease;
-  text-shadow: 0 0.3rem 0.3rem rgba(0,0,0,0.2);
 }
 .app-header .app-navbar .menu-item .link:hover {
   color: #ffefca;
   text-decoration: none;
+  text-shadow: 0 0.3rem 0.3rem rgba(0,0,0,0.2);
 }
 .app-header .app-navbar .menu-item .link:focus {
   text-decoration: none;
+}
+.app-header .app-navbar .menu-item .link.active {
+  text-shadow: 0 0.3rem 0.3rem rgba(0,0,0,0.2);
 }
 .app-header .app-navbar .menu-item .link.active:before,
 .app-header .app-navbar .menu-item .link.active:after {
@@ -119,4 +122,47 @@
 }
 .app-header .app-navbar .app-logo .logo .logo-circle.border .light {
   r: 56;
+}
+.app-header .app-navbar .neon-effect {
+  font-family: 'Neon Sans', sans-serif;
+  font-size: 5rem;
+  color: #fff;
+  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #5271ff, 0 0 82px #5271ff, 0 0 92px #5271ff, 0 0 102px #5271ff, 0 0 151px #5271ff;
+  -webkit-animation: pulsate 0.11s ease-in-out infinite alternate;
+  -moz-animation: pulsate 0.11s ease-in-out infinite alternate;
+  -o-animation: pulsate 0.11s ease-in-out infinite alternate;
+  -ms-animation: pulsate 0.11s ease-in-out infinite alternate;
+  animation: pulsate 0.11s ease-in-out infinite alternate;
+}
+@-moz-keyframes pulsate {
+  100% {
+    text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px #5271ff, 0 0 80px #5271ff, 0 0 90px #5271ff, 0 0 100px #5271ff, 0 0 150px #5271ff;
+  }
+  0% {
+    text-shadow: 0 0 4px #fff, 0 0 10px #fff, 0 0 18px #fff, 0 0 38px #5271ff, 0 0 73px #5271ff, 0 0 80px #5271ff, 0 0 94px #5271ff, 0 0 140px #5271ff;
+  }
+}
+@-webkit-keyframes pulsate {
+  100% {
+    text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px #5271ff, 0 0 80px #5271ff, 0 0 90px #5271ff, 0 0 100px #5271ff, 0 0 150px #5271ff;
+  }
+  0% {
+    text-shadow: 0 0 4px #fff, 0 0 10px #fff, 0 0 18px #fff, 0 0 38px #5271ff, 0 0 73px #5271ff, 0 0 80px #5271ff, 0 0 94px #5271ff, 0 0 140px #5271ff;
+  }
+}
+@-o-keyframes pulsate {
+  100% {
+    text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px #5271ff, 0 0 80px #5271ff, 0 0 90px #5271ff, 0 0 100px #5271ff, 0 0 150px #5271ff;
+  }
+  0% {
+    text-shadow: 0 0 4px #fff, 0 0 10px #fff, 0 0 18px #fff, 0 0 38px #5271ff, 0 0 73px #5271ff, 0 0 80px #5271ff, 0 0 94px #5271ff, 0 0 140px #5271ff;
+  }
+}
+@keyframes pulsate {
+  100% {
+    text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px #5271ff, 0 0 80px #5271ff, 0 0 90px #5271ff, 0 0 100px #5271ff, 0 0 150px #5271ff;
+  }
+  0% {
+    text-shadow: 0 0 4px #fff, 0 0 10px #fff, 0 0 18px #fff, 0 0 38px #5271ff, 0 0 73px #5271ff, 0 0 80px #5271ff, 0 0 94px #5271ff, 0 0 140px #5271ff;
+  }
 }
