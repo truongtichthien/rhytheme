@@ -14,14 +14,14 @@
     <ul class="filter-tag-container">
       <li class="filter-tag"
           ng-repeat="tag in rhytheme.portfolio.filterTag"
-          ng-click="">
-        <span>{{ tag }}</span>
+          ng-click="rhytheme.portfolio.onFilter(tag)">
+        <span>{{ tag || 'all' }}</span>
       </li>
     </ul>
   </div>
   <div class="portfolio-list clearfix">
     <div class="col-xs-6 col-sm-4 portfolio-item"
-         ng-repeat="item in rhytheme.portfolio.list">
+         ng-repeat="item in filtedItems = (rhytheme.portfolio.list | filter:{ tag: rhytheme.portfolio.filteredBy })">
       <div class="item-wrapper"
            ng-class="{ 'detailed': item.showDetail }"
            ng-mouseleave="rhytheme.portfolio.onMouseLeave(item, $event)"
@@ -31,21 +31,19 @@
           <!--thumbnail image-->
           <div class="sliding-content">
             <div class="item-thumbnail">
-              <img class="item-img" ng-src="{{ ::item.thumbnail }}" src="">
+              <img class="item-img" ng-src="{{ ::item.thumbnail }}" src="" ng-attr-alt="{{ ::item.name }}" alt="">
             </div>
             <div class="item-icon">
-              <img class="icon-img" ng-src="{{ ::item.icon }}" src="">
+              <img class="icon-img" ng-src="{{ ::item.icon }}" src="" ng-attr-alt="{{ ::item.tag }}" alt="">
             </div>
           </div>
           <div class="item-detail">
             <ul class="list-detail">
-              <li>AngularJS</li>
-              <li>NodeJS | Express | Heroku</li>
-              <li>MongoDB | mLab</li>
-              <li>Live-update | Server-Sent Events</li>
-              <li>Responsive
-                <i class="fa fa-check"></i>
-                <i class="fa fa-times"></i>
+              <li ng-repeat="line in item.detail">{{ ::line }}</li>
+              <li>
+                <span ng-style="{textDecoration: !item.responsive ? 'line-through' : 'none'}">Responsive</span>
+                <i class="fa fa-check" style="color: green" ng-show="::item.responsive"></i>
+                <i class="fa fa-times" style="color: red" ng-show="::!item.responsive"></i>
               </li>
             </ul>
           </div>
@@ -62,6 +60,7 @@
         </div>
       </div>
     </div>
+    <div ng-show="!filtedItems.length">No items!</div>
   </div>
   <!--<div class="portfolio-discovery">-->
   <!--<button class="discovery-btn"-->

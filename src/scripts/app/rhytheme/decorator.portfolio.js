@@ -6,9 +6,9 @@
   'use strict';
 
   function PortfolioDecorator($timeout, $interval) {
-    let _vm = {};
-    const TIME_OUT = 5;
-    const IMG_PATH = 'images/portfolio/';
+    var _vm = {};
+    var TIME_OUT = 5;
+    var IMG_PATH = 'images/portfolio/';
 
     function onMouseEnter(item /*evt*/) {
       item.counter = 0;
@@ -26,26 +26,55 @@
       }
     }
 
+    function onFilter(tag) {
+      console.log(tag);
+      _vm.portfolio.filteredBy = tag;
+    }
+
     function _initModel() {
       _vm.portfolio = {};
       _vm.portfolio.title = 'Rhytheme';
       _vm.portfolio.subtitle = 'Do small things with great love';
       _vm.portfolio.browseBtn = 'Browse All';
-      _vm.portfolio.filterTag = ['all', 'html-css', 'angular', 'react'];
+      _vm.portfolio.filterTag = ['', 'html-css', 'angular', 'react'];
+      _vm.portfolio.filteredBy = '';
 
       var portfolioItem = [
-        {name: 'supper', tag: 'angular'},
-        {name: 'heartbeat', tag: 'angular'},
-        {name: 'blisk', tag: 'html-css'},
-        {name: 'esg', tag: 'html-css'},
-        {name: 'dnn', tag: 'html-css'},
-        {name: 'httk', tag: 'html-css'}
+        {
+          name: 'adi', tag: 'react', responsive: true,
+          detail: ['ReactJS | React Hooks | Redux', 'MariaDB'],
+          url: 'https://ad-i.com'
+        },
+        {
+          name: 'supper', tag: 'angular', responsive: false,
+          detail: ['AngularJS', 'ExpressJS | Heroku', 'MongoDB', 'Live-update | Server-Sent Events']
+        },
+        {
+          name: 'heartbeat', tag: 'angular', responsive: false,
+          detail: ['AngularJS', 'ExpressJS | Heroku', 'MongoDB']
+        },
+        {
+          name: 'blisk', tag: 'html-css', responsive: true,
+          detail: ['HTML/CSS', 'ExpressJS | Heroku']
+        },
+        {
+          name: 'esg', tag: 'html-css', responsive: true,
+          detail: ['HTML/CSS', 'ExpressJS | Heroku']
+        },
+        {
+          name: 'dnn', tag: 'html-css', responsive: true,
+          detail: ['HTML/CSS', 'ExpressJS | Heroku']
+        },
+        {
+          name: 'httk', tag: 'html-css', responsive: true,
+          detail: ['HTML/CSS', 'ExpressJS | Heroku']
+        }
       ];
 
       _vm.portfolio.list = _.each(portfolioItem, function (p) {
         p.thumbnail = IMG_PATH + 'thumb-' + p.name + '.jpg';
         p.icon = IMG_PATH + 'icon-' + p.tag + '.png';
-        p.demo = 'https://rhytheme-' + p.name + '.herokuapp.com/';
+        p.demo = p.url || ('https://rhytheme-' + p.name + '.herokuapp.com/');
         return p;
       });
 
@@ -57,6 +86,7 @@
 
       _vm.portfolio.onMouseEnter = onMouseEnter;
       _vm.portfolio.onMouseLeave = onMouseLeave;
+      _vm.portfolio.onFilter = onFilter;
     }
 
     function _decorate(vm) {

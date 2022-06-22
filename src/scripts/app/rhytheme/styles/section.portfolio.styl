@@ -1,7 +1,7 @@
 @import '../../../../../node_modules/nib'
 
 $headerHeight = 10rem
-$footerHeight = 6.8rem
+$footerHeight = 4.8rem
 $mainColor = #383a3c
 $offset1 = (100 / 12) %
 $offset2 = (100 / 6) %
@@ -85,6 +85,7 @@ backgroundImg(hex)
           overflow hidden
           box-shadow inset 0 0 0.4rem rgba(0, 0, 0, 0.1)
           .list-detail
+            margin-top 1rem
             font-size 1.2rem
 
       .item-content
@@ -105,6 +106,7 @@ backgroundImg(hex)
         .item-thumbnail
           height 15rem
           overflow hidden
+          background #c6c6c6
           .item-img
             width 100%
 
@@ -150,9 +152,10 @@ backgroundImg(hex)
               z-index 1
               overflow hidden
               .span-content
-                text-decoration underline dotted
                 color #d35244
                 left (-100%)
+                &:hover
+                  text-decoration underline dotted
 
             .span-content
               position relative
