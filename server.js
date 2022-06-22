@@ -52,27 +52,27 @@
   //   res.redirect('/rhytheme');
   // });
 
-  server.get('/rhytheme', function (req, res) {
+  server.get('/', function (req, res) {
     _printConsole(__dirname);
     res.sendFile('index.html', { root: __dirname + '/src' });
   });
 
-  server.get('/demo', function (req, res) {
-    res.sendFile('demo.html', { root: __dirname + '/src' });
-  });
+  // server.get('/demo', function (req, res) {
+  //   res.sendFile('demo.html', { root: __dirname + '/src' });
+  // });
 
-  server.get('/esg', function (req, res) {
-    res.sendFile('index.html', { root: __dirname + '/src/scripts/app/esg' });
-  });
+  // server.get('/esg', function (req, res) {
+  //   res.sendFile('index.html', { root: __dirname + '/src/scripts/app/esg' });
+  // });
 
-  server.get('/httk', function (req, res) {
-    res.sendFile('index.html', { root: __dirname + '/src/scripts/modules/httk' });
-  });
+  // server.get('/httk', function (req, res) {
+  //   res.sendFile('index.html', { root: __dirname + '/src/scripts/modules/httk' });
+  // });
 
-  server.get('/httk/*', function (req, res) {
-    console.log('day ne');
-    res.redirect('/httk');
-  });
+  // server.get('/httk/*', function (req, res) {
+  //   console.log('day ne');
+  //   res.redirect('/httk');
+  // });
 
   server.get('*', function (req, res) {
     console.log('not found');
