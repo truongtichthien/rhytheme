@@ -1,7 +1,7 @@
 @import '../../../../../node_modules/nib'
 
 $headerHeight = 10rem
-$footerHeight = 6.8rem
+$footerHeight = 4.8rem
 $mainColor = #383a3c
 $offset1 = (100 / 12) %
 $offset2 = (100 / 6) %
@@ -36,16 +36,13 @@ backgroundImg(hex)
             width 0.2rem
             background $mainColor
 
-        &.justify
-          text-align justify
-
         &:nth-child(even)
           margin-left 8.33333333%
 
         .block-title
           margin-top 0.5rem
           font-size 1.6rem
-          font-family 'Bazar'
+          //font-family 'Bazar'
           text-transform uppercase
 
           .highlighted
@@ -59,7 +56,11 @@ backgroundImg(hex)
           &.quote
             font-family 'Oswald'
             font-size 1.6rem
-            font-style italic
+            //font-style italic
+          &.justify
+            text-align justify
+          &.spacious
+            word-spacing 1rem
 
           &:first-child
             margin-top 0.7rem

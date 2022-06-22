@@ -37,16 +37,12 @@
   width: 0.2rem;
   background: #383a3c;
 }
-.section-about .about-content .about-row .about-block.justify {
-  text-align: justify;
-}
 .section-about .about-content .about-row .about-block:nth-child(even) {
   margin-left: 8.33333333%;
 }
 .section-about .about-content .about-row .about-block .block-title {
   margin-top: 0.5rem;
   font-size: 1.6rem;
-  font-family: 'Bazar';
   text-transform: uppercase;
 }
 .section-about .about-content .about-row .about-block .block-title .highlighted {
@@ -70,7 +66,12 @@
 .section-about .about-content .about-row .about-block .paragraph.quote {
   font-family: 'Oswald';
   font-size: 1.6rem;
-  font-style: italic;
+}
+.section-about .about-content .about-row .about-block .paragraph.justify {
+  text-align: justify;
+}
+.section-about .about-content .about-row .about-block .paragraph.spacious {
+  word-spacing: 1rem;
 }
 .section-about .about-content .about-row .about-block .paragraph:first-child {
   margin-top: 0.7rem;
