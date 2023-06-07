@@ -2,7 +2,7 @@
 
 // create onw server express
 var express = require('express');
-var PORT = 3300;
+var PORT = process.env.PORT || 3300;
 var server = express();
 
 var path = require('path');
@@ -22,9 +22,9 @@ var bodyParser = require('body-parser');
 /** CONFIGURATION ================= */
 // set the static files location /public/img will be /img for users
 // server.use(express.static('/public'));
-// server.use(express.static(path.join(__dirname, '/src'), { index: false }));
+server.use(express.static(path.join(__dirname, '/src'), { index: false }));
 
-server.use(express.static('public'));
+// server.use(express.static('public'));
 // server.use(express.static('src'));
 
 // log every request to the console
@@ -35,9 +35,8 @@ server.use(morgan('dev'));
 server.use(bodyParser.json());
 
 server.get('/', function (req, res) {
-  // res.json('test');
   _printConsole(__dirname);
-  res.sendFile('index.html', { root: path.join(__dirname, '/public') });
+  res.sendFile('index.html', { root: path.join(__dirname, '/src') });
 });
 
 server.get('*', function (req, res) {
@@ -97,11 +96,11 @@ server.post('/api/post', function (req, res) {
 
 /** SERVER EXECUTION ============== */
 
-server.listen(process.env.PORT || PORT);
+server.listen(PORT);
 
 _clearScreen();
 _printConsole('*=================================*');
-_printConsole('*  Server listening on port ' + process.env.PORT || PORT + '  *');
+_printConsole('*  Server listening on port ' + PORT + '  *');
 _printConsole('*=================================*');
 
 /** FUNCTION DEFINITION =========== */
