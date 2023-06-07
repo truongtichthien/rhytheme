@@ -1,9 +1,14 @@
 /** SET UP ======================== */
 
+// create onw server express
 var express = require('express');
 var PORT = process.env.PORT || 3300;
 var server = express();
+
 var path = require('path');
+
+// mongoose for mongodb
+var morgan = require('morgan');
 
 // pull information from HTML POST (express4)
 var bodyParser = require('body-parser');
