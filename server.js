@@ -18,65 +18,28 @@
   });
 
   // pull information from HTML POST (express4)
-  var bodyParser = _req('body-parser'),
-    // simulate DELETE and PUT (express4)
-    methodOverride = _req('method-override');
+  var bodyParser = _req('body-parser');
 
-  //noinspection JSUnresolvedVariable
   /** CONFIGURATION ================= */
-
-  // connect to mongoDB database on modulus.io
-  // mongoose.connect('mongodb://admin:abc123@127.0.0.1:27017/test');
-
   // set the static files location /public/img will be /img for users
-
   server.use(express.static(path.join(__dirname, '/src'), { index: false }));
 
   // log every request to the console
   server.use(morgan('dev'));
 
-  // parse serverlication/x-www-form-urlencoded
-  //server.use(bodyParser.urlencoded({'extended':'true'}));
-
   // parse serverlication/json
   /** parse request JSON */
   server.use(bodyParser.json());
 
-  // parse serverlication/vnd.api+json as json
-  // server.use(bodyParser.json({ type: 'serverlication/vnd.api+json' }));
-
-  // server.use(methodOverride());
-
-  // server.get('/', function (req, res) {
-  //   res.redirect('/rhytheme');
-  // });
-
   server.get('/', function (req, res) {
+    res.json('test');
     _printConsole(__dirname);
     res.sendFile('index.html', { root: __dirname + '/src' });
   });
 
-  // server.get('/demo', function (req, res) {
-  //   res.sendFile('demo.html', { root: __dirname + '/src' });
-  // });
-
-  // server.get('/esg', function (req, res) {
-  //   res.sendFile('index.html', { root: __dirname + '/src/scripts/app/esg' });
-  // });
-
-  // server.get('/httk', function (req, res) {
-  //   res.sendFile('index.html', { root: __dirname + '/src/scripts/modules/httk' });
-  // });
-
-  // server.get('/httk/*', function (req, res) {
-  //   console.log('day ne');
-  //   res.redirect('/httk');
-  // });
-
   server.get('*', function (req, res) {
     console.log('not found');
     res.redirect('/rhytheme');
-    // res.redirect('/demo');
   });
 
   server.get('/api/get', function (req, res) {
@@ -102,12 +65,6 @@
   });
 
   server.post('/api/post', function (req, res) {
-    // for (var key in req) {
-    //   if (req.hasOwnProperty(key)) {
-    //     console.log(key);
-    //   }
-    // }
-
     // create a todo, information comes from AJAX request from Angular
     Todo.create(
       {
