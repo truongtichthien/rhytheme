@@ -1,137 +1,137 @@
-(function (_req) {
-  /** SET UP ======================== */
+/** SET UP ======================== */
 
-  // create onw server express
-  var express = _req('express'),
-    PORT = 3300,
-    server = express();
+// create onw server express
+var express = require('express');
+var PORT = 3300;
+var server = express();
 
-  var path = _req('path');
+var path = require('path');
 
-  // mongoose for mongodb
-  var mongoose = _req('mongoose'),
-    // log requests to the console (express4)
-    morgan = _req('morgan');
+// mongoose for mongodb
+var mongoose = require('mongoose'),
+  // log requests to the console (express4)
+  morgan = require('morgan');
 
-  var Todo = mongoose.model('testCollection', {
-    text: String,
+var Todo = mongoose.model('testCollection', {
+  text: String,
+});
+
+// pull information from HTML POST (express4)
+var bodyParser = require('body-parser');
+
+/** CONFIGURATION ================= */
+// set the static files location /public/img will be /img for users
+// server.use(express.static('/public'));
+// server.use(express.static(path.join(__dirname, '/src'), { index: false }));
+
+server.use(express.static('public'));
+// server.use(express.static('src'));
+
+// log every request to the console
+server.use(morgan('dev'));
+
+// parse serverlication/json
+/** parse request JSON */
+server.use(bodyParser.json());
+
+server.get('/', function (req, res) {
+  // res.json('test');
+  _printConsole(__dirname);
+  res.sendFile('index.html', { root: path.join(__dirname, '/public') });
+});
+
+server.get('*', function (req, res) {
+  console.log('not found');
+  res.redirect('/rhytheme');
+});
+
+server.get('/api/get', function (req, res) {
+  Todo.find(function (err, data) {
+    console.log('find');
+
+    // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+
+    if (err) {
+      data.send(JSON.parse(JSON.stringify(err)));
+    }
+
+    console.log(data);
+    res.send(JSON.parse(JSON.stringify(data)));
+    // res.json(res); // return all todos in JSON format
   });
 
-  // pull information from HTML POST (express4)
-  var bodyParser = _req('body-parser');
+  // res.send(JSON.parse(JSON.stringify({test: 123})));
+});
 
-  /** CONFIGURATION ================= */
-  // set the static files location /public/img will be /img for users
-  // server.use(express.static('/public'));
-  // server.use(express.static(path.join(__dirname, '/src'), { index: false }));
+server.get('/api/getString', function (req, res) {
+  res.send('abc');
+});
 
-  server.use(express.static('public'));
-  // server.use(express.static('src'));
-
-  // log every request to the console
-  server.use(morgan('dev'));
-
-  // parse serverlication/json
-  /** parse request JSON */
-  server.use(bodyParser.json());
-
-  server.get('/', function (req, res) {
-    // res.json('test');
-    _printConsole(__dirname);
-    res.sendFile('index.html', { root: path.join(__dirname, '/public') });
-  });
-
-  server.get('*', function (req, res) {
-    console.log('not found');
-    res.redirect('/rhytheme');
-  });
-
-  server.get('/api/get', function (req, res) {
-    Todo.find(function (err, data) {
-      console.log('find');
-
-      // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+server.post('/api/post', function (req, res) {
+  // create a todo, information comes from AJAX request from Angular
+  Todo.create(
+    {
+      text: req.body.string,
+      done: false,
+    },
+    function (err, todos) {
+      console.log('create');
 
       if (err) {
-        data.send(JSON.parse(JSON.stringify(err)));
+        res.send(err);
       }
 
-      console.log(data);
-      res.send(JSON.parse(JSON.stringify(data)));
-      // res.json(res); // return all todos in JSON format
-    });
-
-    // res.send(JSON.parse(JSON.stringify({test: 123})));
-  });
-
-  server.get('/api/getString', function (req, res) {
-    res.send('abc');
-  });
-
-  server.post('/api/post', function (req, res) {
-    // create a todo, information comes from AJAX request from Angular
-    Todo.create(
-      {
-        text: req.body.string,
-        done: false,
-      },
-      function (err, todos) {
-        console.log('create');
-
+      // get and return all the todos after you create another
+      Todo.find(function (err, todos) {
         if (err) {
           res.send(err);
         }
+        console.log(todos);
+      });
+    },
+  );
 
-        // get and return all the todos after you create another
-        Todo.find(function (err, todos) {
-          if (err) {
-            res.send(err);
-          }
-          console.log(todos);
-        });
-      },
-    );
+  // var result = JSON.stringify(req);
+  res.send(req.body);
+});
 
-    // var result = JSON.stringify(req);
-    res.send(req.body);
-  });
+/** SERVER EXECUTION ============== */
 
-  /** SERVER EXECUTION ============== */
+server.listen(process.env.PORT || PORT);
 
-  server.listen(process.env.PORT || PORT);
+_clearScreen();
+_printConsole('*=================================*');
+_printConsole('*  Server listening on port ' + process.env.PORT || PORT + '  *');
+_printConsole('*=================================*');
 
-  _clearScreen();
-  _printConsole('*=================================*');
-  _printConsole('*  Server listening on port ' + process.env.PORT || PORT + '  *');
-  _printConsole('*=================================*');
+/** FUNCTION DEFINITION =========== */
 
-  /** FUNCTION DEFINITION =========== */
+function _generateTimestamp() {
+  var date = new Date();
+  return date.toDateString() + ' ' + date.toLocaleTimeString();
+}
 
-  function _generateTimestamp() {
-    var date = new Date();
-    return date.toDateString() + ' ' + date.toLocaleTimeString();
-  }
+function _printConsole(msg) {
+  console.log('[' + _generateTimestamp() + ']: ' + msg);
+}
 
-  function _printConsole(msg) {
-    console.log('[' + _generateTimestamp() + ']: ' + msg);
-  }
+function _printLog(msg) {
+  _printConsole('LOG: ' + msg);
+}
 
-  function _printLog(msg) {
-    _printConsole('LOG: ' + msg);
-  }
+function _newSession() {
+  _printConsole('=== New Session ===================');
+}
 
-  function _newSession() {
-    _printConsole('=== New Session ===================');
-  }
+function _clearScreen() {
+  console.log('\033c');
+}
 
-  function _clearScreen() {
-    console.log('\033c');
-  }
+function _createResponse(success, msg) {
+  return {
+    success: success,
+    message: msg,
+  };
+}
 
-  function _createResponse(success, msg) {
-    return {
-      success: success,
-      message: msg,
-    };
-  }
-})(require);
+module.exports = server;
