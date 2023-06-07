@@ -3,7 +3,7 @@
 
   // create onw server express
   var express = _req('express'),
-    PORT = process.env.PORT || 3300,
+    PORT = 3300,
     server = express();
 
   var path = _req('path');
@@ -26,7 +26,7 @@
   // server.use(express.static(path.join(__dirname, '/src'), { index: false }));
 
   server.use(express.static('public'));
-  server.use(express.static('src'));
+  // server.use(express.static('src'));
 
   // log every request to the console
   server.use(morgan('dev'));
@@ -98,11 +98,11 @@
 
   /** SERVER EXECUTION ============== */
 
-  server.listen(PORT);
+  server.listen(process.env.PORT || PORT);
 
   _clearScreen();
   _printConsole('*=================================*');
-  _printConsole('*  Server listening on port ' + PORT + '  *');
+  _printConsole('*  Server listening on port ' + process.env.PORT || PORT + '  *');
   _printConsole('*=================================*');
 
   /** FUNCTION DEFINITION =========== */
