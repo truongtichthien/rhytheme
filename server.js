@@ -22,8 +22,8 @@
 
   /** CONFIGURATION ================= */
   // set the static files location /public/img will be /img for users
-  server.use(express.static('src'));
-  // server.use(express.static(path.join(__dirname, '/src'), { index: false }));
+  // server.use(express.static('/public'));
+  server.use(express.static(path.join(__dirname, '/src'), { index: false }));
 
   // log every request to the console
   server.use(morgan('dev'));
@@ -33,9 +33,9 @@
   server.use(bodyParser.json());
 
   server.get('/', function (req, res) {
-    res.json('test');
+    // res.json('test');
     _printConsole(__dirname);
-    res.sendFile('index.html', { root: path.join(__dirname, '/src') });
+    res.sendFile('index.html', { root: path.join(__dirname, '/public') });
   });
 
   server.get('*', function (req, res) {
