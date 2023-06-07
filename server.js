@@ -23,7 +23,10 @@
   /** CONFIGURATION ================= */
   // set the static files location /public/img will be /img for users
   // server.use(express.static('/public'));
-  server.use(express.static(path.join(__dirname, '/src'), { index: false }));
+  // server.use(express.static(path.join(__dirname, '/src'), { index: false }));
+
+  server.use(express.static('public'));
+  server.use(express.static('src'));
 
   // log every request to the console
   server.use(morgan('dev'));
