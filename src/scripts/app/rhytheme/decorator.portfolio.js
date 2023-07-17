@@ -41,40 +41,60 @@
 
       var portfolioItem = [
         {
-          name: 'adi', tag: 'react', responsive: true,
+          name: 'adi',
+          tag: 'react',
+          responsive: true,
           detail: ['ReactJS | React Hooks | Redux', 'MariaDB'],
-          url: 'https://ad-i.com'
+          url: 'https://ad-i.com',
         },
         {
-          name: 'supper', tag: 'angular', responsive: false,
-          detail: ['AngularJS', 'ExpressJS | Heroku', 'MongoDB', 'Live-update | Server-Sent Events']
+          name: 'supper',
+          tag: 'angular',
+          responsive: false,
+          detail: ['AngularJS', 'ExpressJS | Heroku', 'MongoDB', 'Live-update | Server-Sent Events'],
+          url: 'https://ng-supper.onrender.com',
         },
         {
-          name: 'heartbeat', tag: 'angular', responsive: false,
-          detail: ['AngularJS', 'ExpressJS | Heroku', 'MongoDB']
+          name: 'heartbeat',
+          tag: 'angular',
+          responsive: false,
+          detail: ['AngularJS', 'ExpressJS | Heroku', 'MongoDB'],
+          url: 'https://ng-heartbeat.onrender.com',
         },
         {
-          name: 'blisk', tag: 'html-css', responsive: true,
-          detail: ['HTML/CSS', 'ExpressJS | Heroku']
+          name: 'blisk',
+          tag: 'html-css',
+          responsive: true,
+          detail: ['HTML/CSS', 'ExpressJS | Heroku'],
+          url: 'https://blisk.onrender.com',
         },
         {
-          name: 'esg', tag: 'html-css', responsive: true,
-          detail: ['HTML/CSS', 'ExpressJS | Heroku']
+          name: 'esg',
+          tag: 'html-css',
+          responsive: true,
+          detail: ['HTML/CSS', 'ExpressJS | Heroku'],
+          url: 'https://esgresearch.onrender.com',
         },
         {
-          name: 'dnn', tag: 'html-css', responsive: true,
-          detail: ['HTML/CSS', 'ExpressJS | Heroku']
+          name: 'dnn',
+          tag: 'html-css',
+          responsive: true,
+          detail: ['HTML/CSS', 'ExpressJS | Heroku'],
+          url: 'https://dnnprogramers.onrender.com',
         },
         {
-          name: 'httk', tag: 'html-css', responsive: true,
-          detail: ['HTML/CSS', 'ExpressJS | Heroku']
-        }
+          name: 'httk',
+          tag: 'html-css',
+          responsive: true,
+          detail: ['HTML/CSS', 'ExpressJS | Heroku'],
+          url: 'https://httk.onrender.com',
+        },
       ];
 
       _vm.portfolio.list = _.each(portfolioItem, function (p) {
         p.thumbnail = IMG_PATH + 'thumb-' + p.name + '.jpg';
         p.icon = IMG_PATH + 'icon-' + p.tag + '.png';
-        p.demo = p.url || ('https://rhytheme-' + p.name + '.herokuapp.com/');
+        p.demo = p.url || 'https://rhytheme-' + p.name + '.herokuapp.com/';
         return p;
       });
 
@@ -93,18 +113,16 @@
       _vm = vm;
 
       return {
-        init: _initModel
+        init: _initModel,
       };
     }
 
     return {
-      decorate: _decorate
+      decorate: _decorate,
     };
   }
 
   PortfolioDecorator.$inject = ['$timeout', '$interval'];
 
-  ng.module('rhythemeModule')
-    .factory('portfolioDecorator', PortfolioDecorator);
-
+  ng.module('rhythemeModule').factory('portfolioDecorator', PortfolioDecorator);
 })(window.angular, window._);
